@@ -91,6 +91,30 @@ class VGCustomPlayerView: VGPlayerView {
             make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
         }
 ```
+### Background playback
+- AppDelegate settings
+
+```Swift
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        do
+        {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        }
+        catch let error as NSError
+        {
+            print(error)
+        }
+        return true
+    }
+```
+
+- VGPlayer Background playback mode to proceed
+
+```swift
+self.player.backgroundMode = .proceed
+```
+
 ### Delegate methods optional
 ```swift
 // player delegate
