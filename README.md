@@ -115,6 +115,16 @@ class VGCustomPlayerView: VGPlayerView {
     func vgPlayerView(didDisplayControl playerView: VGPlayerView)
     
 ```
+## Installation
+- Download VGPlayer. Move to your project.
+
+- Cocoapods
+
+```
+platform :ios, '8.0'
+use_frameworks!
+pod 'VGPlayer'
+```
 
 
 ## Reference
