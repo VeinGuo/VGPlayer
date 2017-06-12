@@ -1,0 +1,6 @@
+framework module VGPlayer {
+  umbrella header "VGPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}
