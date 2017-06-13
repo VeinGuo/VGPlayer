@@ -212,6 +212,9 @@ extension VGPlayerView {
         self.timeSlider.setProgress(0, animated: false)
         self.replayButton.isHidden = true
         self.timeSliding = false
+        self.loadingIndicator.isHidden = false
+        self.loadingIndicator.startAnimating()
+        self.timeLabel.text = "--:-- / --:--"
         reloadPlayerLayer()
     }
     
