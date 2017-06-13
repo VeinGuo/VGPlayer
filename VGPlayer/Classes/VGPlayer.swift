@@ -211,7 +211,6 @@ extension VGPlayer {
 
     open func replaceVideo(_ URL: URL) {
         reloadPlayer()
-        self.displayView.reloadPlayerView()
         self.mediaFormat = VGPlayerUtils.decoderVideoFormat(URL)
         self.contentURL = URL
         configurationPlayer(URL)
