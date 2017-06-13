@@ -15,8 +15,8 @@ class VGCustomPlayerView: VGPlayerView {
     
     override func configurationUI() {
         super.configurationUI()
-        self.topView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.09701412671)
-        self.bottomView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.09701412671)
+        self.topView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        self.bottomView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         self.topView.addSubview(rateButton)
         rateButton.snp.makeConstraints { (make) in
             make.left.equalTo(titleLabel.snp.right).offset(10)
@@ -24,7 +24,7 @@ class VGCustomPlayerView: VGPlayerView {
         }
         rateButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         rateButton.setTitle("x1.0", for: .normal)
-        rateButton.titleLabel?.font   = UIFont.boldSystemFont(ofSize: 12.0)
+        rateButton.titleLabel?.font   = UIFont.boldSystemFont(ofSize: 14.0)
         rateButton.addTarget(self, action: #selector(onRateButton), for: .touchUpInside)
         rateButton.isHidden = false
     }

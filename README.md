@@ -92,6 +92,10 @@ class VGCustomPlayerView: VGPlayerView {
         }
 ```
 ### Background playback
+- Project setting
+
+![backgroundModes](https://github.com/VeinGuo/VGPlayer/blob/master/Image/backgroundModes.png)
+
 - AppDelegate settings
 
 ```Swift
@@ -155,6 +159,8 @@ pod 'VGPlayer'
 - https://techblog.toutiao.com/2017/03/28/fullscreen/
 - https://developer.apple.com/library/content/qa/qa1668/_index.html
 - https://developer.apple.com/documentation/avfoundation
+- https://stackoverflow.com/questions/808503/uibutton-making-the-hit-area-larger-than-the-default-hit-area/13977921
+- https://gist.github.com/onevcat/2d1ceff1c657591eebde
 
 ## License
 MIT
