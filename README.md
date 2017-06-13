@@ -7,6 +7,10 @@
 
 ![Banners](https://github.com/VeinGuo/VGPlayer/blob/master/Image/Banners.png)
 
+Swift developed based on AVPlayer iOS player,support horizontal gestures Fast forward, pause, vertical gestures Support brightness and volume adjustment, support full screen, adaptive screen rotation direction.
+
+[中文介绍](http://www.jianshu.com/p/1680978e1a7e)
+
 ## Demonstration
 ![demo1](https://github.com/VeinGuo/VGPlayer/blob/master/Image/demo1.gif)
 
