@@ -22,16 +22,14 @@ class VGCustomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.url = URL(string: "http://106.122.250.200/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4?wsiphost=local")
+        self.url = URL(string: "http://download.3g.joy.cn/video/236/60236853/1450837945724_hd.mp4")
         
         self.player.replaceVideo(url!)
         view.addSubview(self.player.displayView)
-        
         self.player.play()
         self.player.backgroundMode = .suspend
         self.player.delegate = self
         self.player.displayView.delegate = self
-        self.player.displayView.titleLabel.text = "Custom View"
         self.player.displayView.snp.makeConstraints { [weak self] (make) in
             guard let strongSelf = self else { return }
             make.top.equalTo(strongSelf.view.snp.top)
