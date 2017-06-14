@@ -10,7 +10,7 @@ import UIKit
 
 open class VGPlayerSlider: UISlider {
     
-    var progressView : UIProgressView
+    open var progressView : UIProgressView
     
     public override init(frame: CGRect) {
         self.progressView = UIProgressView()
@@ -50,12 +50,12 @@ open class VGPlayerSlider: UISlider {
         let newThumbImage = VGPlayerUtils.imageSize(image: thumbImage!, scaledToSize: CGSize(width: 15, height: 15))
         self.setThumbImage(newThumbImage, for: .normal)
         self.backgroundColor = UIColor.clear
+        self.progressView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7988548801)
+        self.progressView.trackTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2964201627)
     }
     
     func configureProgressView(_ frame: CGRect) {
         progressView.frame = frame
-        progressView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7988548801)
-        progressView.trackTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2964201627)
         insertSubview(progressView, at: 0)
     }
     
