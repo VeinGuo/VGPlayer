@@ -312,7 +312,7 @@ extension VGPlayerView {
         self.timer.invalidate()
         self.timer = Timer.vgPlayer_scheduledTimerWithTimeInterval(3, block: {  [weak self]  in
             guard let strongSelf = self else { return }
-            strongSelf.hiddenControlAnimation()
+            strongSelf.displayControlView(false)
         }, repeats: false)
     }
     internal func addDeviceOrientationNotifications() {
