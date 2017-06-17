@@ -1,0 +1,28 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "26F3E7230AFC3031468F31A926DCB49581A19217",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "26F3E7230AFC3031468F31A926DCB49581A19217" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "606D49B1-52B1-41BE-B860-68ACA1560846",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "26F3E7230AFC3031468F31A926DCB49581A19217" : "..\/Dropbox\/VGPlayer"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "VGPlayerExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "VGPlayerExample\/VGPlayerExample.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/VeinGuo\/VGPlayer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F3E7230AFC3031468F31A926DCB49581A19217"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/VeinGuo\/VGPlayer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "26F3E7230AFC3031468F31A926DCB49581A19217"
+    }
+  ]
+}

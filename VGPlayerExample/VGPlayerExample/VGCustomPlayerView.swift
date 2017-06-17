@@ -18,12 +18,14 @@ class VGCustomPlayerView: VGPlayerView {
         progress.isHidden = true
         return progress
     }()
+    var subtitles : VGSubtitles?
+    let subtitlesLabel = UILabel()
     let mirrorFlipButton = UIButton(type: .custom)
     
     override func configurationUI() {
         super.configurationUI()
         self.titleLabel.removeFromSuperview()
-        self.timeSlider.progressView.tintColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        self.timeSlider.minimumTrackTintColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         self.topView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         self.bottomView.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         self.closeButton.setImage(#imageLiteral(resourceName: "nav_back"), for: .normal)
@@ -44,7 +46,7 @@ class VGCustomPlayerView: VGPlayerView {
             make.bottom.equalTo(self.snp.bottom)
             make.height.equalTo(3)
         }
-       
+        
         
         mirrorFlipButton.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         mirrorFlipButton.setTitle("开启镜像", for: .normal)
@@ -56,7 +58,22 @@ class VGCustomPlayerView: VGPlayerView {
             make.right.equalTo(rateButton.snp.left).offset(-10)
             make.centerY.equalTo(closeButton)
         }
-
+        
+        
+        subtitlesLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
+        subtitlesLabel.numberOfLines = 0
+        subtitlesLabel.textAlignment = .center
+        subtitlesLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        subtitlesLabel.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5031571062)
+        subtitlesLabel.adjustsFontSizeToFitWidth = true
+        self.insertSubview(subtitlesLabel, belowSubview: self.bottomView)
+        
+        subtitlesLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(self).offset(-5)
+            make.left.equalTo(self).offset(5)
+            make.bottom.equalTo(snp.bottom).offset(-10)
+            make.centerX.equalTo(self)
+        }
     }
     
     override func playStateDidChange(_ state: VGPlayerState) {
@@ -78,9 +95,20 @@ class VGCustomPlayerView: VGPlayerView {
     }
     
     override func playerDurationDidChange(_ currentDuration: TimeInterval, totalDuration: TimeInterval) {
+        super.playerDurationDidChange(currentDuration, totalDuration: totalDuration)
+        if let sub = self.subtitles?.search(for: currentDuration) {
+            self.subtitlesLabel.isHidden = false
+            self.subtitlesLabel.text = sub.content
+        } else {
+            self.subtitlesLabel.isHidden = true
+        }
         self.bottomProgressView.setProgress(Float(currentDuration/totalDuration), animated: true)
     }
-
+    
+    open func setSubtitles(_ subtitles : VGSubtitles) {
+        self.subtitles = subtitles
+    }
+    
     
     func onRateButton() {
         switch playRate {
@@ -98,11 +126,11 @@ class VGCustomPlayerView: VGPlayerView {
     func onMirrorFlipButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-             self.playerLayer?.transform = CATransform3DScale(CATransform3DMakeRotation(0, 0, 0, 0), -1, 1, 1)
+            self.playerLayer?.transform = CATransform3DScale(CATransform3DMakeRotation(0, 0, 0, 0), -1, 1, 1)
         } else {
-             self.playerLayer?.transform = CATransform3DScale(CATransform3DMakeRotation(0, 0, 0, 0), 1, 1, 1)
+            self.playerLayer?.transform = CATransform3DScale(CATransform3DMakeRotation(0, 0, 0, 0), 1, 1, 1)
         }
         updateDisplayerView(frame: self.bounds)
     }
-
+    
 }

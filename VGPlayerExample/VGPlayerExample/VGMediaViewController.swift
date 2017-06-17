@@ -17,8 +17,8 @@ class VGMediaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.url1 = URL(string: "http://106.122.250.200/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4?wsiphost=local")
-        let url = URL(fileURLWithPath: Bundle.main.path(forResource: "1", ofType: "mp4")!)
+        self.url1 = URL(fileURLWithPath: Bundle.main.path(forResource: "2", ofType: "mp4")!)
+        let url = URL(string: "http://106.122.250.200/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4?wsiphost=local")!
         
         self.player.replaceVideo(url)
         view.addSubview(self.player.displayView)

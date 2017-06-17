@@ -15,6 +15,7 @@
 		807A46EF1EDC706100A99141 /* VGPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807A46E51EDC706100A99141 /* VGPlayer.framework */; };
 		807A46F41EDC706100A99141 /* VGPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A46F31EDC706100A99141 /* VGPlayerTests.swift */; };
 		807A46F61EDC706100A99141 /* VGPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 807A46E81EDC706100A99141 /* VGPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		80B21B411EF5489C009E00EA /* VGSubtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B21B401EF5489C009E00EA /* VGSubtitles.swift */; };
 		80D923A21EE4368600564FFD /* VGPlayerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D923A01EE4368600564FFD /* VGPlayerError.swift */; };
 		80D923A31EE4368600564FFD /* VGPlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D923A11EE4368600564FFD /* VGPlayerSlider.swift */; };
 		80D923A51EE436BD00564FFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80D923A41EE436BD00564FFD /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		807A46EE1EDC706100A99141 /* VGPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VGPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		807A46F31EDC706100A99141 /* VGPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGPlayerTests.swift; sourceTree = "<group>"; };
 		807A46F51EDC706100A99141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80B21B401EF5489C009E00EA /* VGSubtitles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGSubtitles.swift; sourceTree = "<group>"; };
 		80D923A01EE4368600564FFD /* VGPlayerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerError.swift; sourceTree = "<group>"; };
 		80D923A11EE4368600564FFD /* VGPlayerSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerSlider.swift; sourceTree = "<group>"; };
 		80D923A41EE436BD00564FFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				336DDBC61EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift */,
 				33D264D91EEE74A800A42DDA /* Timer+VGPlayer.swift */,
 				80423CA71EEEC77B00CB38C5 /* UIButton+VGPlayer.swift */,
+				80B21B401EF5489C009E00EA /* VGSubtitles.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80D923A21EE4368600564FFD /* VGPlayerError.swift in Sources */,
+				80B21B411EF5489C009E00EA /* VGSubtitles.swift in Sources */,
 				80423CA81EEEC77B00CB38C5 /* UIButton+VGPlayer.swift in Sources */,
 				80D923A91EE43AE200564FFD /* VGPlayerUtils.swift in Sources */,
 				33B36A9C1EE5327500F9BC2B /* VGPlayerView.swift in Sources */,
