@@ -70,12 +70,13 @@ open class VGSubtitles {
     }
     
     public func search(for time: TimeInterval) -> subtitles? {
-        let result = subtitlesGroups.first(where: { group -> Bool in
+        var result : subtitles?
+        for group in self.subtitlesGroups {
             if group.start <= time && group.end >= time {
-                return true
+                result = group
+                return result
             }
-            return false
-        })
+        }
         return result
     }
 
