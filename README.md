@@ -29,10 +29,14 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 - [x] Lock screen can also be rotated full screen
 - [x] Support replay media
 - [x] Support custom player view
+- [x] Support subtitle (format: srt & ass)
 ## TODO
 - [ ] Media Cache
 - [ ] Virtual reality
-- [ ] Subtitle
+
+## Update
+- 2017-6-13 v0.0.1
+- 2017-6-17 Support subtitle (format: srt & ass)
 
 ## Usage
 ### Play Video
