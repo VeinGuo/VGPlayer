@@ -14,7 +14,7 @@ class VGVerticalViewController: UIViewController {
     var player : VGPlayer?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8")
+        let url = URL(string: "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8")
         if url != nil {
             player = VGPlayer(URL: url!)
         }
@@ -71,7 +71,7 @@ extension VGVerticalViewController: VGPlayerViewDelegate {
         
     }
     func vgPlayerView(didTappedClose playerView: VGPlayerView) {
-        if playerView.fullScreen {
+        if playerView.isFullScreen {
             playerView.exitFullscreen()
         } else {
             self.navigationController?.popViewController(animated: true)

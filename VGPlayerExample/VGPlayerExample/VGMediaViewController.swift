@@ -83,12 +83,11 @@ extension VGMediaViewController: VGPlayerDelegate {
 
 extension VGMediaViewController: VGPlayerViewDelegate {
     
-    
     func vgPlayerView(_ playerView: VGPlayerView, willFullscreen fullscreen: Bool) {
 
     }
     func vgPlayerView(didTappedClose playerView: VGPlayerView) {
-        if playerView.fullScreen {
+        if playerView.isFullScreen {
             playerView.exitFullscreen()
         } else {
             self.navigationController?.popViewController(animated: true)
