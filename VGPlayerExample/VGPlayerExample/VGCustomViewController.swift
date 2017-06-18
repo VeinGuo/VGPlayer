@@ -91,7 +91,7 @@ extension VGCustomViewController: VGPlayerViewDelegate {
         
     }
     func vgPlayerView(didTappedClose playerView: VGPlayerView) {
-        if playerView.fullScreen {
+        if playerView.isFullScreen {
             playerView.exitFullscreen()
         } else {
             self.navigationController?.popViewController(animated: true)

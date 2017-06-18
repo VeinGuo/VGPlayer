@@ -12,12 +12,23 @@ import SnapKit
 
 public protocol VGPlayerViewDelegate: class {
     
-    /// fullscreen
-    func vgPlayerView(_ playerView: VGPlayerView, willFullscreen fullscreen: Bool)
-    /// close play view
+    /// Fullscreen
+    ///
+    /// - Parameters:
+    ///   - playerView: player view
+    ///   - fullscreen: Whether full screen
+    func vgPlayerView(_ playerView: VGPlayerView, willFullscreen isFullscreen: Bool)
+    
+    /// Close play view
+    ///
+    /// - Parameter playerView: player view
     func vgPlayerView(didTappedClose playerView: VGPlayerView)
-    /// displaye control
+    
+    /// Displaye control
+    ///
+    /// - Parameter playerView: playerView
     func vgPlayerView(didDisplayControl playerView: VGPlayerView)
+    
 }
 
 // MARK: - delegate methods optional
@@ -30,18 +41,19 @@ public extension VGPlayerViewDelegate {
     func vgPlayerView(didDisplayControl playerView: VGPlayerView) {}
 }
 
-
 public enum VGPlayerViewPanGestureDirection: Int {
     case vertical
     case horizontal
 }
 
+
 open class VGPlayerView: UIView {
     
-    open weak var vgPlayer : VGPlayer?
+    weak open var vgPlayer : VGPlayer?
+    open var controlViewDuration : TimeInterval = 5.0  /// default 5.0
     open fileprivate(set) var playerLayer : AVPlayerLayer?
-    open fileprivate(set) var fullScreen : Bool = false
-    open fileprivate(set) var timeSliding : Bool = false
+    open fileprivate(set) var isFullScreen : Bool = false
+    open fileprivate(set) var isTimeSliding : Bool = false
     open fileprivate(set) var isDisplayControl : Bool = true {
         didSet {
             if isDisplayControl != oldValue {
@@ -149,6 +161,9 @@ open class VGPlayerView: UIView {
         if state == .playing || state == .playFinished {
             setupTimer()
         }
+        if state == .playFinished {
+            self.loadingIndicator.isHidden = true
+        }
     }
     
     /// buffer state change
@@ -167,7 +182,7 @@ open class VGPlayerView: UIView {
         if (self.vgPlayer?.totalDuration.isNaN)! {  // HLS
             current = "00:00"
         }
-        if state == .readyToPlay && !timeSliding {
+        if state == .readyToPlay && !isTimeSliding {
             self.timeLabel.text = "\(current + " / " +  (formatSecondsToString((self.vgPlayer?.totalDuration)!)))"
         }
     }
@@ -191,7 +206,7 @@ open class VGPlayerView: UIView {
         if totalDuration.isNaN {  // HLS
             current = "00:00"
         }
-        if !timeSliding {
+        if !isTimeSliding {
             self.timeLabel.text = "\(current + " / " +  (formatSecondsToString(totalDuration)))"
             self.timeSlider.value = Float(currentDuration / totalDuration)
         }
@@ -211,7 +226,7 @@ extension VGPlayerView {
         self.timeSlider.value = Float(0)
         self.timeSlider.setProgress(0, animated: false)
         self.replayButton.isHidden = true
-        self.timeSliding = false
+        self.isTimeSliding = false
         self.loadingIndicator.isHidden = false
         self.loadingIndicator.startAnimating()
         self.timeLabel.text = "--:-- / --:--"
@@ -310,7 +325,7 @@ extension VGPlayerView {
     }
     internal func setupTimer() {
         self.timer.invalidate()
-        self.timer = Timer.vgPlayer_scheduledTimerWithTimeInterval(3, block: {  [weak self]  in
+        self.timer = Timer.vgPlayer_scheduledTimerWithTimeInterval(self.controlViewDuration, block: {  [weak self]  in
             guard let strongSelf = self else { return }
             strongSelf.displayControlView(false)
         }, repeats: false)
@@ -368,7 +383,7 @@ extension VGPlayerView: UIGestureRecognizerDelegate {
 extension VGPlayerView {
     
     internal func timeSliderValueChanged(_ sender: VGPlayerSlider) {
-        self.timeSliding = true
+        self.isTimeSliding = true
         if let duration = self.vgPlayer?.totalDuration {
             let currentTime = Double(sender.value) * duration
             self.timeLabel.text = "\(formatSecondsToString(currentTime) + " / " +  (formatSecondsToString(duration)))"
@@ -376,19 +391,19 @@ extension VGPlayerView {
     }
     
     internal func timeSliderTouchDown(_ sender: VGPlayerSlider) {
-        self.timeSliding = true
+        self.isTimeSliding = true
         self.timer.invalidate()
     }
     
     internal func timeSliderTouchUpInside(_ sender: VGPlayerSlider) {
-        self.timeSliding = true
+        self.isTimeSliding = true
         
         if let duration = self.vgPlayer?.totalDuration {
             let currentTime = Double(sender.value) * duration
             self.vgPlayer?.seekTime(currentTime, completion: { [weak self] (finished) in
                 guard let strongSelf = self else { return }
                 if finished {
-                    strongSelf.timeSliding = false
+                    strongSelf.isTimeSliding = false
                     strongSelf.setupTimer()
                 }
             })
@@ -406,21 +421,27 @@ extension VGPlayerView {
     
     internal func onFullscreen(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        self.fullScreen = sender.isSelected
-        if fullScreen {
+        self.isFullScreen = sender.isSelected
+        if isFullScreen {
             enterFullscreen()
         } else {
             exitFullscreen()
         }
-        delegate?.vgPlayerView(self, willFullscreen: self.fullScreen)
     }
     
-    internal func onSingleTapGesture(_ gesture: UITapGestureRecognizer) {
+    
+    /// Single Tap Event
+    ///
+    /// - Parameter gesture: Single Tap Gesture
+    open func onSingleTapGesture(_ gesture: UITapGestureRecognizer) {
         self.isDisplayControl = !self.isDisplayControl
         displayControlView(self.isDisplayControl)
     }
     
-    internal func onDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
+    /// Double Tap Event
+    ///
+    /// - Parameter gesture: Double Tap Gesture
+    open func onDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
         
         guard self.vgPlayer == nil else {
             switch self.vgPlayer!.state {
@@ -439,7 +460,10 @@ extension VGPlayerView {
         }
     }
     
-    internal func onPanGesture(_ gesture: UIPanGestureRecognizer) {
+    /// Pan Event
+    ///
+    /// - Parameter gesture: Pan Gesture
+    open func onPanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
         let location = gesture.location(in: self)
         let velocity = gesture.velocity(in: self)
@@ -449,7 +473,7 @@ extension VGPlayerView {
             let y = fabs(translation.y)
             if x < y {
                 self.panGestureDirection = .vertical
-                if location.x > self.bounds.width / 2{
+                if location.x > self.bounds.width / 2 {
                     self.isVolume = true
                 } else {
                     self.isVolume = false
@@ -476,7 +500,7 @@ extension VGPlayerView {
                     guard let strongSelf = self else { return }
                     if finished {
                         
-                        strongSelf.timeSliding = false
+                        strongSelf.isTimeSliding = false
                         strongSelf.setupTimer()
                     }
                 })
@@ -491,7 +515,7 @@ extension VGPlayerView {
     
     internal func panGestureHorizontal(_ velocityX: CGFloat) -> TimeInterval {
         self.displayControlView(true)
-        self.timeSliding = true
+        self.isTimeSliding = true
         self.timer.invalidate()
         let value = self.timeSlider.value
         if let currentDuration = self.vgPlayer?.currentDuration ,let totalDuration = self.vgPlayer?.totalDuration{
@@ -581,9 +605,9 @@ extension VGPlayerView {
                 self.parentView = nil
             }
         }
-        self.fullScreen = fullScreen
+        self.isFullScreen = fullScreen
         self.fullscreenButton.isSelected = fullScreen
-        delegate?.vgPlayerView(self, willFullscreen: self.fullScreen)
+        delegate?.vgPlayerView(self, willFullscreen: self.isFullScreen)
     }
 }
 
