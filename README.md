@@ -19,7 +19,7 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 ## Requirements
 -	Swift 3
 -	iOS 8.0+
--	XCode 8
+-	Xcode 8
 
 ## Features
 - [x] Support play local and network 
