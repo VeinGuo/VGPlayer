@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wfI-fM-A0Z">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Custom View Controller-->
+        <scene sceneID="aoS-DK-MgI">
+            <objects>
+                <viewController id="nhM-gh-Gaz" customClass="VGCustomViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5DL-CW-95m"/>
+                        <viewControllerLayoutGuide type="bottom" id="fvw-nB-H2H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HC7-2d-FHP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9BT-VC-KPQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nod-hW-iRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-362" y="-1585"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fNc-8O-rgn">
+            <objects>
+                <navigationController id="wfI-fM-A0Z" sceneMemberID="viewController">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ieO-FK-D62">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OI1-C3-0jt" kind="relationship" relationship="rootViewController" id="X6h-SQ-1X7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cqi-Pa-dQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2086" y="-869"/>
+        </scene>
+        <!--VGPlayer-->
+        <scene sceneID="HWB-xb-CXI">
+            <objects>
+                <tableViewController id="OI1-C3-0jt" customClass="VGMainViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="O0n-Fq-ZO0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="reuseIdentifier" textLabel="A4f-EO-hLN" style="IBUITableViewCellStyleDefault" id="LtT-Up-Aak">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LtT-Up-Aak" id="2j3-SN-rso">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A4f-EO-hLN">
+                                            <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OI1-C3-0jt" id="YjT-M7-Ckx"/>
+                            <outlet property="delegate" destination="OI1-C3-0jt" id="UuC-x3-KS6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="VGPlayer" id="Q0y-FL-dqL"/>
+                    <connections>
+                        <segue destination="t7g-lY-okm" kind="push" identifier="VGMediaViewController" id="vCd-SB-4Oz"/>
+                        <segue destination="8Xi-Ic-bly" kind="push" identifier="VGVerticalViewController" id="q0a-Xn-IcV"/>
+                        <segue destination="nhM-gh-Gaz" kind="push" identifier="VGCustomPlayerView" id="ORa-gl-onO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h9g-oY-t78" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1295" y="-869"/>
+        </scene>
+        <!--Vertical View Controller-->
+        <scene sceneID="Kbz-JT-dKd">
+            <objects>
+                <viewController id="8Xi-Ic-bly" customClass="VGVerticalViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TFO-Za-nok"/>
+                        <viewControllerLayoutGuide type="bottom" id="6pc-NM-1gl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YRS-AI-b4z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="VgB-nl-Nay"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1tR-3z-xiR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-476" y="-85"/>
+        </scene>
+        <!--Media-->
+        <scene sceneID="FEI-Hy-e8L">
+            <objects>
+                <viewController title="Media" id="t7g-lY-okm" customClass="VGMediaViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9mZ-vl-MWD"/>
+                        <viewControllerLayoutGuide type="bottom" id="6RD-GB-Rq3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lv5-Ph-Gpy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yed-uc-SW9">
+                                <rect key="frame" x="16" y="581" width="97" height="30"/>
+                                <state key="normal" title="change media"/>
+                                <connections>
+                                    <action selector="changeMedia:" destination="t7g-lY-okm" eventType="touchUpInside" id="KSN-A3-D9N"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yed-uc-SW9" firstAttribute="leading" secondItem="lv5-Ph-Gpy" secondAttribute="leadingMargin" id="cGP-Hd-h4x"/>
+                            <constraint firstItem="6RD-GB-Rq3" firstAttribute="top" secondItem="yed-uc-SW9" secondAttribute="bottom" constant="56" id="xXp-PT-gM7"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Media" id="8Vt-q1-MtZ"/>
+                    <navigationItem key="navigationItem" id="R4Y-3c-2Nd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K15-wC-S5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-476" y="-869.41529235382313"/>
+        </scene>
+    </scenes>
+</document>

@@ -20,7 +20,6 @@ class VGMainViewController: UITableViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.default, animated: false)
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -32,7 +31,6 @@ class VGMainViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return dataSource.count
@@ -44,7 +42,7 @@ class VGMainViewController: UITableViewController {
         
         cell.textLabel?.text = dataSource[indexPath.row]
         cell.accessoryType = .disclosureIndicator
-        
+    
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
