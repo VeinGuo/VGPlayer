@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		3365C5381EEB8FF100CC7F4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3365C5371EEB8FF100CC7F4F /* AppDelegate.swift */; };
-		3365C53D1EEB8FF100CC7F4F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3365C53B1EEB8FF100CC7F4F /* Main.storyboard */; };
 		3365C53F1EEB8FF100CC7F4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3365C53E1EEB8FF100CC7F4F /* Assets.xcassets */; };
 		3365C5421EEB8FF100CC7F4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3365C5401EEB8FF100CC7F4F /* LaunchScreen.storyboard */; };
 		3365C54C1EEB901400CC7F4F /* VGMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3365C54B1EEB901400CC7F4F /* VGMainViewController.swift */; };
-		3365C54F1EEB903D00CC7F4F /* VGMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3365C54D1EEB903D00CC7F4F /* VGMediaViewController.swift */; };
-		3365C5501EEB903D00CC7F4F /* VGVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3365C54E1EEB903D00CC7F4F /* VGVerticalViewController.swift */; };
-		33EF0A6F1EEEA64300D93381 /* VGCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EF0A6E1EEEA64300D93381 /* VGCustomViewController.swift */; };
-		80423CAD1EEED68E00CB38C5 /* VGCustomPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80423CAC1EEED68E00CB38C5 /* VGCustomPlayerView.swift */; };
+		80573F931EF93C4E00F39826 /* VGCustomPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F8F1EF93C4E00F39826 /* VGCustomPlayerView.swift */; };
+		80573F941EF93C4E00F39826 /* VGCustomPlayerView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F901EF93C4E00F39826 /* VGCustomPlayerView2.swift */; };
+		80573F951EF93C4E00F39826 /* VGCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F911EF93C4E00F39826 /* VGCustomViewController.swift */; };
+		80573F961EF93C4E00F39826 /* VGCustomViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F921EF93C4E00F39826 /* VGCustomViewController2.swift */; };
+		80573F9A1EF93C5300F39826 /* VGMediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F981EF93C5300F39826 /* VGMediaViewController.swift */; };
+		80573F9B1EF93C5300F39826 /* VGVerticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F991EF93C5300F39826 /* VGVerticalViewController.swift */; };
+		80573F9D1EF93C6400F39826 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80573F9C1EF93C6400F39826 /* Main.storyboard */; };
 		80B21B471EF54A51009E00EA /* 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 80B21B441EF54A51009E00EA /* 2.mp4 */; };
 		80B21B481EF54A51009E00EA /* Despacito Remix Luis Fonsi ft.Daddy Yankee Justin Bieber Lyrics [Spanish].srt in Resources */ = {isa = PBXBuildFile; fileRef = 80B21B451EF54A51009E00EA /* Despacito Remix Luis Fonsi ft.Daddy Yankee Justin Bieber Lyrics [Spanish].srt */; };
 		D7457CE6FAFD973B7FE84086 /* Pods_VGPlayerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF3229E2FBB5410B9B7A169 /* Pods_VGPlayerExample.framework */; };
@@ -24,16 +26,18 @@
 /* Begin PBXFileReference section */
 		3365C5341EEB8FF100CC7F4F /* VGPlayerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGPlayerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3365C5371EEB8FF100CC7F4F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3365C53C1EEB8FF100CC7F4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3365C53E1EEB8FF100CC7F4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3365C5411EEB8FF100CC7F4F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3365C5431EEB8FF100CC7F4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3365C54B1EEB901400CC7F4F /* VGMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGMainViewController.swift; sourceTree = "<group>"; };
-		3365C54D1EEB903D00CC7F4F /* VGMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGMediaViewController.swift; sourceTree = "<group>"; };
-		3365C54E1EEB903D00CC7F4F /* VGVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGVerticalViewController.swift; sourceTree = "<group>"; };
-		33EF0A6E1EEEA64300D93381 /* VGCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomViewController.swift; sourceTree = "<group>"; };
 		3D5990FF80C9CE3995DCAF81 /* Pods-VGPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGPlayerExample/Pods-VGPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
-		80423CAC1EEED68E00CB38C5 /* VGCustomPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomPlayerView.swift; sourceTree = "<group>"; };
+		80573F8F1EF93C4E00F39826 /* VGCustomPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomPlayerView.swift; sourceTree = "<group>"; };
+		80573F901EF93C4E00F39826 /* VGCustomPlayerView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomPlayerView2.swift; sourceTree = "<group>"; };
+		80573F911EF93C4E00F39826 /* VGCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomViewController.swift; sourceTree = "<group>"; };
+		80573F921EF93C4E00F39826 /* VGCustomViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomViewController2.swift; sourceTree = "<group>"; };
+		80573F981EF93C5300F39826 /* VGMediaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGMediaViewController.swift; sourceTree = "<group>"; };
+		80573F991EF93C5300F39826 /* VGVerticalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGVerticalViewController.swift; sourceTree = "<group>"; };
+		80573F9C1EF93C6400F39826 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		80B21B441EF54A51009E00EA /* 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.mp4; sourceTree = "<group>"; };
 		80B21B451EF54A51009E00EA /* Despacito Remix Luis Fonsi ft.Daddy Yankee Justin Bieber Lyrics [Spanish].srt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Despacito Remix Luis Fonsi ft.Daddy Yankee Justin Bieber Lyrics [Spanish].srt"; sourceTree = "<group>"; };
 		8DF3229E2FBB5410B9B7A169 /* Pods_VGPlayerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VGPlayerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,13 +78,11 @@
 			isa = PBXGroup;
 			children = (
 				80B21B421EF54A51009E00EA /* DemoResources */,
+				80573F8E1EF93C4E00F39826 /* CustomPlayerView */,
+				80573F971EF93C5300F39826 /* DefaultPlayerView */,
 				3365C5371EEB8FF100CC7F4F /* AppDelegate.swift */,
-				33EF0A6E1EEEA64300D93381 /* VGCustomViewController.swift */,
-				80423CAC1EEED68E00CB38C5 /* VGCustomPlayerView.swift */,
-				3365C54D1EEB903D00CC7F4F /* VGMediaViewController.swift */,
-				3365C54E1EEB903D00CC7F4F /* VGVerticalViewController.swift */,
 				3365C54B1EEB901400CC7F4F /* VGMainViewController.swift */,
-				3365C53B1EEB8FF100CC7F4F /* Main.storyboard */,
+				80573F9C1EF93C6400F39826 /* Main.storyboard */,
 				3365C53E1EEB8FF100CC7F4F /* Assets.xcassets */,
 				3365C5401EEB8FF100CC7F4F /* LaunchScreen.storyboard */,
 				3365C5431EEB8FF100CC7F4F /* Info.plist */,
@@ -95,6 +97,26 @@
 				3D5990FF80C9CE3995DCAF81 /* Pods-VGPlayerExample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		80573F8E1EF93C4E00F39826 /* CustomPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				80573F8F1EF93C4E00F39826 /* VGCustomPlayerView.swift */,
+				80573F901EF93C4E00F39826 /* VGCustomPlayerView2.swift */,
+				80573F911EF93C4E00F39826 /* VGCustomViewController.swift */,
+				80573F921EF93C4E00F39826 /* VGCustomViewController2.swift */,
+			);
+			path = CustomPlayerView;
+			sourceTree = "<group>";
+		};
+		80573F971EF93C5300F39826 /* DefaultPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				80573F981EF93C5300F39826 /* VGMediaViewController.swift */,
+				80573F991EF93C5300F39826 /* VGVerticalViewController.swift */,
+			);
+			path = DefaultPlayerView;
 			sourceTree = "<group>";
 		};
 		80B21B421EF54A51009E00EA /* DemoResources */ = {
@@ -184,10 +206,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				80B21B481EF54A51009E00EA /* Despacito Remix Luis Fonsi ft.Daddy Yankee Justin Bieber Lyrics [Spanish].srt in Resources */,
+				80573F9D1EF93C6400F39826 /* Main.storyboard in Resources */,
 				80B21B471EF54A51009E00EA /* 2.mp4 in Resources */,
 				3365C5421EEB8FF100CC7F4F /* LaunchScreen.storyboard in Resources */,
 				3365C53F1EEB8FF100CC7F4F /* Assets.xcassets in Resources */,
-				3365C53D1EEB8FF100CC7F4F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,26 +268,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3365C54F1EEB903D00CC7F4F /* VGMediaViewController.swift in Sources */,
-				80423CAD1EEED68E00CB38C5 /* VGCustomPlayerView.swift in Sources */,
+				80573F9A1EF93C5300F39826 /* VGMediaViewController.swift in Sources */,
 				3365C54C1EEB901400CC7F4F /* VGMainViewController.swift in Sources */,
+				80573F931EF93C4E00F39826 /* VGCustomPlayerView.swift in Sources */,
+				80573F941EF93C4E00F39826 /* VGCustomPlayerView2.swift in Sources */,
+				80573F961EF93C4E00F39826 /* VGCustomViewController2.swift in Sources */,
+				80573F951EF93C4E00F39826 /* VGCustomViewController.swift in Sources */,
 				3365C5381EEB8FF100CC7F4F /* AppDelegate.swift in Sources */,
-				33EF0A6F1EEEA64300D93381 /* VGCustomViewController.swift in Sources */,
-				3365C5501EEB903D00CC7F4F /* VGVerticalViewController.swift in Sources */,
+				80573F9B1EF93C5300F39826 /* VGVerticalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3365C53B1EEB8FF100CC7F4F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3365C53C1EEB8FF100CC7F4F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3365C5401EEB8FF100CC7F4F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -80,9 +80,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="VGPlayer" id="Q0y-FL-dqL"/>
                     <connections>
-                        <segue destination="t7g-lY-okm" kind="push" identifier="VGMediaViewController" id="vCd-SB-4Oz"/>
-                        <segue destination="8Xi-Ic-bly" kind="push" identifier="VGVerticalViewController" id="q0a-Xn-IcV"/>
-                        <segue destination="nhM-gh-Gaz" kind="push" identifier="VGCustomPlayerView" id="ORa-gl-onO"/>
+                        <segue destination="t7g-lY-okm" kind="show" identifier="VGMediaViewController" id="vCd-SB-4Oz"/>
+                        <segue destination="8Xi-Ic-bly" kind="show" identifier="VGVerticalViewController" id="q0a-Xn-IcV"/>
+                        <segue destination="nhM-gh-Gaz" kind="show" identifier="VGCustomViewController" id="ORa-gl-onO"/>
+                        <segue destination="PMx-ry-BVu" kind="show" identifier="VGCustomViewController2" id="j6k-Ak-eqG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9g-oY-t78" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,6 +141,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K15-wC-S5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-476" y="-869.41529235382313"/>
+        </scene>
+        <!--Custom View Controller2-->
+        <scene sceneID="x60-9i-dj7">
+            <objects>
+                <viewController id="PMx-ry-BVu" customClass="VGCustomViewController2" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KSb-OB-iHj"/>
+                        <viewControllerLayoutGuide type="bottom" id="snz-eV-zbb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ItE-J8-NY5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rle-H4-Hgx">
+                                <rect key="frame" x="0.0" y="337" width="69" height="30"/>
+                                <state key="normal" title="isAds"/>
+                                <connections>
+                                    <action selector="addAdsAction:" destination="PMx-ry-BVu" eventType="touchUpInside" id="v6k-Xk-BUd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Rle-H4-Hgx" firstAttribute="leading" secondItem="ItE-J8-NY5" secondAttribute="leading" id="TlK-ae-h24"/>
+                            <constraint firstItem="snz-eV-zbb" firstAttribute="top" secondItem="Rle-H4-Hgx" secondAttribute="bottom" constant="300" id="aNv-jM-gl1"/>
+                            <constraint firstAttribute="trailing" secondItem="Rle-H4-Hgx" secondAttribute="trailing" constant="306" id="g8e-iU-f8C"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="M10-6t-pnd"/>
+                    <connections>
+                        <outlet property="adsButton" destination="Rle-H4-Hgx" id="kC9-9c-zcS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gY6-EO-1QH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="471" y="-1049"/>
         </scene>
     </scenes>
 </document>
