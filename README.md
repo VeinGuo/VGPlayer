@@ -94,7 +94,7 @@ class VGCustomPlayerView: VGPlayerView {
         self.player.displayView.titleLabel.text = "China NO.1"
         self.player.displayView.snp.makeConstraints { [weak self] (make) in
             guard let strongSelf = self else { return }
-            make.top.left.right.equalToSuperView()
+            make.top.left.right.equalToSuperview()
             make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
         }
 ```
