@@ -105,7 +105,7 @@ class VGCustomPlayerView: VGPlayerView {
 ### Media Cache  (Reference: [VIMediaCache](https://github.com/vitoziv/VIMediaCache))
 - VGPlayer Cache Reference VIMediaCache implementation.
 - AVAssetResourceLoader to control AVPlayer download media data.
-- Cache uses the Range request data to cancel the download, slice cache
+- Cache usage range request data, you can cancel the download, fragment cache
 - If you use Simulator debugging, you can view the VGPlayer cache file in the Simulator cache
 ![test](http://ojaltanzc.bkt.clouddn.com/MediaCache_test.png)
 
@@ -121,7 +121,7 @@ VGPlayerCacheManager.shared.cacheConfig.maxCacheAge = 60 * 60 * 24 * 7
 // clean all cache
 VGPlayerCacheManager.shared.cleanAllCache()
 
-//clean old disk cache. 
+// clean old disk cache. 
 // This is an async operation.
 VGPlayerCacheManager.shared.cleanOldFiles { }
 
