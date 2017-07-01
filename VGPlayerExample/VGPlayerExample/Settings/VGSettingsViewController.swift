@@ -32,7 +32,7 @@ class VGSettingsViewController: UIViewController {
     }
 
     @IBAction func onCleanAllcache(_ sender: Any) {
-        VGPlayerCacheManager.shared.cleanAllcache()
+        VGPlayerCacheManager.shared.cleanAllCache()
         getPlayerCacheInfo()
     }
 

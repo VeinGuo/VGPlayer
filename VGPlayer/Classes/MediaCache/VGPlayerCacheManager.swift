@@ -64,7 +64,7 @@ open class VGPlayerCacheManager: NSObject {
         }
     }
 
-    open func cleanAllcache() {
+    open func cleanAllCache() {
         self.ioQueue.sync {
             do {
                 let cacheDirectory = VGPlayerCacheManager.cacheDirectory()
@@ -87,7 +87,6 @@ open class VGPlayerCacheManager: NSObject {
             if cacheConfig.maxCacheSize > 0 && diskCacheSize > cacheConfig.maxCacheSize {
                 let targetSize = cacheConfig.maxCacheSize / 2
                 
-                // Sort files by last modify date. We want to clean from the oldest files.
                 let sortedFiles = cachedFiles.keysSortedByValue {
                     resourceValue1, resourceValue2 -> Bool in
                     
@@ -97,7 +96,6 @@ open class VGPlayerCacheManager: NSObject {
                         return date1.compare(date2) == .orderedAscending
                     }
                     
-                    // Not valid date information. This should not happen. Just in case.
                     return true
                 }
                 var fileSize:UInt = 0
@@ -136,8 +134,6 @@ open class VGPlayerCacheManager: NSObject {
         var cachedFiles = [URL: URLResourceValues]()
         var urlsToDelete = [URL]()
         var diskCacheSize: UInt = 0
-        
-//        let cacheDirectory = VGPlayerCacheManager.cacheDirectory()
         let resourceKeys: Set<URLResourceKey> = [.isDirectoryKey, .contentAccessDateKey, .totalFileAllocatedSizeKey]
         let fullPath = (path as NSString).expandingTildeInPath
         do {
