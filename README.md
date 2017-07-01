@@ -31,13 +31,15 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 - [x] Support replay media
 - [x] Support custom player view
 - [x] Support subtitle (format: srt & ass)
+- [x] Media Cache
+
 ## TODO
-- [ ] Media Cache
 - [ ] Virtual reality
 
 ## Update
 - 2017-6-13 v0.0.1
-- 2017-6-17 Support subtitle (format: srt & ass)
+- 2017-6-17 Support subtitle (format: srt & ass) v0.0.2
+- 2017-7-1 Media Cache v0.1.0
 
 ## Usage
 ### Play Video
@@ -94,10 +96,38 @@ class VGCustomPlayerView: VGPlayerView {
         self.player.displayView.titleLabel.text = "China NO.1"
         self.player.displayView.snp.makeConstraints { [weak self] (make) in
             guard let strongSelf = self else { return }
-            make.top.left.right.equalToSuperview()
+            make.top.equalTo(strongSelf.view.snp.top)
+            make.left.equalTo(strongSelf.view.snp.left)
+            make.right.equalTo(strongSelf.view.snp.right)
             make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
         }
 ```
+### Media Cache  (Reference: [VIMediaCache](https://github.com/vitoziv/VIMediaCache))
+- VGPlayer Cache Reference VIMediaCache implementation.
+- AVAssetResourceLoader to control AVPlayer download media data.
+- Cache uses the Range request data to cancel the download, slice cache
+- If you use Simulator debugging, you can view the VGPlayer cache file in the Simulator cache
+![test](http://ojaltanzc.bkt.clouddn.com/MediaCache_test.png)
+
+- Usage:
+
+```Swift
+// Settings maxCacheSize
+VGPlayerCacheManager.shared.cacheConfig.maxCacheSize = 160000000
+
+// Setting maxCacheAge   default one weak
+VGPlayerCacheManager.shared.cacheConfig.maxCacheAge = 60 * 60 * 24 * 7
+
+// clean all cache
+VGPlayerCacheManager.shared.cleanAllCache()
+
+//clean old disk cache. 
+// This is an async operation.
+VGPlayerCacheManager.shared.cleanOldFiles { }
+
+```
+
+
 ### Background playback
 - Project setting
 
@@ -168,6 +198,9 @@ pod 'VGPlayer'
 - https://developer.apple.com/documentation/avfoundation
 - https://stackoverflow.com/questions/808503/uibutton-making-the-hit-area-larger-than-the-default-hit-area/13977921
 - https://gist.github.com/onevcat/2d1ceff1c657591eebde
+- Media Cache  [VIMediaCache](https://github.com/vitoziv/VIMediaCache)
+- https://mp.weixin.qq.com/s/v1sw_Sb8oKeZ8sWyjBUXGA
+
 
 ## License
 MIT
