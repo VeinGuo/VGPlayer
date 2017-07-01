@@ -85,7 +85,7 @@ public extension VGPlayerDelegate {
 
 open class VGPlayer: NSObject {
     
-    open var state : VGPlayerState = .none {
+    open var state: VGPlayerState = .none {
         didSet {
             if state != oldValue {
                 self.displayView.playStateDidChange(state)
@@ -141,6 +141,8 @@ open class VGPlayer: NSObject {
     open fileprivate(set) var error : VGPlayerError
     
     fileprivate var seeking : Bool = false
+    fileprivate var resourceLoaderManager = VGPlayerResourceLoaderManager()
+    
     
     //MARK:- life cycle
     public init(URL: URL?, playerView: VGPlayerView?) {
@@ -166,10 +168,10 @@ open class VGPlayer: NSObject {
         self.init(URL: nil, playerView: playerView)
     }
     
-     public override convenience init() {
+    public override convenience init() {
         self.init(URL: nil, playerView: nil)
     }
-
+    
     deinit {
         removePlayerNotifations()
         cleanPlayer()
@@ -180,8 +182,13 @@ open class VGPlayer: NSObject {
     internal func configurationPlayer(_ URL: URL) {
         self.displayView.setvgPlayer(vgPlayer: self)
         self.playerAsset = AVURLAsset(url: URL, options: .none)
-        let keys = ["tracks", "playable"];
-        self.playerItem = AVPlayerItem(asset: self.playerAsset!, automaticallyLoadedAssetKeys: keys)
+        if URL.absoluteString.hasPrefix("file:///") {
+            let keys = ["tracks", "playable"];
+            self.playerItem = AVPlayerItem(asset: self.playerAsset!, automaticallyLoadedAssetKeys: keys)
+        } else {
+            // remote add cache
+            self.playerItem = resourceLoaderManager.playerItem(URL)
+        }
         self.player = AVPlayer(playerItem: self.playerItem)
         self.displayView.reloadPlayerView()
     }
@@ -193,9 +200,9 @@ open class VGPlayer: NSObject {
             let currentTime = strongSelf.player?.currentTime().seconds
             let totalDuration = strongSelf.player?.currentItem?.duration.seconds
             if let currentTime = strongSelf.player?.currentTime().seconds, let totalDuration = strongSelf.player?.currentItem?.duration.seconds{
-            strongSelf.currentDuration = currentTime
-            strongSelf.delegate?.vgPlayer(strongSelf, playerDurationDidChange: currentTime, totalDuration: totalDuration)
-            strongSelf.displayView.playerDurationDidChange(currentTime, totalDuration: totalDuration)
+                strongSelf.currentDuration = currentTime
+                strongSelf.delegate?.vgPlayer(strongSelf, playerDurationDidChange: currentTime, totalDuration: totalDuration)
+                strongSelf.displayView.playerDurationDidChange(currentTime, totalDuration: totalDuration)
             }
         })
     }
@@ -203,12 +210,12 @@ open class VGPlayer: NSObject {
     internal func removePlayerObservers() {
         self.player?.removeTimeObserver(timeObserver!)
     }
-
+    
 }
 
 //MARK: - public
 extension VGPlayer {
-
+    
     open func replaceVideo(_ URL: URL) {
         reloadPlayer()
         self.mediaFormat = VGPlayerUtils.decoderVideoFormat(URL)
@@ -273,7 +280,7 @@ extension VGPlayer {
             strongSelf.seeking = true
             strongSelf.startPlayerBuffering()
             strongSelf.playerItem?.seek(to: CMTimeMakeWithSeconds(time, Int32(NSEC_PER_SEC)), completionHandler: { (finished) in
-                 DispatchQueue.main.async {
+                DispatchQueue.main.async {
                     strongSelf.seeking = false
                     strongSelf.stopPlayerBuffering()
                     strongSelf.play()
@@ -291,18 +298,18 @@ extension VGPlayer {
 //MARK: - private
 extension VGPlayer {
     
-   internal func startPlayerBuffering() {
+    internal func startPlayerBuffering() {
         pause()
         self.bufferState = .buffering
         self.buffering = true
     }
     
-   internal func stopPlayerBuffering() {
+    internal func stopPlayerBuffering() {
         self.bufferState = .stop
         self.buffering = false
     }
     
-   internal func collectPlayerErrorLogEvent() {
+    internal func collectPlayerErrorLogEvent() {
         self.error.playerItemErrorLogEvent = playerItem?.errorLog()?.events
         self.error.error = playerItem?.error
         self.error.extendedLogData = playerItem?.errorLog()?.extendedLogData()
@@ -315,66 +322,66 @@ private var playerItemContext = 0
 
 extension VGPlayer {
     
-   internal func addPlayerItemObservers() {
+    internal func addPlayerItemObservers() {
         let options = NSKeyValueObservingOptions([.new, .initial])
         self.playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: options, context: &playerItemContext)
         self.playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.loadedTimeRanges), options: options, context: &playerItemContext)
         self.playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.playbackBufferEmpty), options: options, context: &playerItemContext)
     }
     
-   internal func addPlayerNotifications() {
+    internal func addPlayerNotifications() {
         NotificationCenter.default.addObserver(self, selector: .playerItemDidPlayToEndTime, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.addObserver(self, selector: .applicationWillEnterForeground, name: .UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: .applicationDidEnterBackground, name: .UIApplicationDidEnterBackground, object: nil)
     }
     
-   internal func removePlayerItemObservers() {
+    internal func removePlayerItemObservers() {
         self.playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
         self.playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.loadedTimeRanges))
         self.playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.playbackBufferEmpty))
     }
     
-   internal func removePlayerNotifations() {
+    internal func removePlayerNotifations() {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
     }
     
     
-   internal func playerItemDidPlayToEnd(_ notification: Notification) {
+    internal func playerItemDidPlayToEnd(_ notification: Notification) {
         if self.state != .playFinished {
             self.state = .playFinished
         }
-
+        
     }
     
-   internal func applicationWillEnterForeground(_ notification: Notification) {
-    
-    if self.displayView.playerLayer != nil {
-        self.displayView.playerLayer?.player = player
-    }
-
+    internal func applicationWillEnterForeground(_ notification: Notification) {
+        
+        if self.displayView.playerLayer != nil {
+            self.displayView.playerLayer?.player = player
+        }
+        
         switch self.backgroundMode {
-            case .suspend:
-                pause()
-            case .autoPlayAndPaused:
-                play()
-            case .proceed:
-                break
+        case .suspend:
+            pause()
+        case .autoPlayAndPaused:
+            play()
+        case .proceed:
+            break
         }
     }
     
-   internal func applicationDidEnterBackground(_ notification: Notification) {
-    if self.displayView.playerLayer != nil {
-        self.displayView.playerLayer?.player = nil
-    }
-    switch self.backgroundMode {
-            case .suspend:
-                pause()
-            case .autoPlayAndPaused:
-                pause()
-            case .proceed:
-                break
+    internal func applicationDidEnterBackground(_ notification: Notification) {
+        if self.displayView.playerLayer != nil {
+            self.displayView.playerLayer?.player = nil
+        }
+        switch self.backgroundMode {
+        case .suspend:
+            pause()
+        case .autoPlayAndPaused:
+            pause()
+        case .proceed:
+            break
         }
     }
 }
@@ -422,8 +429,8 @@ extension VGPlayer {
                     
                     if let itemDuration = self.playerItem?.duration.seconds {
                         self.delegate?.vgPlayer(self, bufferedDidChange: bufferTime, totalDuration: itemDuration)
-                       self.displayView.bufferedDidChange(bufferTime, totalDuration: itemDuration)
-                       self.totalDuration = itemDuration
+                        self.displayView.bufferedDidChange(bufferTime, totalDuration: itemDuration)
+                        self.totalDuration = itemDuration
                         if itemDuration == bufferTime {
                             self.bufferState = .bufferFinished
                         }

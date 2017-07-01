@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "8.0"
 
   s.source       = { :git => "https://github.com/VeinGuo/VGPlayer.git", :tag => s.version }
-  s.source_files = 'VGPlayer/Classes/*.*'
+  s.source_files = 'VGPlayer/Classes/*.*', 'VGPlayer/Classes/**/*.*'
   s.resources    = 'VGPlayer/*.xcassets'
   s.requires_arc = true
   s.dependency 'SnapKit', '~> 3.2.0'

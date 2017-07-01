@@ -11,6 +11,7 @@
 		3365C53F1EEB8FF100CC7F4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3365C53E1EEB8FF100CC7F4F /* Assets.xcassets */; };
 		3365C5421EEB8FF100CC7F4F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3365C5401EEB8FF100CC7F4F /* LaunchScreen.storyboard */; };
 		3365C54C1EEB901400CC7F4F /* VGMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3365C54B1EEB901400CC7F4F /* VGMainViewController.swift */; };
+		803125661F0793AE00CEEEA5 /* VGSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125651F0793AE00CEEEA5 /* VGSettingsViewController.swift */; };
 		80573F931EF93C4E00F39826 /* VGCustomPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F8F1EF93C4E00F39826 /* VGCustomPlayerView.swift */; };
 		80573F941EF93C4E00F39826 /* VGCustomPlayerView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F901EF93C4E00F39826 /* VGCustomPlayerView2.swift */; };
 		80573F951EF93C4E00F39826 /* VGCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80573F911EF93C4E00F39826 /* VGCustomViewController.swift */; };
@@ -31,6 +32,7 @@
 		3365C5431EEB8FF100CC7F4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3365C54B1EEB901400CC7F4F /* VGMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGMainViewController.swift; sourceTree = "<group>"; };
 		3D5990FF80C9CE3995DCAF81 /* Pods-VGPlayerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGPlayerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGPlayerExample/Pods-VGPlayerExample.release.xcconfig"; sourceTree = "<group>"; };
+		803125651F0793AE00CEEEA5 /* VGSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGSettingsViewController.swift; sourceTree = "<group>"; };
 		80573F8F1EF93C4E00F39826 /* VGCustomPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomPlayerView.swift; sourceTree = "<group>"; };
 		80573F901EF93C4E00F39826 /* VGCustomPlayerView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomPlayerView2.swift; sourceTree = "<group>"; };
 		80573F911EF93C4E00F39826 /* VGCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGCustomViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				80B21B421EF54A51009E00EA /* DemoResources */,
 				80573F8E1EF93C4E00F39826 /* CustomPlayerView */,
 				80573F971EF93C5300F39826 /* DefaultPlayerView */,
+				803125641F07939500CEEEA5 /* Settings */,
 				3365C5371EEB8FF100CC7F4F /* AppDelegate.swift */,
 				3365C54B1EEB901400CC7F4F /* VGMainViewController.swift */,
 				80573F9C1EF93C6400F39826 /* Main.storyboard */,
@@ -97,6 +100,14 @@
 				3D5990FF80C9CE3995DCAF81 /* Pods-VGPlayerExample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		803125641F07939500CEEEA5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				803125651F0793AE00CEEEA5 /* VGSettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		80573F8E1EF93C4E00F39826 /* CustomPlayerView */ = {
@@ -271,6 +282,7 @@
 				80573F9A1EF93C5300F39826 /* VGMediaViewController.swift in Sources */,
 				3365C54C1EEB901400CC7F4F /* VGMainViewController.swift in Sources */,
 				80573F931EF93C4E00F39826 /* VGCustomPlayerView.swift in Sources */,
+				803125661F0793AE00CEEEA5 /* VGSettingsViewController.swift in Sources */,
 				80573F941EF93C4E00F39826 /* VGCustomPlayerView2.swift in Sources */,
 				80573F961EF93C4E00F39826 /* VGCustomViewController2.swift in Sources */,
 				80573F951EF93C4E00F39826 /* VGCustomViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wfI-fM-A0Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lmU-I4-PIJ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--Custom View Controller-->
         <scene sceneID="aoS-DK-MgI">
             <objects>
-                <viewController id="nhM-gh-Gaz" customClass="VGCustomViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="nhM-gh-Gaz" customClass="VGCustomViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5DL-CW-95m"/>
                         <viewControllerLayoutGuide type="bottom" id="fvw-nB-H2H"/>
@@ -27,13 +27,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nod-hW-iRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-362" y="-1585"/>
+            <point key="canvasLocation" x="-550" y="-4105"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Example-->
         <scene sceneID="fNc-8O-rgn">
             <objects>
                 <navigationController id="wfI-fM-A0Z" sceneMemberID="viewController">
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <tabBarItem key="tabBarItem" title="Example" id="OBD-zZ-Ndk"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ieO-FK-D62">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -44,7 +45,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cqi-Pa-dQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2086" y="-869"/>
+            <point key="canvasLocation" x="-2561" y="-2823"/>
         </scene>
         <!--VGPlayer-->
         <scene sceneID="HWB-xb-CXI">
@@ -88,12 +89,135 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9g-oY-t78" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1295" y="-869"/>
+            <point key="canvasLocation" x="-1756" y="-2823"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="3mg-H8-Dtq">
+            <objects>
+                <tabBarController id="lmU-I4-PIJ" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="eBV-Tu-8IM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="wfI-fM-A0Z" kind="relationship" relationship="viewControllers" id="QFE-PK-Xau"/>
+                        <segue destination="ga3-xl-ZZ2" kind="relationship" relationship="viewControllers" id="RVS-b0-JQl"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fg9-tm-lkQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3412" y="-1069"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="3Pp-56-UDF">
+            <objects>
+                <viewController id="c7h-qG-yMX" customClass="VGSettingsViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UKc-ii-lnA"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Nt-yv-BWX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qGi-hm-JX5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEI-YG-tRO">
+                                <rect key="frame" x="50" y="94" width="275" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VGPlayer by Vein" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YND-9B-uEP">
+                                <rect key="frame" x="272.5" y="579.5" width="96.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5v-IB-VK6">
+                                <rect key="frame" x="50" y="399" width="275" height="40"/>
+                                <color key="backgroundColor" red="0.92549020049999997" green="0.23529411850000001" blue="0.1019607857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="XHu-Ix-T25"/>
+                                </constraints>
+                                <state key="normal" title="Clear cached data">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onCleanAllcache:" destination="c7h-qG-yMX" eventType="touchUpInside" id="3we-l3-Ycr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aER-H2-2xN">
+                                <rect key="frame" x="50" y="494" width="275" height="40"/>
+                                <color key="backgroundColor" red="0.92549020049999997" green="0.23529411850000001" blue="0.1019607857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Clear old cached data">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onCleanOldFiles:" destination="c7h-qG-yMX" eventType="touchUpInside" id="mk5-YL-dte"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aER-H2-2xN" firstAttribute="width" secondItem="L5v-IB-VK6" secondAttribute="width" id="3a6-xG-aOd"/>
+                            <constraint firstAttribute="trailing" secondItem="L5v-IB-VK6" secondAttribute="trailing" constant="50" id="92k-Dt-eNY"/>
+                            <constraint firstItem="YND-9B-uEP" firstAttribute="top" secondItem="aER-H2-2xN" secondAttribute="bottom" constant="45.5" id="9TL-hw-9xT"/>
+                            <constraint firstItem="aER-H2-2xN" firstAttribute="top" secondItem="L5v-IB-VK6" secondAttribute="bottom" constant="55" id="Bfl-2c-4oy"/>
+                            <constraint firstAttribute="trailing" secondItem="UEI-YG-tRO" secondAttribute="trailing" constant="50" id="Dmp-N1-4Vd"/>
+                            <constraint firstItem="UEI-YG-tRO" firstAttribute="top" secondItem="UKc-ii-lnA" secondAttribute="bottom" constant="30" id="SRn-1M-gJv"/>
+                            <constraint firstItem="aER-H2-2xN" firstAttribute="height" secondItem="L5v-IB-VK6" secondAttribute="height" id="UG5-2k-uk7"/>
+                            <constraint firstItem="UEI-YG-tRO" firstAttribute="centerX" secondItem="qGi-hm-JX5" secondAttribute="centerX" id="XAW-Tg-gpR"/>
+                            <constraint firstAttribute="trailing" secondItem="YND-9B-uEP" secondAttribute="trailing" constant="6" id="ZsK-fr-cSQ"/>
+                            <constraint firstItem="3Nt-yv-BWX" firstAttribute="top" secondItem="YND-9B-uEP" secondAttribute="bottom" constant="24" id="iYP-nq-LC1"/>
+                            <constraint firstItem="L5v-IB-VK6" firstAttribute="leading" secondItem="qGi-hm-JX5" secondAttribute="leading" constant="50" id="nQf-WP-RQH"/>
+                            <constraint firstItem="UEI-YG-tRO" firstAttribute="leading" secondItem="qGi-hm-JX5" secondAttribute="leading" constant="50" id="qWV-Td-eWJ"/>
+                            <constraint firstItem="L5v-IB-VK6" firstAttribute="centerX" secondItem="qGi-hm-JX5" secondAttribute="centerX" id="scP-RB-dzw"/>
+                            <constraint firstItem="aER-H2-2xN" firstAttribute="centerX" secondItem="L5v-IB-VK6" secondAttribute="centerX" id="t5V-Zw-8vi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="rVO-Di-iGr"/>
+                    <connections>
+                        <outlet property="settingsInfoLabel" destination="UEI-YG-tRO" id="4EG-Eh-moV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ECk-DM-Sbz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1543.2" y="-1042.128935532234"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="zJv-z9-g66">
+            <objects>
+                <navigationController id="ga3-xl-ZZ2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" id="SgJ-3f-7Ia"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pfx-Lt-HR5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="c7h-qG-yMX" kind="relationship" relationship="rootViewController" id="TlM-pj-7CS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZfA-4x-5YS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2375" y="-1042"/>
         </scene>
         <!--Vertical View Controller-->
         <scene sceneID="Kbz-JT-dKd">
             <objects>
-                <viewController id="8Xi-Ic-bly" customClass="VGVerticalViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="8Xi-Ic-bly" customClass="VGVerticalViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TFO-Za-nok"/>
                         <viewControllerLayoutGuide type="bottom" id="6pc-NM-1gl"/>
@@ -107,12 +231,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1tR-3z-xiR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-476" y="-85"/>
+            <point key="canvasLocation" x="-551" y="-2722"/>
         </scene>
         <!--Media-->
         <scene sceneID="FEI-Hy-e8L">
             <objects>
-                <viewController title="Media" id="t7g-lY-okm" customClass="VGMediaViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Media" hidesBottomBarWhenPushed="YES" id="t7g-lY-okm" customClass="VGMediaViewController" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9mZ-vl-MWD"/>
                         <viewControllerLayoutGuide type="bottom" id="6RD-GB-Rq3"/>
@@ -122,7 +246,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yed-uc-SW9">
-                                <rect key="frame" x="16" y="581" width="97" height="30"/>
+                                <rect key="frame" x="16" y="532" width="97" height="30"/>
                                 <state key="normal" title="change media"/>
                                 <connections>
                                     <action selector="changeMedia:" destination="t7g-lY-okm" eventType="touchUpInside" id="KSN-A3-D9N"/>
@@ -140,12 +264,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K15-wC-S5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-476" y="-869.41529235382313"/>
+            <point key="canvasLocation" x="-551" y="-2003"/>
         </scene>
         <!--Custom View Controller2-->
         <scene sceneID="x60-9i-dj7">
             <objects>
-                <viewController id="PMx-ry-BVu" customClass="VGCustomViewController2" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="PMx-ry-BVu" customClass="VGCustomViewController2" customModule="VGPlayerExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KSb-OB-iHj"/>
                         <viewControllerLayoutGuide type="bottom" id="snz-eV-zbb"/>
@@ -155,7 +279,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rle-H4-Hgx">
-                                <rect key="frame" x="0.0" y="337" width="69" height="30"/>
+                                <rect key="frame" x="0.0" y="288" width="69" height="30"/>
                                 <state key="normal" title="isAds"/>
                                 <connections>
                                     <action selector="addAdsAction:" destination="PMx-ry-BVu" eventType="touchUpInside" id="v6k-Xk-BUd"/>
@@ -176,7 +300,8 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gY6-EO-1QH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="471" y="-1049"/>
+            <point key="canvasLocation" x="-551" y="-3393"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

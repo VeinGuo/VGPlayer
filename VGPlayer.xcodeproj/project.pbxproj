@@ -11,6 +11,20 @@
 		33B36A9C1EE5327500F9BC2B /* VGPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B36A9B1EE5327500F9BC2B /* VGPlayerView.swift */; };
 		33D264DA1EEE74A800A42DDA /* Timer+VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D264D91EEE74A800A42DDA /* Timer+VGPlayer.swift */; };
 		8001CB2F1EDD7D4E00C6C9D2 /* VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001CB2E1EDD7D4E00C6C9D2 /* VGPlayer.swift */; };
+		803125561F078E7900CEEEA5 /* VGPlayerCacheAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125481F078E7900CEEEA5 /* VGPlayerCacheAction.swift */; };
+		803125571F078E7900CEEEA5 /* VGPlayerCacheConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125491F078E7900CEEEA5 /* VGPlayerCacheConfiguration.swift */; };
+		803125581F078E7900CEEEA5 /* VGPlayerCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031254A1F078E7900CEEEA5 /* VGPlayerCacheManager.swift */; };
+		803125591F078E7900CEEEA5 /* VGPlayerCacheMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031254B1F078E7900CEEEA5 /* VGPlayerCacheMedia.swift */; };
+		8031255A1F078E7900CEEEA5 /* VGPlayerCacheMediaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031254C1F078E7900CEEEA5 /* VGPlayerCacheMediaConfiguration.swift */; };
+		8031255B1F078E7900CEEEA5 /* VGPlayerCacheMediaWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031254D1F078E7900CEEEA5 /* VGPlayerCacheMediaWorker.swift */; };
+		8031255C1F078E7900CEEEA5 /* VGPlayerCacheNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031254E1F078E7900CEEEA5 /* VGPlayerCacheNotifier.swift */; };
+		8031255D1F078E7900CEEEA5 /* VGPlayerCacheSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8031254F1F078E7900CEEEA5 /* VGPlayerCacheSession.swift */; };
+		8031255E1F078E7900CEEEA5 /* VGPlayerDownloadActionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125501F078E7900CEEEA5 /* VGPlayerDownloadActionWorker.swift */; };
+		8031255F1F078E7900CEEEA5 /* VGPlayerDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125511F078E7900CEEEA5 /* VGPlayerDownloader.swift */; };
+		803125601F078E7900CEEEA5 /* VGPlayerDownloadURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125521F078E7900CEEEA5 /* VGPlayerDownloadURLSessionManager.swift */; };
+		803125611F078E7900CEEEA5 /* VGPlayerResourceLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125531F078E7900CEEEA5 /* VGPlayerResourceLoader.swift */; };
+		803125621F078E7900CEEEA5 /* VGPlayerResourceLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125541F078E7900CEEEA5 /* VGPlayerResourceLoaderManager.swift */; };
+		803125631F078E7900CEEEA5 /* VGPlayerResourceLoadingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803125551F078E7900CEEEA5 /* VGPlayerResourceLoadingRequest.swift */; };
 		80423CA81EEEC77B00CB38C5 /* UIButton+VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80423CA71EEEC77B00CB38C5 /* UIButton+VGPlayer.swift */; };
 		807A46EF1EDC706100A99141 /* VGPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807A46E51EDC706100A99141 /* VGPlayer.framework */; };
 		807A46F41EDC706100A99141 /* VGPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A46F31EDC706100A99141 /* VGPlayerTests.swift */; };
@@ -37,6 +51,20 @@
 		33B36A9B1EE5327500F9BC2B /* VGPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerView.swift; sourceTree = "<group>"; };
 		33D264D91EEE74A800A42DDA /* Timer+VGPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+VGPlayer.swift"; sourceTree = "<group>"; };
 		8001CB2E1EDD7D4E00C6C9D2 /* VGPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayer.swift; sourceTree = "<group>"; };
+		803125481F078E7900CEEEA5 /* VGPlayerCacheAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheAction.swift; sourceTree = "<group>"; };
+		803125491F078E7900CEEEA5 /* VGPlayerCacheConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheConfiguration.swift; sourceTree = "<group>"; };
+		8031254A1F078E7900CEEEA5 /* VGPlayerCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheManager.swift; sourceTree = "<group>"; };
+		8031254B1F078E7900CEEEA5 /* VGPlayerCacheMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheMedia.swift; sourceTree = "<group>"; };
+		8031254C1F078E7900CEEEA5 /* VGPlayerCacheMediaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheMediaConfiguration.swift; sourceTree = "<group>"; };
+		8031254D1F078E7900CEEEA5 /* VGPlayerCacheMediaWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheMediaWorker.swift; sourceTree = "<group>"; };
+		8031254E1F078E7900CEEEA5 /* VGPlayerCacheNotifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheNotifier.swift; sourceTree = "<group>"; };
+		8031254F1F078E7900CEEEA5 /* VGPlayerCacheSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerCacheSession.swift; sourceTree = "<group>"; };
+		803125501F078E7900CEEEA5 /* VGPlayerDownloadActionWorker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerDownloadActionWorker.swift; sourceTree = "<group>"; };
+		803125511F078E7900CEEEA5 /* VGPlayerDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerDownloader.swift; sourceTree = "<group>"; };
+		803125521F078E7900CEEEA5 /* VGPlayerDownloadURLSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerDownloadURLSessionManager.swift; sourceTree = "<group>"; };
+		803125531F078E7900CEEEA5 /* VGPlayerResourceLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerResourceLoader.swift; sourceTree = "<group>"; };
+		803125541F078E7900CEEEA5 /* VGPlayerResourceLoaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerResourceLoaderManager.swift; sourceTree = "<group>"; };
+		803125551F078E7900CEEEA5 /* VGPlayerResourceLoadingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerResourceLoadingRequest.swift; sourceTree = "<group>"; };
 		80423CA71EEEC77B00CB38C5 /* UIButton+VGPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+VGPlayer.swift"; sourceTree = "<group>"; };
 		807A46E51EDC706100A99141 /* VGPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VGPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		807A46E81EDC706100A99141 /* VGPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VGPlayer.h; sourceTree = "<group>"; };
@@ -73,6 +101,7 @@
 		8001CB2D1EDD7CB300C6C9D2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				803125471F078E7900CEEEA5 /* MediaCache */,
 				8001CB2E1EDD7D4E00C6C9D2 /* VGPlayer.swift */,
 				33B36A9B1EE5327500F9BC2B /* VGPlayerView.swift */,
 				80D923A01EE4368600564FFD /* VGPlayerError.swift */,
@@ -84,6 +113,27 @@
 				80B21B401EF5489C009E00EA /* VGSubtitles.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		803125471F078E7900CEEEA5 /* MediaCache */ = {
+			isa = PBXGroup;
+			children = (
+				803125481F078E7900CEEEA5 /* VGPlayerCacheAction.swift */,
+				803125491F078E7900CEEEA5 /* VGPlayerCacheConfiguration.swift */,
+				8031254A1F078E7900CEEEA5 /* VGPlayerCacheManager.swift */,
+				8031254B1F078E7900CEEEA5 /* VGPlayerCacheMedia.swift */,
+				8031254C1F078E7900CEEEA5 /* VGPlayerCacheMediaConfiguration.swift */,
+				8031254D1F078E7900CEEEA5 /* VGPlayerCacheMediaWorker.swift */,
+				8031254E1F078E7900CEEEA5 /* VGPlayerCacheNotifier.swift */,
+				8031254F1F078E7900CEEEA5 /* VGPlayerCacheSession.swift */,
+				803125501F078E7900CEEEA5 /* VGPlayerDownloadActionWorker.swift */,
+				803125511F078E7900CEEEA5 /* VGPlayerDownloader.swift */,
+				803125521F078E7900CEEEA5 /* VGPlayerDownloadURLSessionManager.swift */,
+				803125531F078E7900CEEEA5 /* VGPlayerResourceLoader.swift */,
+				803125541F078E7900CEEEA5 /* VGPlayerResourceLoaderManager.swift */,
+				803125551F078E7900CEEEA5 /* VGPlayerResourceLoadingRequest.swift */,
+			);
+			path = MediaCache;
 			sourceTree = "<group>";
 		};
 		807A46DB1EDC706100A99141 = {
@@ -236,15 +286,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				803125621F078E7900CEEEA5 /* VGPlayerResourceLoaderManager.swift in Sources */,
+				8031255A1F078E7900CEEEA5 /* VGPlayerCacheMediaConfiguration.swift in Sources */,
 				80D923A21EE4368600564FFD /* VGPlayerError.swift in Sources */,
+				803125571F078E7900CEEEA5 /* VGPlayerCacheConfiguration.swift in Sources */,
+				803125581F078E7900CEEEA5 /* VGPlayerCacheManager.swift in Sources */,
+				8031255C1F078E7900CEEEA5 /* VGPlayerCacheNotifier.swift in Sources */,
 				80B21B411EF5489C009E00EA /* VGSubtitles.swift in Sources */,
+				8031255D1F078E7900CEEEA5 /* VGPlayerCacheSession.swift in Sources */,
 				80423CA81EEEC77B00CB38C5 /* UIButton+VGPlayer.swift in Sources */,
 				80D923A91EE43AE200564FFD /* VGPlayerUtils.swift in Sources */,
+				803125591F078E7900CEEEA5 /* VGPlayerCacheMedia.swift in Sources */,
 				33B36A9C1EE5327500F9BC2B /* VGPlayerView.swift in Sources */,
 				33D264DA1EEE74A800A42DDA /* Timer+VGPlayer.swift in Sources */,
+				8031255B1F078E7900CEEEA5 /* VGPlayerCacheMediaWorker.swift in Sources */,
+				803125561F078E7900CEEEA5 /* VGPlayerCacheAction.swift in Sources */,
+				803125601F078E7900CEEEA5 /* VGPlayerDownloadURLSessionManager.swift in Sources */,
+				803125631F078E7900CEEEA5 /* VGPlayerResourceLoadingRequest.swift in Sources */,
 				8001CB2F1EDD7D4E00C6C9D2 /* VGPlayer.swift in Sources */,
+				8031255E1F078E7900CEEEA5 /* VGPlayerDownloadActionWorker.swift in Sources */,
 				336DDBC71EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift in Sources */,
+				8031255F1F078E7900CEEEA5 /* VGPlayerDownloader.swift in Sources */,
 				80D923A31EE4368600564FFD /* VGPlayerSlider.swift in Sources */,
+				803125611F078E7900CEEEA5 /* VGPlayerResourceLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
