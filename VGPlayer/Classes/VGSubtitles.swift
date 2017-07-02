@@ -57,16 +57,13 @@ open class VGSubtitles {
     open fileprivate(set) var subtitlesGroups : [subtitles] = []
     
     public init(filePath: URL, encoding: String.Encoding = String.Encoding.utf8) {
-
-            do{
-                self.subtitlesFormat = decoderSubtitlesFormat(filePath)
-                let string = try String(contentsOf: filePath, encoding: encoding)
-                self.subtitlesGroups = parseSubtitles(string)
-            }
-            catch let error as Error
-            {
-//                print(error)
-            }
+        
+        do{
+            self.subtitlesFormat = decoderSubtitlesFormat(filePath)
+            let string = try String(contentsOf: filePath, encoding: encoding)
+            self.subtitlesGroups = parseSubtitles(string)
+        }
+        catch { }
     }
     
     public func search(for time: TimeInterval) -> subtitles? {
@@ -79,7 +76,7 @@ open class VGSubtitles {
         }
         return result
     }
-
+    
     
     fileprivate func parseSubtitles(_ payload: String) -> [subtitles]  {
         switch self.subtitlesFormat {
@@ -119,12 +116,12 @@ open class VGSubtitles {
                 let content  = contentString {
                 let starTime = parseTime(start as String)
                 let endTime = parseTime(end as String)
-                let sub = subtitles(index: index, start: starTime, end: endTime, content: content as! String)
+                let sub = subtitles(index: index, start: starTime, end: endTime, content: content as String)
                 group.append(sub)
             }
         }
         return group
-
+        
     }
     
     fileprivate func parseAssSubtitles(_ payload: String) -> [subtitles]? {
@@ -136,8 +133,8 @@ open class VGSubtitles {
             let matches = regex.matches(in: payload, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, payload.characters.count))
             for matche in matches {
                 let group = (payload as NSString).substring(with: matche.range)
-                var regex = try NSRegularExpression(pattern: "\\d{1,2}:\\d{1,2}:\\d{1,2}[,.]\\d{1,3}", options: .caseInsensitive)
-                var match = regex.matches(in: group, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, group.characters.count))
+                let regex = try NSRegularExpression(pattern: "\\d{1,2}:\\d{1,2}:\\d{1,2}[,.]\\d{1,3}", options: .caseInsensitive)
+                let match = regex.matches(in: group, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, group.characters.count))
                 guard let start = match.first, let end = match.last else {
                     continue
                 }
@@ -145,8 +142,8 @@ open class VGSubtitles {
                 let endString = (group as NSString).substring(with: end.range)
                 
                 // content before
-                var contentRegex = try NSRegularExpression(pattern: "[0-9]*,[0-9]*,[^,.]*,[^,.]*,[0-9]*,[0-9]*,", options: .caseInsensitive)
-                var contentMatch = contentRegex.matches(in: group, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, group.characters.count))
+                let contentRegex = try NSRegularExpression(pattern: "[0-9]*,[0-9]*,[^,.]*,[^,.]*,[0-9]*,[0-9]*,", options: .caseInsensitive)
+                let contentMatch = contentRegex.matches(in: group, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, group.characters.count))
                 
                 guard let text = contentMatch.first else {
                     continue
@@ -160,30 +157,30 @@ open class VGSubtitles {
                 let content = (group as NSString).replacingCharacters(in: contentRange, with: "")
                 let starTime = parseTime(startString as String)
                 let endTime = parseTime(endString as String)
-                let sub = subtitles(index: index, start: starTime, end: endTime, content: content as! String)
+                let sub = subtitles(index: index, start: starTime, end: endTime, content: content )
                 groups.append(sub)
                 index += 1
             }
             return groups
-        } catch let error {
+        } catch _ {
             return groups
         }
     }
     
-   fileprivate func decoderSubtitlesFormat(_ filePath: URL) -> subtitlesFormat {
+    fileprivate func decoderSubtitlesFormat(_ filePath: URL) -> subtitlesFormat {
         let path = filePath.absoluteString
-            if path.contains(".srt") {
-                return .srt
-            } else if path.contains(".ass") {
-                return .ass
-            } else {
-                return .unknown
-            }
+        if path.contains(".srt") {
+            return .srt
+        } else if path.contains(".ass") {
+            return .ass
+        } else {
+            return .unknown
+        }
     }
     
     fileprivate func parseTime(_ timeString: String) -> TimeInterval {
         var h: TimeInterval = 0.0, m: TimeInterval = 0.0, s: TimeInterval = 0.0, c: TimeInterval = 0.0
-        var scanner = Scanner(string: timeString)
+        let scanner = Scanner(string: timeString)
         scanner.scanDouble(&h)
         scanner.scanString(":", into: nil)
         scanner.scanDouble(&m)
@@ -195,7 +192,7 @@ open class VGSubtitles {
         return time
     }
     
-
+    
 }
 
 

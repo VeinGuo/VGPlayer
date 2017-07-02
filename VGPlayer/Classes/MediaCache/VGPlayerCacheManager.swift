@@ -9,7 +9,7 @@
 import Foundation
 
 public extension Notification.Name {
-
+    
     public static var VGPlayerCacheManagerDidUpdateCache = Notification.Name.init("com.vein.VGplayer.CacheManagerDidUpdateCache")
     public static var VGPlayerCacheManagerDidFinishCache = Notification.Name.init("com.vein.VGplayer.CacheManagerDidFinishCache")
     public static var VGPlayerCacheManagerDidCleanCache = Notification.Name.init("com.vein.VGplayer.CacheManagerDidCleanCache")
@@ -40,7 +40,7 @@ open class VGPlayerCacheManager: NSObject {
     
     static public func cacheFilePath(for url: URL) -> String {
         if let cacheFolder = url.lastPathComponent.components(separatedBy: ".").first {
-           let cacheFilePath = (cacheDirectory().appending("/\(cacheFolder)") as NSString).appendingPathComponent(url.lastPathComponent)
+            let cacheFilePath = (cacheDirectory().appending("/\(cacheFolder)") as NSString).appendingPathComponent(url.lastPathComponent)
             print(cacheFilePath)
             return cacheFilePath
         }
@@ -63,7 +63,7 @@ open class VGPlayerCacheManager: NSObject {
             }
         }
     }
-
+    
     open func cleanAllCache() {
         self.ioQueue.sync {
             do {
@@ -98,7 +98,7 @@ open class VGPlayerCacheManager: NSObject {
                     
                     return true
                 }
-                var fileSize:UInt = 0
+                
                 for fileURL in sortedFiles {
                     let (_, cacheSize, _) = self.cachedFiles(atPath: fileURL.path, onlyForCacheSize: true)
                     diskCacheSize -= cacheSize
@@ -140,7 +140,7 @@ open class VGPlayerCacheManager: NSObject {
             let url = URL(fileURLWithPath: fullPath)
             
             if let directoryEnumerator = self.fileManager.enumerator(at:url, includingPropertiesForKeys: Array(resourceKeys), options: [.skipsHiddenFiles], errorHandler: nil) {
-                for (index, value) in directoryEnumerator.enumerated() {
+                for (_ , value) in directoryEnumerator.enumerated() {
                     do {
                         if let fileURL = value as? URL{
                             let resourceValues = try fileURL.resourceValues(forKeys: resourceKeys)
@@ -153,7 +153,7 @@ open class VGPlayerCacheManager: NSObject {
                                 urlsToDelete.append(fileURL)
                                 continue
                             }
-
+                            
                             
                             if !onlyForCacheSize && resourceValues.isDirectory == true {
                                 cachedFiles[fileURL] = resourceValues
@@ -179,19 +179,3 @@ extension Dictionary {
         return Array(self).sorted{ isOrderedBefore($0.1, $1.1) }.map{ $0.0 }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

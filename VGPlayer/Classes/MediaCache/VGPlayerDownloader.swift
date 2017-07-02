@@ -90,7 +90,7 @@ open class VGPlayerDownloader: NSObject {
         var range = NSRange(location: Int(fromOffset), length: length)
         if isEnd {
             if let contentLength = self.cacheMediaWorker.cacheConfiguration?.cacheMedia?.contentLength {
-              range.length = Int(contentLength) - range.location
+                range.length = Int(contentLength) - range.location
             } else {
                 range.length = 0 - range.location
             }
@@ -140,7 +140,7 @@ open class VGPlayerDownloader: NSObject {
         
         do {
             try isCurrentURLDownloading()
-        } catch let error as Error {
+        } catch {
             self.delegate?.downloader(self, didFinishedWithError: error)
         }
         
@@ -160,11 +160,11 @@ extension VGPlayerDownloader: VGPlayerDownloadActionWorkerDelegate {
             self.delegate?.downloader(self, didFinishedWithError: error)
         }
     }
-
+    
     public func downloadActionWorker(_ actionWorker: VGPlayerDownloadActionWorker, didReceive data: Data, isLocal: Bool) {
         self.delegate?.downloader(self, didReceiveData: data)
     }
-
+    
     public func downloadActionWorker(_ actionWorker: VGPlayerDownloadActionWorker, didReceive response: URLResponse) {
         if self.cacheMedia == nil {
             let cacheMedia = VGPlayerCacheMedia()
@@ -183,23 +183,25 @@ extension VGPlayerDownloader: VGPlayerDownloadActionWorkerDelegate {
             }
             if let mimeType = response.mimeType {
                 let contentType =  UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType as CFString, nil)
-                cacheMedia.contentType = contentType?.takeUnretainedValue() as! String
+                if let takeUnretainedValue = contentType?.takeUnretainedValue() {
+                    cacheMedia.contentType = takeUnretainedValue as String
+                }
             }
             self.cacheMedia = cacheMedia
-            var error: Error?
+            var err: Error?
             do {
                 try self.cacheMediaWorker.set(cacheMedia: cacheMedia)
-            } catch let e as Error {
-                error = e
+            } catch {
+                err = error
             }
             
-            if error != nil {
-               self.delegate?.downloader(self, didFinishedWithError: error)
+            if err != nil {
+                self.delegate?.downloader(self, didFinishedWithError: err)
                 return
             }
         }
         self.delegate?.downloader(self, didReceiveResponse: response)
     }
-
+    
     
 }

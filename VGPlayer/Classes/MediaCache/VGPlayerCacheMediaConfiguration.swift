@@ -24,7 +24,7 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
         didSet {
             if let contentLength = self.cacheMedia?.contentLength,
                 let downloadedBytes = self.downloadedBytes  {
-                progress = (downloadedBytes / contentLength) as! Double
+                progress = Double(downloadedBytes / contentLength)
             }
         }
     }
@@ -38,7 +38,7 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
                     bytes += range.rangeValue.length
                 }
             }
-            self.downloadedBytes = bytes as? Int64
+            self.downloadedBytes = Int64(bytes)
         }
     }
     
@@ -86,7 +86,7 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
         aCoder.encode(self.url, forKey: "url")
     }
     public func copy(with zone: NSZone? = nil) -> Any {
-        var confi = VGPlayerCacheMediaConfiguration()
+        let confi = VGPlayerCacheMediaConfiguration()
         confi.filePath = self.filePath
         confi.fileName = self.fileName
         confi.cacheSegments = self.cacheSegments
@@ -98,7 +98,7 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
     }
     
     open override var debugDescription: String {
-        return "filePath: \(filePath)\n cacheMedia: \(cacheMedia)\n url: \(url)\n cacheSegments: \(cacheSegments) \n"
+        return "filePath: \(String(describing: filePath))\n cacheMedia: \(String(describing: cacheMedia))\n url: \(String(describing: url))\n cacheSegments: \(cacheSegments) \n"
     }
     
     public static func filePath(for filePath: String) -> String {
@@ -107,15 +107,15 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
     }
     
     public static func configuration(filePath: String) -> VGPlayerCacheMediaConfiguration {
-        var path = self.filePath(for: filePath)
+        let path = self.filePath(for: filePath)
         
-        guard var configuration = NSKeyedUnarchiver.unarchiveObject(withFile: path) else {
-            var defaultConfiguration = VGPlayerCacheMediaConfiguration()
+        guard let configuration = NSKeyedUnarchiver.unarchiveObject(withFile: path) else {
+            let defaultConfiguration = VGPlayerCacheMediaConfiguration()
             defaultConfiguration.filePath = path
             defaultConfiguration.fileName = (filePath as NSString).lastPathComponent
             return defaultConfiguration
         }
-        var confi = configuration as! VGPlayerCacheMediaConfiguration
+        let confi = configuration as! VGPlayerCacheMediaConfiguration
         confi.filePath = path
         return confi
     }
@@ -128,7 +128,7 @@ extension VGPlayerCacheMediaConfiguration {
             NSKeyedArchiver.archiveRootObject(self, toFile: self.filePath!)
         }
     }
-
+    
     
     open func addCache(_ segment: NSRange) {
         if segment.location == NSNotFound || segment.length == 0 {
@@ -155,7 +155,7 @@ extension VGPlayerCacheMediaConfiguration {
                         indexSet.add(index)
                     } else if (segment.location >= range.location + range.length) {
                         if index == count - 1 {
-                          indexSet.add(index)
+                            indexSet.add(index)
                         }
                     }
                     

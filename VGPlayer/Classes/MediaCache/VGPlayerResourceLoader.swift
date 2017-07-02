@@ -62,7 +62,7 @@ open class VGPlayerResourceLoader: NSObject {
     internal func key(forRequest request: AVAssetResourceLoadingRequest) -> String {
         
         if let range = request.request.allHTTPHeaderFields!["Range"]{
-           return String(format: "%@%@", (request.request.url?.absoluteString)!, range)
+            return String(format: "%@%@", (request.request.url?.absoluteString)!, range)
         }
         
         return String(format: "%@", (request.request.url?.absoluteString)!)
@@ -77,6 +77,6 @@ extension VGPlayerResourceLoader: VGPlayerResourceLoadingRequestDelegate {
             self.delegate?.resourceLoader(self, didFailWithError: error)
         }
     }
-
+    
 }
 

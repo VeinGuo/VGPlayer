@@ -15,13 +15,13 @@ open class VGPlayerCacheMedia: NSObject, NSCoding {
     open var downloadedLength: UInt64 = UInt64.allZeros
     
     public override init() {
-
+        
     }
     
     open override var description: String {
-        return "contentType: \(contentType)\n isByteRangeAccessSupported: \(isByteRangeAccessSupported)\n contentLength: \(contentLength)\n downloadedLength: \(downloadedLength)\n"
+        return "contentType: \(String(describing: contentType))\n isByteRangeAccessSupported: \(isByteRangeAccessSupported)\n contentLength: \(contentLength)\n downloadedLength: \(downloadedLength)\n"
     }
-
+    
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.contentType, forKey: "contentType")
         aCoder.encode(self.isByteRangeAccessSupported, forKey: "isByteRangeAccessSupported")

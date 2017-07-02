@@ -41,7 +41,7 @@ open class VGPlayerDownloadActionWorker: NSObject {
         let session = URLSession(configuration: sessionConfiguration, delegate: downloadURLSessionManager, delegateQueue: VGPlayerCacheSession.shared.downloadQueue)
         self.session = session
     }
-
+    
     deinit {
         self.cancel()
     }
@@ -66,7 +66,7 @@ open class VGPlayerDownloadActionWorker: NSObject {
             self.delegate?.downloadActionWorker(self, didFinishWithError: nil)
             return
         }
-
+        
         self.actions.remove(at: 0)
         if let action = firstAction {
             if action.type == .local { // local
@@ -160,7 +160,7 @@ extension VGPlayerDownloadActionWorker: VGPlayerDownloadeURLSessionManagerDelega
         if let mimeType = response.mimeType {
             if (mimeType.range(of: "video/") == nil) &&
                 (mimeType.range(of: "audio/") == nil &&
-                mimeType.range(of: "application") == nil){
+                    mimeType.range(of: "application") == nil){
                 completionHandler(.cancel)
             } else {
                 self.delegate?.downloadActionWorker(self, didReceive: response)
@@ -171,23 +171,4 @@ extension VGPlayerDownloadActionWorker: VGPlayerDownloadeURLSessionManagerDelega
         
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

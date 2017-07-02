@@ -28,7 +28,7 @@ open class VGPlayerResourceLoaderManager: NSObject {
     }
     
     open func cancelLoaders() {
-        for (key, value) in self.loaders {
+        for (_, value) in self.loaders {
             value.cancel()
         }
         self.loaders.removeAll()
@@ -58,10 +58,10 @@ open class VGPlayerResourceLoaderManager: NSObject {
         var components = URLComponents(url: url!, resolvingAgainstBaseURL: false)
         components?.scheme = kCacheScheme
         var appendStr = "?"
-        if let count = components?.query?.characters.count {
+        if (components?.query?.characters.count) != nil {
             appendStr = "&"
         }
-    
+        
         let urlStr = String(format: "%@%@MCurl=%@", (components?.url?.absoluteString)!, appendStr, (url?.absoluteString)!)
         let assetURL = URL(string: urlStr)
         return assetURL

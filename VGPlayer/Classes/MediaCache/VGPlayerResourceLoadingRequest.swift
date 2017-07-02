@@ -28,11 +28,10 @@ open class VGPlayerResourceLoadingRequest: NSObject {
     }
     
     internal func fillCacheMedia() {
-        let contentInformationRequest = self.request.contentInformationRequest
         if  self.downloader.cacheMedia != nil,
             let contentType = self.downloader.cacheMedia?.contentType {
             if let cacheMedia = self.downloader.cacheMedia {
-                self.request.contentInformationRequest?.contentType = cacheMedia.contentType
+                self.request.contentInformationRequest?.contentType = contentType
                 self.request.contentInformationRequest?.contentLength = cacheMedia.contentLength
                 self.request.contentInformationRequest?.isByteRangeAccessSupported = cacheMedia.isByteRangeAccessSupported
             }
@@ -88,7 +87,7 @@ extension VGPlayerResourceLoadingRequest: VGPlayerDownloaderDelegate {
         }
         
         self.delegate?.resourceLoadingRequest(self, didCompleteWithError: error)
-
+        
     }
     
     public func downloader(_ downloader: VGPlayerDownloader, didReceiveResponse response: URLResponse) {

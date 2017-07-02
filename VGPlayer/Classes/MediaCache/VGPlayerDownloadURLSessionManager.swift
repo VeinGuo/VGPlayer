@@ -16,7 +16,7 @@ public protocol VGPlayerDownloadeURLSessionManagerDelegate: NSObjectProtocol {
 }
 
 open class VGPlayerDownloadURLSessionManager: NSObject, URLSessionDataDelegate {
-
+    
     fileprivate let kBufferSize = 10 * 1024
     fileprivate var bufferData = NSMutableData()
     fileprivate let bufferDataQueue = DispatchQueue(label: "com.vgplayer.bufferDataQueue")
