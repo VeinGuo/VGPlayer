@@ -1,6 +1,6 @@
 PODS:
   - SnapKit (3.2.0)
-  - VGPlayer (0.1.0):
+  - VGPlayer (0.1.1):
     - SnapKit (~> 3.2.0)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
-  VGPlayer: 653a090c6b756dcd96bb466af2334c755a0b7938
+  VGPlayer: 4ff4e51cd0adfaad81a3f387d0aa758bfa13be73
 
 PODFILE CHECKSUM: 42836598836d22df90bc314686421f150d136f4c
 

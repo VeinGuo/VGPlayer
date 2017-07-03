@@ -4,6 +4,7 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/VeinGuo/VGPlayer/blob/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/Pastel.svg?style=flat)](https://github.com/VeinGuo/VGPlayer)
 [![Cocoapod](https://img.shields.io/badge/pod-v0.1.0-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.1.0/)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![Banners](https://github.com/VeinGuo/VGPlayer/blob/master/Image/Banners.png)
 
@@ -39,6 +40,7 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 - 2017-6-13 v0.0.1
 - 2017-6-17 Support subtitle (format: srt & ass) v0.0.2
 - 2017-7-1 Media Cache v0.1.0
+- 2017-7-3 	fix some compiler warning, support carthage. v0.1.1
 
 ## Usage
 ### Play Video
@@ -189,7 +191,12 @@ platform :ios, '8.0'
 use_frameworks!
 pod 'VGPlayer'
 ```
+- Carthage
 
+```
+github "VeinGuo/VGPlayer"
+```
+Run carthage update. to build the framework and drag the built `VGPlayer.framework` and `SnapKit.framework` into your Xcode project.
 
 ## Reference
 - https://techblog.toutiao.com/2017/03/28/fullscreen/
