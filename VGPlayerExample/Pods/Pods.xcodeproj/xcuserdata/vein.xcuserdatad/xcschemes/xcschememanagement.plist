@@ -14,10 +14,10 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>VGPlayer.xcscheme</key>
+		<key>VGPlayer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
