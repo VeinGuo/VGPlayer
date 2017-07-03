@@ -7,14 +7,14 @@
 		<key>Pods-VGPlayerExample.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
 		<key>SnapKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
-		<key>VGPlayer.xcscheme_^#shared#^_</key>
+		<key>VGPlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<true/>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		336DDBC71EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DDBC61EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift */; };
+		33A448371F09F15C002103B4 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A448361F09F15C002103B4 /* SnapKit.framework */; };
 		33B36A9C1EE5327500F9BC2B /* VGPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B36A9B1EE5327500F9BC2B /* VGPlayerView.swift */; };
 		33D264DA1EEE74A800A42DDA /* Timer+VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D264D91EEE74A800A42DDA /* Timer+VGPlayer.swift */; };
 		8001CB2F1EDD7D4E00C6C9D2 /* VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001CB2E1EDD7D4E00C6C9D2 /* VGPlayer.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		336DDBC61EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerLoadingIndicator.swift; sourceTree = "<group>"; };
+		33A448361F09F15C002103B4 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		33B36A9B1EE5327500F9BC2B /* VGPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayerView.swift; sourceTree = "<group>"; };
 		33D264D91EEE74A800A42DDA /* Timer+VGPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+VGPlayer.swift"; sourceTree = "<group>"; };
 		8001CB2E1EDD7D4E00C6C9D2 /* VGPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VGPlayer.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33A448371F09F15C002103B4 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +99,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33A448351F09F15C002103B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				33A448361F09F15C002103B4 /* SnapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8001CB2D1EDD7CB300C6C9D2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +150,7 @@
 				807A46E71EDC706100A99141 /* VGPlayer */,
 				807A46F21EDC706100A99141 /* VGPlayerTests */,
 				807A46E61EDC706100A99141 /* Products */,
+				33A448351F09F15C002103B4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -437,6 +449,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = VGPlayer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -459,6 +475,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = VGPlayer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
