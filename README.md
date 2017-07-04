@@ -3,7 +3,7 @@
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/VeinGuo/VGPlayer/blob/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/Pastel.svg?style=flat)](https://github.com/VeinGuo/VGPlayer)
-[![Cocoapod](https://img.shields.io/badge/pod-v0.1.0-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.1.0/)
+[![Cocoapod](https://img.shields.io/badge/pod-v0.1.1-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.1.1/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![Banners](https://github.com/VeinGuo/VGPlayer/blob/master/Image/Banners.png)
@@ -97,9 +97,7 @@ class VGCustomPlayerView: VGPlayerView {
         self.player.displayView.titleLabel.text = "China NO.1"
         self.player.displayView.snp.makeConstraints { [weak self] (make) in
             guard let strongSelf = self else { return }
-            make.top.equalTo(strongSelf.view.snp.top)
-            make.left.equalTo(strongSelf.view.snp.left)
-            make.right.equalTo(strongSelf.view.snp.right)
+            make.top.left.right.equalToSuperview()
             make.height.equalTo(strongSelf.view.snp.width).multipliedBy(3.0/4.0) // you can 9.0/16.0
         }
 ```
