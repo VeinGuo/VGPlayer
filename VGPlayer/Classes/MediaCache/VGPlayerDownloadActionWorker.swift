@@ -70,13 +70,12 @@ open class VGPlayerDownloadActionWorker: NSObject {
         self.actions.remove(at: 0)
         if let action = firstAction {
             if action.type == .local { // local
-                var error: Error?
-                do {
-                    let data = try self.cacheMediaWorker.cache(forRange: action.range)
-                    self.delegate?.downloadActionWorker(self, didReceive: data!, isLocal: true)
+                if let data = self.cacheMediaWorker.cache(forRange: action.range) {
+                    self.delegate?.downloadActionWorker(self, didReceive: data, isLocal: true)
                     self.processActions()
-                } catch let error as Error {
-                    self.delegate?.downloadActionWorker(self, didFinishWithError: error)
+                } else {
+                    let nsError = NSError(domain: "com.vgplayer.downloadActionWorker", code: -1, userInfo: [NSLocalizedDescriptionKey: "Read cache data failed."])
+                    self.delegate?.downloadActionWorker(self, didFinishWithError: nsError as Error)
                 }
                 
             } else {    // remote
@@ -115,8 +114,10 @@ open class VGPlayerDownloadActionWorker: NSObject {
         if let configuration = self.cacheMediaWorker.cacheConfiguration?.copy() {
             let configurationKey = VGPlayerCacheManager.VGPlayerCacheConfigurationKey
             let finishedErrorKey = VGPlayerCacheManager.VGPlayerCacheErrorKey
-            let userInfo: [String : Any] = [configurationKey: configuration, finishedErrorKey: error]
-            
+            var userInfo: [String : Any] = [configurationKey: configuration]
+            if let er = error {
+                userInfo[finishedErrorKey] = er
+            }
             NotificationCenter.default.post(name: .VGPlayerCacheManagerDidFinishCache, object: self, userInfo: userInfo)
         }
         
@@ -144,12 +145,14 @@ extension VGPlayerDownloadActionWorker: VGPlayerDownloadeURLSessionManagerDelega
         }
         
         let range = NSRange(location: self.startOffset, length: data.count)
-        var error: Error?
-        do {
-            try cacheMediaWorker.cache(data, forRange: range)
-        } catch let error as Error {
-            self.delegate?.downloadActionWorker(self, didFinishWithError: error)
+        cacheMediaWorker.cache(data, forRange: range) { [weak self] (isCache) in
+            guard let strongSelf = self else { return }
+            if (!isCache) {
+                let nsError = NSError(domain: "com.vgplayer.downloadActionWorker", code: -2, userInfo: [NSLocalizedDescriptionKey: "Write cache data failed."])
+                strongSelf.delegate?.downloadActionWorker(strongSelf, didFinishWithError: nsError as Error)
+            }
         }
+        
         self.cacheMediaWorker.save()
         self.startOffset += data.count
         self.delegate?.downloadActionWorker(self, didReceive: data, isLocal: false)

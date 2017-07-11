@@ -32,7 +32,7 @@ open class VGPlayerResourceLoader: NSObject {
     }
     
     open func add(_ request: AVAssetResourceLoadingRequest) {
-        for (key, value) in self.pendingRequestWorkers {
+        for (_, value) in self.pendingRequestWorkers {
             value.cancel()
             value.finish()
         }

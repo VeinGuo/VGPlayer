@@ -335,7 +335,6 @@ extension VGPlayerView {
     }
     
     internal func configurationVolumeSlider() {
-        var slider = UISlider()
         let volumeView = MPVolumeView()
         if let view = volumeView.subviews.first as? UISlider {
             self.volumeSlider = view
@@ -518,7 +517,7 @@ extension VGPlayerView {
         self.isTimeSliding = true
         self.timer.invalidate()
         let value = self.timeSlider.value
-        if let currentDuration = self.vgPlayer?.currentDuration ,let totalDuration = self.vgPlayer?.totalDuration{
+        if let _ = self.vgPlayer?.currentDuration ,let totalDuration = self.vgPlayer?.totalDuration{
             let sliderValue = (TimeInterval(value) *  totalDuration) + TimeInterval(velocityX) / 100.0 * (TimeInterval(totalDuration) / 400)
             self.timeSlider.setValue(Float(sliderValue/totalDuration), animated: true)
             return sliderValue

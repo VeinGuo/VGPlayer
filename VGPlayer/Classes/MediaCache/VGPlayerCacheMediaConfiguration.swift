@@ -124,8 +124,8 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
 // MARK: - Update
 extension VGPlayerCacheMediaConfiguration {
     open func save() {
-        self.cacheSegmentQueue.sync() {
-            NSKeyedArchiver.archiveRootObject(self, toFile: self.filePath!)
+        self.cacheSegmentQueue.sync {
+            let _ = NSKeyedArchiver.archiveRootObject(self, toFile: self.filePath!)
         }
     }
     
@@ -168,7 +168,7 @@ extension VGPlayerCacheMediaConfiguration {
                     let endOffset = max(lastRange.location + lastRange.length, segment.location + segment.length)
                     
                     let combineRange = NSMakeRange(location, endOffset - location)
-                    indexSet.sorted(by: >).map {cacheSegments.remove(at: $0)}
+                    let _ = indexSet.sorted(by: >).map {cacheSegments.remove(at: $0)}
                     cacheSegments.insert(NSValue(range:combineRange), at: indexSet.firstIndex)
                 } else if indexSet.count == 1 {
                     let firstRange = self.cacheSegments[indexSet.firstIndex].rangeValue

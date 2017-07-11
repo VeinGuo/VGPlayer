@@ -39,7 +39,7 @@ open class VGPlayerResourceLoadingRequest: NSObject {
     }
     
     internal func loaderCancelledError() -> Error {
-        let nsError = NSError(domain: "com.resourceloader", code: -3, userInfo: [NSLocalizedDescriptionKey:"Resource loader cancelled"])
+        let nsError = NSError(domain: "com.vgplayer.resourceloader", code: -3, userInfo: [NSLocalizedDescriptionKey: "Resource loader cancelled"])
         return nsError as Error
     }
     

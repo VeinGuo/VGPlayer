@@ -76,27 +76,24 @@ open class VGPlayerCacheMediaWorker: NSObject {
         super.init()
     }
     
-    open func cache(_ data: Data, forRange range: NSRange) throws {
-        try self.writeFileQueue.sync {
-            do {
-                try self.writeFileHandle?.seek(toFileOffset: UInt64(range.location))
-                try self.writeFileHandle?.write(data)
+    open func cache(_ data: Data, forRange range: NSRange, closure: (Bool) -> Void) {
+        self.writeFileQueue.sync {
+
+            if let _ = self.writeFileHandle?.seek(toFileOffset: UInt64(range.location)),
+                let _ = self.writeFileHandle?.write(data) {
                 self.writeBytes += Double(data.count)
                 self.cacheConfiguration?.addCache(range)
-            } catch {
-                throw error
+                closure(true)
+            } else {
+                closure(false)
             }
         }
     }
     
-    open func cache(forRange range: NSRange) throws -> Data? {
-        do {
-            try self.readFileHandle?.seek(toFileOffset: UInt64(range.location))
-            let data = try self.readFileHandle?.readData(ofLength: range.length)
-            return data
-        } catch  {
-            throw error
-        }
+    open func cache(forRange range: NSRange) -> Data? {
+        self.readFileHandle?.seek(toFileOffset: UInt64(range.location))
+        let data = self.readFileHandle?.readData(ofLength: range.length)
+        return data
     }
     
     open func cachedDataActions(forRange range:NSRange) -> Array<VGPlayerCacheAction> {
@@ -169,13 +166,13 @@ open class VGPlayerCacheMediaWorker: NSObject {
         return actions
     }
     
-    open func set(cacheMedia: VGPlayerCacheMedia) throws {
+    open func set(cacheMedia: VGPlayerCacheMedia) -> Bool {
         self.cacheConfiguration?.cacheMedia = cacheMedia
-        do {
-            try self.writeFileHandle?.truncateFile(atOffset: UInt64(cacheMedia.contentLength))
-            try self.writeFileHandle?.synchronizeFile()
-        } catch {
-            throw error
+        if let _ = self.writeFileHandle?.truncateFile(atOffset: UInt64(cacheMedia.contentLength)),
+            let _ = self.writeFileHandle?.synchronizeFile(){
+            return true
+        } else {
+            return false
         }
     }
     
@@ -210,4 +207,3 @@ open class VGPlayerCacheMediaWorker: NSObject {
         self.save()
     }
 }
-

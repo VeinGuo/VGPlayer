@@ -138,12 +138,11 @@ open class VGPlayerDownloader: NSObject {
     
     internal func handleCurrentURLDownloadingError() {
         
-        do {
-            try isCurrentURLDownloading()
-        } catch {
-            self.delegate?.downloader(self, didFinishedWithError: error)
+        if isCurrentURLDownloading() {
+            let userInfo = [NSLocalizedDescriptionKey: "URL: \(self.url) alreay in downloading queue."]
+            let error = NSError(domain: "com.vgplayer.download", code: -1, userInfo: userInfo)
+            self.delegate?.downloader(self, didFinishedWithError: error as Error)
         }
-        
     }
 }
 
@@ -188,15 +187,10 @@ extension VGPlayerDownloader: VGPlayerDownloadActionWorkerDelegate {
                 }
             }
             self.cacheMedia = cacheMedia
-            var err: Error?
-            do {
-                try self.cacheMediaWorker.set(cacheMedia: cacheMedia)
-            } catch {
-                err = error
-            }
-            
-            if err != nil {
-                self.delegate?.downloader(self, didFinishedWithError: err)
+            let isSetCacheMedia = self.cacheMediaWorker.set(cacheMedia: cacheMedia)
+            if !isSetCacheMedia {
+                let nsError = NSError(domain: "com.vgplayer.cacheMedia", code: -1, userInfo: [NSLocalizedDescriptionKey:"Set cache media failed."])
+                self.delegate?.downloader(self, didFinishedWithError: nsError as Error)
                 return
             }
         }
