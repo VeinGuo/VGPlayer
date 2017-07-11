@@ -41,6 +41,7 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 - 2017-6-17 Support subtitle (format: srt & ass) v0.0.2
 - 2017-7-1 Media Cache v0.1.0
 - 2017-7-3 	fix some compiler warning, support carthage. v0.1.1
+- 2017-7-11 fix all compiler warning. v0.1.2
 
 ## Usage
 ### Play Video
