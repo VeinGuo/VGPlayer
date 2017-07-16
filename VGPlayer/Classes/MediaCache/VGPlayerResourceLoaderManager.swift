@@ -93,9 +93,10 @@ extension VGPlayerResourceLoaderManager: AVAssetResourceLoaderDelegate {
                     if let components = URLComponents(string: resourceURL.absoluteString) {
                         if let queryItem = components.queryItems {
                             let lastQueryItem = queryItem.last
-                            originURL = URL(string: (lastQueryItem?.value)!)
+                            let url = lastQueryItem?.value?.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlFragmentAllowed)
+                            originURL = URL(string: url!);
                         } else {
-                            let url = components.query?.components(separatedBy: "=").last
+                            let url = components.query?.components(separatedBy: "=").last?.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlFragmentAllowed)
                             originURL = URL(string: url!)
                         }
                         loader = VGPlayerResourceLoader(url: originURL!)
