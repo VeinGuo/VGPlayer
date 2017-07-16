@@ -3,7 +3,7 @@
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/VeinGuo/VGPlayer/blob/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/Pastel.svg?style=flat)](https://github.com/VeinGuo/VGPlayer)
-[![Cocoapod](https://img.shields.io/badge/pod-v0.1.2-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.1.2/)
+[![Cocoapod](https://img.shields.io/badge/pod-v0.1.3-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.1.3/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![Banners](https://github.com/VeinGuo/VGPlayer/blob/master/Image/Banners.png)
@@ -42,6 +42,7 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 - 2017-7-1 Media Cache v0.1.0
 - 2017-7-3 	fix some compiler warning, support carthage. v0.1.1
 - 2017-7-11 fix all compiler warning. v0.1.2
+- 2017-7-16 fix URL resolution error. v0.1.3
 
 ## Usage
 ### Play Video
