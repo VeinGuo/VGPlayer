@@ -46,9 +46,13 @@ open class VGPlayerSlider: UISlider {
         self.value = 0.0
         self.maximumTrackTintColor = UIColor.clear
         self.minimumTrackTintColor = UIColor.white
+        
         let thumbImage = VGPlayerUtils.imageResource("VGPlayer_ic_slider_thumb")
-        let newThumbImage = VGPlayerUtils.imageSize(image: thumbImage!, scaledToSize: CGSize(width: 15, height: 15))
-        self.setThumbImage(newThumbImage, for: .normal)
+        let normalThumbImage = VGPlayerUtils.imageSize(image: thumbImage!, scaledToSize: CGSize(width: 15, height: 15))
+        self.setThumbImage(normalThumbImage, for: .normal)
+        let highlightedThumbImage = VGPlayerUtils.imageSize(image: thumbImage!, scaledToSize: CGSize(width: 20, height: 20))
+        self.setThumbImage(highlightedThumbImage, for: .highlighted)
+        
         self.backgroundColor = UIColor.clear
         self.progressView.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.7988548801)
         self.progressView.trackTintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.2964201627)
