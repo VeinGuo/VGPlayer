@@ -244,12 +244,10 @@ extension VGPlayer {
     }
     
     open func play() {
-        guard state == .playing else {
-            self.player?.play()
-            self.state = .playing
-            self.displayView.play()
-            return
-        }
+        if contentURL == nil { return }
+        player?.play()
+        state = .playing
+        displayView.play()
     }
     
     open func pause() {
@@ -443,8 +441,9 @@ extension VGPlayer {
                             self.bufferState = .buffering
                             self.buffering = true
                         } else {
-                            self.buffering = false
-                            self.bufferState = .readyToPlay
+                            buffering = false
+                            bufferState = .readyToPlay
+                            play()
                         }
                     }
                     
