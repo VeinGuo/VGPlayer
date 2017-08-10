@@ -10,7 +10,7 @@ import UIKit
 
 class VGMainViewController: UITableViewController {
     
-    let dataSource = ["Normal Player", "Vertical Player", "Custom Player", "Custom Player 2"]
+    let dataSource = ["Normal Player", "Vertical Player", "Custom Player", "Custom Player 2", "Embed in cell of tableView"]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
@@ -53,8 +53,10 @@ class VGMainViewController: UITableViewController {
             performSegue(withIdentifier: "VGVerticalViewController", sender: dataSource[indexPath.row])
         } else if indexPath.row == 2 {
             performSegue(withIdentifier: "VGCustomViewController", sender: dataSource[indexPath.row])
-        } else {
+        } else if indexPath.row == 3 {
             performSegue(withIdentifier: "VGCustomViewController2", sender: dataSource[indexPath.row])
+        } else {
+            performSegue(withIdentifier: "VGEmbedTableViewController", sender: dataSource[indexPath.row])
         }
     }
 }
