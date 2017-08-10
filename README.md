@@ -16,6 +16,9 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 ![demo1](https://github.com/VeinGuo/VGPlayer/blob/master/Image/demo1.gif)
 
 ![demo2](https://github.com/VeinGuo/VGPlayer/blob/master/Image/demo2.gif)
+
+![demo3](http://ojaltanzc.bkt.clouddn.com/vgplayer_embed_in_cell.gif)
+
 ## Requirements
 -	Swift 3
 -	iOS 8.0+
