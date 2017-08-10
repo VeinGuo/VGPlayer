@@ -597,6 +597,8 @@ extension VGPlayerView {
                 self.parentView!.addSubview(self)
                 let frame = self.parentView!.convert(self.viewFrame, to: UIApplication.shared.keyWindow)
                 self.snp.remakeConstraints({ (make) in
+                    make.centerX.equalTo(self.viewFrame.midX)
+                    make.centerY.equalTo(self.viewFrame.midY)
                     make.width.equalTo(frame.width)
                     make.height.equalTo(frame.height)
                 })
