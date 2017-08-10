@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "VGPlayer"
-  s.version      = "0.1.3"
+  s.version      = "0.1.4"
   s.summary      = "A simple iOS video player in Swift"
   s.description  = "A simple iOS video player in Swift by Vein."
   
