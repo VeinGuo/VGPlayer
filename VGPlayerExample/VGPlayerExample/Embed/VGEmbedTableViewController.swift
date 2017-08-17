@@ -178,7 +178,9 @@ extension VGEmbedTableViewController {
                         }
                     } else {
                         if isViewLoaded && (view.window != nil) {
-                            addSmallScreenView()
+                            if smallScreenView.superview != UIApplication.shared.keyWindow {
+                                addSmallScreenView()
+                            }
                         }
                     }
                 }
