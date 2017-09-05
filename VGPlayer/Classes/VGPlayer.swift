@@ -433,7 +433,7 @@ extension VGPlayer {
                         
                     }
                     if let currentTime = self.playerItem?.currentTime().seconds{
-                        if (bufferTime - currentTime) >= self.bufferInterval && self.state == .playing && self.backgroundMode == .autoPlayAndPaused {
+                        if (bufferTime - currentTime) >= self.bufferInterval && self.state != .paused {
                             play()
                         }
                         
@@ -443,7 +443,6 @@ extension VGPlayer {
                         } else {
                             buffering = false
                             bufferState = .readyToPlay
-                            play()
                         }
                     }
                     
