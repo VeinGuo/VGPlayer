@@ -174,8 +174,13 @@ extension VGPlayerDownloader: VGPlayerDownloadActionWorkerDelegate {
                 if let bytes = acceptRange?.isEqual("bytes") {
                     cacheMedia.isByteRangeAccessSupported = bytes
                 }
-                let contentRange = HTTPurlResponse.allHeaderFields["Content-Range"] as? String
+                // fix swift allHeaderFields NO! case insensitive
+                let contentRange = HTTPurlResponse.allHeaderFields["content-range"] as? String
+                let contentRang = HTTPurlResponse.allHeaderFields["Content-Range"] as? String
                 if let last = contentRange?.components(separatedBy: "/").last {
+                    cacheMedia.contentLength = Int64(last)!
+                }
+                if let last = contentRang?.components(separatedBy: "/").last {
                     cacheMedia.contentLength = Int64(last)!
                 }
                 

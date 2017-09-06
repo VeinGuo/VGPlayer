@@ -35,35 +35,19 @@ open class VGPlayerResourceLoaderManager: NSObject {
     }
     
     internal func key(forResourceLoaderWithURL url: URL) -> String? {
-        if let scheme = url.scheme {
-            if scheme == kCacheScheme {
-                return url.absoluteString
-            }
-            return nil
-        }
-        return nil
+        guard url.absoluteString.hasPrefix(kCacheScheme) else { return nil }
+        return url.absoluteString
     }
     
     internal func loader(forRequest request: AVAssetResourceLoadingRequest) -> VGPlayerResourceLoader? {
-        let requestKey = key(forResourceLoaderWithURL: request.request.url!)
-        let loader = self.loaders[requestKey!]
+        guard let requestKey = key(forResourceLoaderWithURL: request.request.url!) else { return nil }
+        let loader = self.loaders[requestKey]
         return loader
     }
     
     open func assetURL(_ url: URL?) -> URL? {
-        if url == nil {
-            return nil
-        }
-        
-        var components = URLComponents(url: url!, resolvingAgainstBaseURL: false)
-        components?.scheme = kCacheScheme
-        var appendStr = "?"
-        if (components?.query?.characters.count) != nil {
-            appendStr = "&"
-        }
-        
-        let urlStr = String(format: "%@%@MCurl=%@", (components?.url?.absoluteString)!, appendStr, (url?.absoluteString)!)
-        let assetURL = URL(string: urlStr)
+        guard let assetUrl = url else { return nil }
+        let assetURL = URL(string: kCacheScheme.appending(assetUrl.absoluteString))
         return assetURL
     }
     
@@ -84,26 +68,17 @@ open class VGPlayerResourceLoaderManager: NSObject {
 extension VGPlayerResourceLoaderManager: AVAssetResourceLoaderDelegate {
     public func resourceLoader(_ resourceLoader: AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVAssetResourceLoadingRequest) -> Bool {
         if let resourceURL = loadingRequest.request.url {
-            if resourceURL.scheme == kCacheScheme {
+            if resourceURL.absoluteString.hasPrefix(kCacheScheme) {
                 var loader = self.loader(forRequest: loadingRequest)
-                
                 if loader == nil {
-                    var originURL: URL?
-                    
-                    if let components = URLComponents(string: resourceURL.absoluteString) {
-                        if let queryItem = components.queryItems {
-                            let lastQueryItem = queryItem.last
-                            let url = lastQueryItem?.value?.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlFragmentAllowed)
-                            originURL = URL(string: url!);
-                        } else {
-                            let url = components.query?.components(separatedBy: "=").last?.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlFragmentAllowed)
-                            originURL = URL(string: url!)
-                        }
-                        loader = VGPlayerResourceLoader(url: originURL!)
-                        loader?.delegate = self
-                        let key = self.key(forResourceLoaderWithURL: resourceURL)
-                        self.loaders[key!] = loader
-                    }
+                    var originURLString = resourceURL.absoluteString
+                    originURLString = originURLString.replacingOccurrences(of: kCacheScheme, with: "")
+                    let originURL = URL(string: originURLString)
+                    loader = VGPlayerResourceLoader(url: originURL!)
+                    loader?.delegate = self
+                    let key = self.key(forResourceLoaderWithURL: resourceURL)
+                    self.loaders[key!] = loader
+                    // fix https://github.com/vitoziv/VIMediaCache/pull/29
                 }
                 loader?.add(loadingRequest)
                 return true
