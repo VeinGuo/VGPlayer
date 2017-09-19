@@ -110,7 +110,7 @@ class VGCustomPlayerView: VGPlayerView {
     }
     
     
-    func onRateButton() {
+    @objc func onRateButton() {
         switch playRate {
         case 1.0:
             playRate = 1.5
@@ -123,7 +123,7 @@ class VGCustomPlayerView: VGPlayerView {
         self.vgPlayer?.player?.rate = playRate
     }
     
-    func onMirrorFlipButton(_ sender: UIButton) {
+    @objc func onMirrorFlipButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
             self.playerLayer?.transform = CATransform3DScale(CATransform3DMakeRotation(0, 0, 0, 0), -1, 1, 1)

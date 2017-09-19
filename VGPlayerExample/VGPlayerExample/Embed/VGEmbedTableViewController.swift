@@ -53,7 +53,7 @@ class VGEmbedTableViewController: UITableViewController {
         smallScreenView.addGestureRecognizer(panGesture)
     }
     
-    func onPanGesture(_ gesture: UIPanGestureRecognizer) {
+    @objc func onPanGesture(_ gesture: UIPanGestureRecognizer) {
         
         let screenBounds = UIScreen.main.bounds
         

@@ -203,7 +203,7 @@ open class VGPlayerCacheMediaWorker: NSObject {
         }
     }
     
-    internal func applicationDidEnterBackground(_ notification: Notification) {
+    @objc internal func applicationDidEnterBackground(_ notification: Notification) {
         self.save()
     }
 }

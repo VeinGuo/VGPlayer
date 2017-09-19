@@ -11,8 +11,8 @@ import Foundation
 open class VGPlayerCacheMedia: NSObject, NSCoding {
     open var contentType: String?
     open var isByteRangeAccessSupported: Bool = false
-    open var contentLength: Int64 = Int64.allZeros
-    open var downloadedLength: UInt64 = UInt64.allZeros
+    open var contentLength: Int64 = 0
+    open var downloadedLength: UInt64 = 0
     
     public override init() {
         
@@ -37,7 +37,7 @@ open class VGPlayerCacheMedia: NSObject, NSCoding {
         if let downloadedLength = aDecoder.decodeObject(forKey: "downloadedLength") as? UInt64 {
             self.downloadedLength = downloadedLength
         } else {
-            self.downloadedLength = UInt64.allZeros
+            self.downloadedLength = 0
         }
         
     }

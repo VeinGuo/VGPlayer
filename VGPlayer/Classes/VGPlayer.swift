@@ -344,14 +344,14 @@ extension VGPlayer {
     }
     
     
-    internal func playerItemDidPlayToEnd(_ notification: Notification) {
+    @objc internal func playerItemDidPlayToEnd(_ notification: Notification) {
         if self.state != .playFinished {
             self.state = .playFinished
         }
         
     }
     
-    internal func applicationWillEnterForeground(_ notification: Notification) {
+    @objc internal func applicationWillEnterForeground(_ notification: Notification) {
         
         if self.displayView.playerLayer != nil {
             self.displayView.playerLayer?.player = player
@@ -367,7 +367,7 @@ extension VGPlayer {
         }
     }
     
-    internal func applicationDidEnterBackground(_ notification: Notification) {
+    @objc internal func applicationDidEnterBackground(_ notification: Notification) {
         if self.displayView.playerLayer != nil {
             self.displayView.playerLayer?.player = nil
         }

@@ -212,13 +212,12 @@ open class VGPlayerView: UIView {
         }
     }
     
-}
-
-// MARK: - public
-extension VGPlayerView {
-    
-    open func updateDisplayerView(frame: CGRect) {
-        self.playerLayer?.frame = frame
+    open func configurationUI() {
+        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        configurationTopView()
+        configurationBottomView()
+        configurationReplayButton()
+        setupViewAutoLayout()
     }
     
     open func reloadPlayerView() {
@@ -233,19 +232,6 @@ extension VGPlayerView {
         reloadPlayerLayer()
     }
     
-    open func reloadGravity() {
-        if self.vgPlayer != nil {
-            switch self.vgPlayer!.gravityMode {
-            case .resize:
-                self.playerLayer?.videoGravity = "AVLayerVideoGravityResize"
-            case .resizeAspect:
-                self.playerLayer?.videoGravity = "AVLayerVideoGravityResizeAspect"
-            case .resizeAspectFill:
-                self.playerLayer?.videoGravity = "AVLayerVideoGravityResizeAspectFill"
-            }
-        }
-    }
-    
     /// control view display
     ///
     /// - Parameter display: is display
@@ -256,6 +242,28 @@ extension VGPlayerView {
             hiddenControlAnimation()
         }
     }
+}
+
+// MARK: - public
+extension VGPlayerView {
+    
+    open func updateDisplayerView(frame: CGRect) {
+        self.playerLayer?.frame = frame
+    }
+    
+    open func reloadGravity() {
+        if self.vgPlayer != nil {
+            switch self.vgPlayer!.gravityMode {
+            case .resize:
+                self.playerLayer?.videoGravity = .resize
+            case .resizeAspect:
+                self.playerLayer?.videoGravity = .resizeAspect
+            case .resizeAspectFill:
+                self.playerLayer?.videoGravity = .resizeAspectFill
+            }
+        }
+    }
+
     open func enterFullscreen() {
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
         if statusBarOrientation == .portrait{
@@ -381,7 +389,7 @@ extension VGPlayerView: UIGestureRecognizerDelegate {
 // MARK: - Event
 extension VGPlayerView {
     
-    internal func timeSliderValueChanged(_ sender: VGPlayerSlider) {
+    @objc internal func timeSliderValueChanged(_ sender: VGPlayerSlider) {
         self.isTimeSliding = true
         if let duration = self.vgPlayer?.totalDuration {
             let currentTime = Double(sender.value) * duration
@@ -389,12 +397,12 @@ extension VGPlayerView {
         }
     }
     
-    internal func timeSliderTouchDown(_ sender: VGPlayerSlider) {
+    @objc internal func timeSliderTouchDown(_ sender: VGPlayerSlider) {
         self.isTimeSliding = true
         self.timer.invalidate()
     }
     
-    internal func timeSliderTouchUpInside(_ sender: VGPlayerSlider) {
+    @objc internal func timeSliderTouchUpInside(_ sender: VGPlayerSlider) {
         self.isTimeSliding = true
         
         if let duration = self.vgPlayer?.totalDuration {
@@ -410,7 +418,7 @@ extension VGPlayerView {
         }
     }
     
-    internal func onPlayerButton(_ sender: UIButton) {
+    @objc internal func onPlayerButton(_ sender: UIButton) {
         if !sender.isSelected {
             self.vgPlayer?.play()
         } else {
@@ -418,7 +426,7 @@ extension VGPlayerView {
         }
     }
     
-    internal func onFullscreen(_ sender: UIButton) {
+    @objc internal func onFullscreen(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         self.isFullScreen = sender.isSelected
         if isFullScreen {
@@ -432,7 +440,7 @@ extension VGPlayerView {
     /// Single Tap Event
     ///
     /// - Parameter gesture: Single Tap Gesture
-    open func onSingleTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc open func onSingleTapGesture(_ gesture: UITapGestureRecognizer) {
         self.isDisplayControl = !self.isDisplayControl
         displayControlView(self.isDisplayControl)
     }
@@ -440,7 +448,7 @@ extension VGPlayerView {
     /// Double Tap Event
     ///
     /// - Parameter gesture: Double Tap Gesture
-    open func onDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc open func onDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
         
         guard self.vgPlayer == nil else {
             switch self.vgPlayer!.state {
@@ -462,7 +470,7 @@ extension VGPlayerView {
     /// Pan Event
     ///
     /// - Parameter gesture: Pan Gesture
-    open func onPanGesture(_ gesture: UIPanGestureRecognizer) {
+    @objc open func onPanGesture(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
         let location = gesture.location(in: self)
         let velocity = gesture.velocity(in: self)
@@ -531,16 +539,16 @@ extension VGPlayerView {
         self.isVolume ? (self.volumeSlider.value -= Float(velocityY / 10000)) : (UIScreen.main.brightness -= velocityY / 10000)
     }
 
-    internal func onCloseView(_ sender: UIButton) {
+    @objc internal func onCloseView(_ sender: UIButton) {
         delegate?.vgPlayerView(didTappedClose: self)
     }
     
-    internal func onReplay(_ sender: UIButton) {
+    @objc internal func onReplay(_ sender: UIButton) {
         self.vgPlayer?.replaceVideo((self.vgPlayer?.contentURL)!)
         self.vgPlayer?.play()
     }
     
-    internal func deviceOrientationWillChange(_ sender: Notification) {
+    @objc internal func deviceOrientationWillChange(_ sender: Notification) {
         let orientation = UIDevice.current.orientation
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
         if statusBarOrientation == .portrait{
@@ -614,15 +622,7 @@ extension VGPlayerView {
 
 //MARK: - UI autoLayout
 extension VGPlayerView {
-    
-    open func configurationUI() {
-        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        configurationTopView()
-        configurationBottomView()
-        configurationReplayButton()
-        setupViewAutoLayout()
-    }
-    
+
     internal func configurationReplayButton() {
         addSubview(self.replayButton)
         let replayImage = VGPlayerUtils.imageResource("VGPlayer_ic_replay")

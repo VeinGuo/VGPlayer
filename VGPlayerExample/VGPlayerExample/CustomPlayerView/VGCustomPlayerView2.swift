@@ -90,12 +90,12 @@ class VGCustomPlayerView2: VGPlayerView {
 
 // MARK: - Event
 extension VGCustomPlayerView2 {
-    func onNextButton(_ sender: UIButton) {
+    @objc func onNextButton(_ sender: UIButton) {
         if let callBack = nextCallBack {
             callBack()
         }
     }
-    func onSkipButton(_ sender: UIButton) {
+    @objc func onSkipButton(_ sender: UIButton) {
         if let callBack = skipCallBack {
             callBack()
         }

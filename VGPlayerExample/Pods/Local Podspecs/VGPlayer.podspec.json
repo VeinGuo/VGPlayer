@@ -1,6 +1,6 @@
 {
   "name": "VGPlayer",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "summary": "A simple iOS video player in Swift",
   "description": "A simple iOS video player in Swift by Vein.",
   "license": {
@@ -14,9 +14,12 @@
   "platforms": {
     "ios": "8.0"
   },
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "4.0"
+  },
   "source": {
     "git": "https://github.com/VeinGuo/VGPlayer.git",
-    "tag": "0.1.1"
+    "tag": "0.1.5"
   },
   "source_files": [
     "VGPlayer/Classes/*.*",
@@ -26,7 +29,7 @@
   "requires_arc": true,
   "dependencies": {
     "SnapKit": [
-      "~> 3.2.0"
+      "~> 4.0.0"
     ]
   },
   "frameworks": [
