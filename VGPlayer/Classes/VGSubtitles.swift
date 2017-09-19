@@ -59,16 +59,16 @@ open class VGSubtitles {
     public init(filePath: URL, encoding: String.Encoding = String.Encoding.utf8) {
         
         do{
-            self.subtitlesFormat = decoderSubtitlesFormat(filePath)
+            subtitlesFormat = decoderSubtitlesFormat(filePath)
             let string = try String(contentsOf: filePath, encoding: encoding)
-            self.subtitlesGroups = parseSubtitles(string)
+            subtitlesGroups = parseSubtitles(string)
         }
         catch { }
     }
     
     public func search(for time: TimeInterval) -> subtitles? {
         var result : subtitles?
-        for group in self.subtitlesGroups {
+        for group in subtitlesGroups {
             if group.start <= time && group.end >= time {
                 result = group
                 return result
@@ -79,7 +79,7 @@ open class VGSubtitles {
     
     
     fileprivate func parseSubtitles(_ payload: String) -> [subtitles]  {
-        switch self.subtitlesFormat {
+        switch subtitlesFormat {
         case .srt:
             return parseStrSubtitles(payload)!
         case .ass:

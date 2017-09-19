@@ -17,27 +17,27 @@ public struct VGPlayerDownloaderStatus {
     fileprivate let downloaderStatusQueue = DispatchQueue(label: "com.vgplayer.downloaderStatusQueue")
     
     init() {
-        self.downloadingURLs = NSMutableSet()
+        downloadingURLs = NSMutableSet()
     }
     
     public func add(URL: URL) {
-        self.downloaderStatusQueue.sync {
-            self.downloadingURLs.add(URL)
+        downloaderStatusQueue.sync {
+            downloadingURLs.add(URL)
         }
     }
     
     public func remove(URL: URL) {
-        self.downloaderStatusQueue.sync {
-            self.downloadingURLs.remove(URL)
+        downloaderStatusQueue.sync {
+            downloadingURLs.remove(URL)
         }
     }
     
     public func contains(URL: URL) -> Bool{
-        return self.downloadingURLs.contains(URL)
+        return downloadingURLs.contains(URL)
     }
     
     public func urls() -> NSSet {
-        return self.downloadingURLs.copy() as! NSSet
+        return downloadingURLs.copy() as! NSSet
     }
 }
 
@@ -70,13 +70,13 @@ open class VGPlayerDownloader: NSObject {
     fileprivate var actionWorker: VGPlayerDownloadActionWorker?
     
     deinit {
-        VGPlayerDownloaderStatus.shared.remove(URL: self.url)
+        VGPlayerDownloaderStatus.shared.remove(URL: url)
     }
     
     public init(url: URL) {
         self.url = url
-        self.cacheMediaWorker = VGPlayerCacheMediaWorker(url: url)
-        self.cacheMedia = self.cacheMediaWorker.cacheConfiguration?.cacheMedia
+        cacheMediaWorker = VGPlayerCacheMediaWorker(url: url)
+        cacheMedia = cacheMediaWorker.cacheConfiguration?.cacheMedia
         super.init()
     }
     
@@ -89,59 +89,59 @@ open class VGPlayerDownloader: NSObject {
         
         var range = NSRange(location: Int(fromOffset), length: length)
         if isEnd {
-            if let contentLength = self.cacheMediaWorker.cacheConfiguration?.cacheMedia?.contentLength {
+            if let contentLength = cacheMediaWorker.cacheConfiguration?.cacheMedia?.contentLength {
                 range.length = Int(contentLength) - range.location
             } else {
                 range.length = 0 - range.location
             }
             
         }
-        let actions = self.cacheMediaWorker.cachedDataActions(forRange: range)
-        self.actionWorker = VGPlayerDownloadActionWorker(actions: actions, url: self.url, cacheMediaWorker: self.cacheMediaWorker)
-        self.actionWorker?.delegate = self
-        self.actionWorker?.start()
+        let actions = cacheMediaWorker.cachedDataActions(forRange: range)
+        actionWorker = VGPlayerDownloadActionWorker(actions: actions, url: url, cacheMediaWorker: cacheMediaWorker)
+        actionWorker?.delegate = self
+        actionWorker?.start()
     }
     open func dowloadFrameStartToEnd() {
         if isCurrentURLDownloading() {
             handleCurrentURLDownloadingError()
             return
         }
-        VGPlayerDownloaderStatus.shared.add(URL: self.url)
+        VGPlayerDownloaderStatus.shared.add(URL: url)
         
-        self.isDownloadToEnd = true
+        isDownloadToEnd = true
         let range = NSRange(location: 0, length: 2)
-        let actions = self.cacheMediaWorker.cachedDataActions(forRange: range)
-        self.actionWorker = VGPlayerDownloadActionWorker(actions: actions, url: self.url, cacheMediaWorker: self.cacheMediaWorker)
-        self.actionWorker?.delegate = self
-        self.actionWorker?.start()
+        let actions = cacheMediaWorker.cachedDataActions(forRange: range)
+        actionWorker = VGPlayerDownloadActionWorker(actions: actions, url: url, cacheMediaWorker: cacheMediaWorker)
+        actionWorker?.delegate = self
+        actionWorker?.start()
         
         
     }
     open func cancel() {
-        VGPlayerDownloaderStatus.shared.remove(URL: self.url)
-        self.actionWorker?.cancel()
-        self.actionWorker?.delegate = nil
-        self.actionWorker = nil
+        VGPlayerDownloaderStatus.shared.remove(URL: url)
+        actionWorker?.cancel()
+        actionWorker?.delegate = nil
+        actionWorker = nil
     }
     
     open func invalidateAndCancel() {
-        VGPlayerDownloaderStatus.shared.remove(URL: self.url)
-        self.actionWorker?.cancel()
-        self.actionWorker?.delegate = nil
-        self.actionWorker = nil
+        VGPlayerDownloaderStatus.shared.remove(URL: url)
+        actionWorker?.cancel()
+        actionWorker?.delegate = nil
+        actionWorker = nil
     }
     
     // check
     internal func isCurrentURLDownloading() -> Bool {
-        return VGPlayerDownloaderStatus.shared.contains(URL: self.url)
+        return VGPlayerDownloaderStatus.shared.contains(URL: url)
     }
     
     internal func handleCurrentURLDownloadingError() {
         
         if isCurrentURLDownloading() {
-            let userInfo = [NSLocalizedDescriptionKey: "URL: \(self.url) alreay in downloading queue."]
+            let userInfo = [NSLocalizedDescriptionKey: "URL: \(url) alreay in downloading queue."]
             let error = NSError(domain: "com.vgplayer.download", code: -1, userInfo: userInfo)
-            self.delegate?.downloader(self, didFinishedWithError: error as Error)
+            delegate?.downloader(self, didFinishedWithError: error as Error)
         }
     }
 }
@@ -150,22 +150,22 @@ open class VGPlayerDownloader: NSObject {
 extension VGPlayerDownloader: VGPlayerDownloadActionWorkerDelegate {
     
     public func downloadActionWorker(_ actionWorker: VGPlayerDownloadActionWorker, didFinishWithError error: Error?) {
-        VGPlayerDownloaderStatus.shared.remove(URL: self.url)
-        if error == nil && self.isDownloadToEnd {
-            self.isDownloadToEnd = false
-            let length = (self.cacheMediaWorker.cacheConfiguration?.cacheMedia?.contentLength)! - 2
+        VGPlayerDownloaderStatus.shared.remove(URL: url)
+        if error == nil && isDownloadToEnd {
+            isDownloadToEnd = false
+            let length = (cacheMediaWorker.cacheConfiguration?.cacheMedia?.contentLength)! - 2
             dowloaderTask(2, Int(length), true)
         } else {
-            self.delegate?.downloader(self, didFinishedWithError: error)
+            delegate?.downloader(self, didFinishedWithError: error)
         }
     }
     
     public func downloadActionWorker(_ actionWorker: VGPlayerDownloadActionWorker, didReceive data: Data, isLocal: Bool) {
-        self.delegate?.downloader(self, didReceiveData: data)
+        delegate?.downloader(self, didReceiveData: data)
     }
     
     public func downloadActionWorker(_ actionWorker: VGPlayerDownloadActionWorker, didReceive response: URLResponse) {
-        if self.cacheMedia == nil {
+        if cacheMedia == nil {
             let cacheMedia = VGPlayerCacheMedia()
             if response.isKind(of: HTTPURLResponse.classForCoder()) {
                 
@@ -192,14 +192,14 @@ extension VGPlayerDownloader: VGPlayerDownloadActionWorkerDelegate {
                 }
             }
             self.cacheMedia = cacheMedia
-            let isSetCacheMedia = self.cacheMediaWorker.set(cacheMedia: cacheMedia)
+            let isSetCacheMedia = cacheMediaWorker.set(cacheMedia: cacheMedia)
             if !isSetCacheMedia {
                 let nsError = NSError(domain: "com.vgplayer.cacheMedia", code: -1, userInfo: [NSLocalizedDescriptionKey:"Set cache media failed."])
-                self.delegate?.downloader(self, didFinishedWithError: nsError as Error)
+                delegate?.downloader(self, didFinishedWithError: nsError as Error)
                 return
             }
         }
-        self.delegate?.downloader(self, didReceiveResponse: response)
+        delegate?.downloader(self, didReceiveResponse: response)
     }
     
     

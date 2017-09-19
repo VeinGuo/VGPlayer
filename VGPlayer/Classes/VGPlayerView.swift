@@ -143,10 +143,10 @@ open class VGPlayerView: UIView {
     }
     
     open func reloadPlayerLayer() {
-        self.playerLayer = AVPlayerLayer(player: self.vgPlayer?.player)
-        self.layer.insertSublayer(self.playerLayer!, at: 0)
-        self.updateDisplayerView(frame: self.bounds)
-        self.timeSlider.isUserInteractionEnabled = self.vgPlayer?.mediaFormat != .m3u8
+        playerLayer = AVPlayerLayer(player: self.vgPlayer?.player)
+        layer.insertSublayer(self.playerLayer!, at: 0)
+        updateDisplayerView(frame: self.bounds)
+        timeSlider.isUserInteractionEnabled = vgPlayer?.mediaFormat != .m3u8
         reloadGravity()
     }
     
@@ -155,14 +155,14 @@ open class VGPlayerView: UIView {
     ///
     /// - Parameter state: state
     open func playStateDidChange(_ state: VGPlayerState) {
-        self.playButtion.isSelected = state == .playing
-        self.replayButton.isHidden = !(state == .playFinished)
-        self.replayButton.isHidden = !(state == .playFinished)
+        playButtion.isSelected = state == .playing
+        replayButton.isHidden = !(state == .playFinished)
+        replayButton.isHidden = !(state == .playFinished)
         if state == .playing || state == .playFinished {
             setupTimer()
         }
         if state == .playFinished {
-            self.loadingIndicator.isHidden = true
+            loadingIndicator.isHidden = true
         }
     }
     
@@ -171,19 +171,19 @@ open class VGPlayerView: UIView {
     /// - Parameter state: buffer state
     open func bufferStateDidChange(_ state: VGPlayerBufferstate) {
         if state == .buffering {
-            self.loadingIndicator.isHidden = false
-            self.loadingIndicator.startAnimating()
+            loadingIndicator.isHidden = false
+            loadingIndicator.startAnimating()
         } else {
-            self.loadingIndicator.isHidden = true
-            self.loadingIndicator.stopAnimating()
+            loadingIndicator.isHidden = true
+            loadingIndicator.stopAnimating()
         }
         
-        var current = formatSecondsToString((self.vgPlayer?.currentDuration)!)
-        if (self.vgPlayer?.totalDuration.isNaN)! {  // HLS
+        var current = formatSecondsToString((vgPlayer?.currentDuration)!)
+        if (vgPlayer?.totalDuration.isNaN)! {  // HLS
             current = "00:00"
         }
         if state == .readyToPlay && !isTimeSliding {
-            self.timeLabel.text = "\(current + " / " +  (formatSecondsToString((self.vgPlayer?.totalDuration)!)))"
+            timeLabel.text = "\(current + " / " +  (formatSecondsToString((vgPlayer?.totalDuration)!)))"
         }
     }
     
@@ -193,7 +193,7 @@ open class VGPlayerView: UIView {
     ///   - bufferedDuration: buffer duration
     ///   - totalDuration: total duratiom
     open func bufferedDidChange(_ bufferedDuration: TimeInterval, totalDuration: TimeInterval) {
-        self.timeSlider.setProgress(Float(bufferedDuration / totalDuration), animated: true)
+        timeSlider.setProgress(Float(bufferedDuration / totalDuration), animated: true)
     }
     
     /// player diration
@@ -207,13 +207,13 @@ open class VGPlayerView: UIView {
             current = "00:00"
         }
         if !isTimeSliding {
-            self.timeLabel.text = "\(current + " / " +  (formatSecondsToString(totalDuration)))"
-            self.timeSlider.value = Float(currentDuration / totalDuration)
+            timeLabel.text = "\(current + " / " +  (formatSecondsToString(totalDuration)))"
+            timeSlider.value = Float(currentDuration / totalDuration)
         }
     }
     
     open func configurationUI() {
-        self.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         configurationTopView()
         configurationBottomView()
         configurationReplayButton()
@@ -221,14 +221,14 @@ open class VGPlayerView: UIView {
     }
     
     open func reloadPlayerView() {
-        self.playerLayer = AVPlayerLayer(player: nil)
-        self.timeSlider.value = Float(0)
-        self.timeSlider.setProgress(0, animated: false)
-        self.replayButton.isHidden = true
-        self.isTimeSliding = false
-        self.loadingIndicator.isHidden = false
-        self.loadingIndicator.startAnimating()
-        self.timeLabel.text = "--:-- / --:--"
+        playerLayer = AVPlayerLayer(player: nil)
+        timeSlider.value = Float(0)
+        timeSlider.setProgress(0, animated: false)
+        replayButton.isHidden = true
+        isTimeSliding = false
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        timeLabel.text = "--:-- / --:--"
         reloadPlayerLayer()
     }
     
@@ -248,18 +248,18 @@ open class VGPlayerView: UIView {
 extension VGPlayerView {
     
     open func updateDisplayerView(frame: CGRect) {
-        self.playerLayer?.frame = frame
+        playerLayer?.frame = frame
     }
     
     open func reloadGravity() {
-        if self.vgPlayer != nil {
-            switch self.vgPlayer!.gravityMode {
+        if vgPlayer != nil {
+            switch vgPlayer!.gravityMode {
             case .resize:
-                self.playerLayer?.videoGravity = .resize
+                playerLayer?.videoGravity = .resize
             case .resizeAspect:
-                self.playerLayer?.videoGravity = .resizeAspect
+                playerLayer?.videoGravity = .resizeAspect
             case .resizeAspectFill:
-                self.playerLayer?.videoGravity = .resizeAspectFill
+                playerLayer?.videoGravity = .resizeAspectFill
             }
         }
     }
@@ -267,8 +267,8 @@ extension VGPlayerView {
     open func enterFullscreen() {
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
         if statusBarOrientation == .portrait{
-            self.parentView = (self.superview)!
-            self.viewFrame = self.frame
+            parentView = (self.superview)!
+            viewFrame = self.frame
         }
         UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         UIApplication.shared.statusBarOrientation = .landscapeRight
@@ -302,17 +302,17 @@ extension VGPlayerView {
 extension VGPlayerView {
     
     internal func play() {
-        self.playButtion.isSelected = true
+        playButtion.isSelected = true
     }
     
     internal func pause() {
-        self.playButtion.isSelected = false
+        playButtion.isSelected = false
     }
     
     internal func displayControlAnimation() {
-        self.bottomView.isHidden = false
-        self.topView.isHidden = false
-        self.isDisplayControl = true
+        bottomView.isHidden = false
+        topView.isHidden = false
+        isDisplayControl = true
         UIView.animate(withDuration: 0.5, animations: {
             self.bottomView.alpha = 1
             self.topView.alpha = 1
@@ -321,8 +321,8 @@ extension VGPlayerView {
         }
     }
     internal func hiddenControlAnimation() {
-        self.timer.invalidate()
-        self.isDisplayControl = false
+        timer.invalidate()
+        isDisplayControl = false
         UIView.animate(withDuration: 0.5, animations: {
             self.bottomView.alpha = 0
             self.topView.alpha = 0
@@ -332,8 +332,8 @@ extension VGPlayerView {
         }
     }
     internal func setupTimer() {
-        self.timer.invalidate()
-        self.timer = Timer.vgPlayer_scheduledTimerWithTimeInterval(self.controlViewDuration, block: {  [weak self]  in
+        timer.invalidate()
+        timer = Timer.vgPlayer_scheduledTimerWithTimeInterval(self.controlViewDuration, block: {  [weak self]  in
             guard let strongSelf = self else { return }
             strongSelf.displayControlView(false)
         }, repeats: false)
@@ -345,7 +345,7 @@ extension VGPlayerView {
     internal func configurationVolumeSlider() {
         let volumeView = MPVolumeView()
         if let view = volumeView.subviews.first as? UISlider {
-            self.volumeSlider = view
+            volumeSlider = view
         }
     }
 }
@@ -355,23 +355,23 @@ extension VGPlayerView {
 extension VGPlayerView {
     
     internal func addGestureRecognizer() {
-        self.singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onSingleTapGesture(_:)))
-        self.singleTapGesture.numberOfTapsRequired = 1
-        self.singleTapGesture.numberOfTouchesRequired = 1
-        self.singleTapGesture.delegate = self
-        addGestureRecognizer(self.singleTapGesture)
+        singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onSingleTapGesture(_:)))
+        singleTapGesture.numberOfTapsRequired = 1
+        singleTapGesture.numberOfTouchesRequired = 1
+        singleTapGesture.delegate = self
+        addGestureRecognizer(singleTapGesture)
         
-        self.doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDoubleTapGesture(_:)))
-        self.doubleTapGesture.numberOfTapsRequired = 2
-        self.doubleTapGesture.numberOfTouchesRequired = 1
-        self.doubleTapGesture.delegate = self
-        addGestureRecognizer(self.doubleTapGesture)
+        doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDoubleTapGesture(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.numberOfTouchesRequired = 1
+        doubleTapGesture.delegate = self
+        addGestureRecognizer(doubleTapGesture)
         
-        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPanGesture(_:)))
-        self.panGesture.delegate = self
-        addGestureRecognizer(self.panGesture)
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPanGesture(_:)))
+        panGesture.delegate = self
+        addGestureRecognizer(panGesture)
         
-        self.singleTapGesture.require(toFail: doubleTapGesture)
+        singleTapGesture.require(toFail: doubleTapGesture)
     }
     
 }
@@ -390,45 +390,45 @@ extension VGPlayerView: UIGestureRecognizerDelegate {
 extension VGPlayerView {
     
     @objc internal func timeSliderValueChanged(_ sender: VGPlayerSlider) {
-        self.isTimeSliding = true
-        if let duration = self.vgPlayer?.totalDuration {
+        isTimeSliding = true
+        if let duration = vgPlayer?.totalDuration {
             let currentTime = Double(sender.value) * duration
-            self.timeLabel.text = "\(formatSecondsToString(currentTime) + " / " +  (formatSecondsToString(duration)))"
+            timeLabel.text = "\(formatSecondsToString(currentTime) + " / " +  (formatSecondsToString(duration)))"
         }
     }
     
     @objc internal func timeSliderTouchDown(_ sender: VGPlayerSlider) {
-        self.isTimeSliding = true
-        self.timer.invalidate()
+        isTimeSliding = true
+        timer.invalidate()
     }
     
     @objc internal func timeSliderTouchUpInside(_ sender: VGPlayerSlider) {
-        self.isTimeSliding = true
+        isTimeSliding = true
         
-        if let duration = self.vgPlayer?.totalDuration {
+        if let duration = vgPlayer?.totalDuration {
             let currentTime = Double(sender.value) * duration
-            self.vgPlayer?.seekTime(currentTime, completion: { [weak self] (finished) in
+            vgPlayer?.seekTime(currentTime, completion: { [weak self] (finished) in
                 guard let strongSelf = self else { return }
                 if finished {
                     strongSelf.isTimeSliding = false
                     strongSelf.setupTimer()
                 }
             })
-            self.timeLabel.text = "\(formatSecondsToString(currentTime) + " / " +  (formatSecondsToString(duration)))"
+            timeLabel.text = "\(formatSecondsToString(currentTime) + " / " +  (formatSecondsToString(duration)))"
         }
     }
     
     @objc internal func onPlayerButton(_ sender: UIButton) {
         if !sender.isSelected {
-            self.vgPlayer?.play()
+            vgPlayer?.play()
         } else {
-            self.vgPlayer?.pause()
+            vgPlayer?.pause()
         }
     }
     
     @objc internal func onFullscreen(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        self.isFullScreen = sender.isSelected
+        isFullScreen = sender.isSelected
         if isFullScreen {
             enterFullscreen()
         } else {
@@ -441,8 +441,8 @@ extension VGPlayerView {
     ///
     /// - Parameter gesture: Single Tap Gesture
     @objc open func onSingleTapGesture(_ gesture: UITapGestureRecognizer) {
-        self.isDisplayControl = !self.isDisplayControl
-        displayControlView(self.isDisplayControl)
+        isDisplayControl = !isDisplayControl
+        displayControlView(isDisplayControl)
     }
     
     /// Double Tap Event
@@ -450,14 +450,14 @@ extension VGPlayerView {
     /// - Parameter gesture: Double Tap Gesture
     @objc open func onDoubleTapGesture(_ gesture: UITapGestureRecognizer) {
         
-        guard self.vgPlayer == nil else {
-            switch self.vgPlayer!.state {
+        guard vgPlayer == nil else {
+            switch vgPlayer!.state {
             case .playFinished:
                 break
             case .playing:
-                self.vgPlayer?.pause()
+                vgPlayer?.pause()
             case .paused:
-                self.vgPlayer?.play()
+                vgPlayer?.play()
             case .none:
                 break
             case .error:
@@ -479,31 +479,31 @@ extension VGPlayerView {
             let x = fabs(translation.x)
             let y = fabs(translation.y)
             if x < y {
-                self.panGestureDirection = .vertical
-                if location.x > self.bounds.width / 2 {
-                    self.isVolume = true
+                panGestureDirection = .vertical
+                if location.x > bounds.width / 2 {
+                    isVolume = true
                 } else {
-                    self.isVolume = false
+                    isVolume = false
                 }
             } else if x > y{
                 guard vgPlayer?.mediaFormat == .m3u8 else {
-                    self.panGestureDirection = .horizontal
+                    panGestureDirection = .horizontal
                     return
                 }
             }
         case .changed:
-            switch self.panGestureDirection {
+            switch panGestureDirection {
             case .horizontal:
-                if self.vgPlayer?.currentDuration == 0 { break }
-                self.sliderSeekTimeValue = panGestureHorizontal(velocity.x)
+                if vgPlayer?.currentDuration == 0 { break }
+                sliderSeekTimeValue = panGestureHorizontal(velocity.x)
             case .vertical:
                 panGestureVertical(velocity.y)
             }
         case .ended:
-            switch self.panGestureDirection{
+            switch panGestureDirection{
             case .horizontal:
                 if sliderSeekTimeValue.isNaN { return }
-                self.vgPlayer?.seekTime(self.sliderSeekTimeValue, completion: { [weak self] (finished) in
+                self.vgPlayer?.seekTime(sliderSeekTimeValue, completion: { [weak self] (finished) in
                     guard let strongSelf = self else { return }
                     if finished {
                         
@@ -512,7 +512,7 @@ extension VGPlayerView {
                     }
                 })
             case .vertical:
-                self.isVolume = false
+                isVolume = false
             }
             
         default:
@@ -521,13 +521,13 @@ extension VGPlayerView {
     }
     
     internal func panGestureHorizontal(_ velocityX: CGFloat) -> TimeInterval {
-        self.displayControlView(true)
-        self.isTimeSliding = true
-        self.timer.invalidate()
-        let value = self.timeSlider.value
-        if let _ = self.vgPlayer?.currentDuration ,let totalDuration = self.vgPlayer?.totalDuration{
+        displayControlView(true)
+        isTimeSliding = true
+        timer.invalidate()
+        let value = timeSlider.value
+        if let _ = vgPlayer?.currentDuration ,let totalDuration = vgPlayer?.totalDuration {
             let sliderValue = (TimeInterval(value) *  totalDuration) + TimeInterval(velocityX) / 100.0 * (TimeInterval(totalDuration) / 400)
-            self.timeSlider.setValue(Float(sliderValue/totalDuration), animated: true)
+            timeSlider.setValue(Float(sliderValue/totalDuration), animated: true)
             return sliderValue
         } else {
             return TimeInterval.nan
@@ -536,7 +536,7 @@ extension VGPlayerView {
     }
     
     internal func panGestureVertical(_ velocityY: CGFloat) {
-        self.isVolume ? (self.volumeSlider.value -= Float(velocityY / 10000)) : (UIScreen.main.brightness -= velocityY / 10000)
+        isVolume ? (volumeSlider.value -= Float(velocityY / 10000)) : (UIScreen.main.brightness -= velocityY / 10000)
     }
 
     @objc internal func onCloseView(_ sender: UIButton) {
@@ -544,17 +544,17 @@ extension VGPlayerView {
     }
     
     @objc internal func onReplay(_ sender: UIButton) {
-        self.vgPlayer?.replaceVideo((self.vgPlayer?.contentURL)!)
-        self.vgPlayer?.play()
+        vgPlayer?.replaceVideo((vgPlayer?.contentURL)!)
+        vgPlayer?.play()
     }
     
     @objc internal func deviceOrientationWillChange(_ sender: Notification) {
         let orientation = UIDevice.current.orientation
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
         if statusBarOrientation == .portrait{
-            if self.superview != nil {
-                self.parentView = (self.superview)!
-                self.viewFrame = self.frame
+            if superview != nil {
+                parentView = (superview)!
+                viewFrame = frame
             }
         }
         switch orientation {
@@ -578,9 +578,9 @@ extension VGPlayerView {
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
         if orientation == statusBarOrientation {
             if orientation == .landscapeLeft || orientation == .landscapeLeft {
-                let rectInWindow = self.convert(self.bounds, to: UIApplication.shared.keyWindow)
-                self.removeFromSuperview()
-                self.frame = rectInWindow
+                let rectInWindow = convert(bounds, to: UIApplication.shared.keyWindow)
+                removeFromSuperview()
+                frame = rectInWindow
                 UIApplication.shared.keyWindow?.addSubview(self)
                 self.snp.remakeConstraints({ [weak self] (make) in
                     guard let strongSelf = self else { return }
@@ -590,9 +590,9 @@ extension VGPlayerView {
             }
         } else {
             if orientation == .landscapeLeft || orientation == .landscapeRight {
-                let rectInWindow = self.convert(self.bounds, to: UIApplication.shared.keyWindow)
-                self.removeFromSuperview()
-                self.frame = rectInWindow
+                let rectInWindow = convert(bounds, to: UIApplication.shared.keyWindow)
+                removeFromSuperview()
+                frame = rectInWindow
                 UIApplication.shared.keyWindow?.addSubview(self)
                 self.snp.remakeConstraints({ [weak self] (make) in
                     guard let strongSelf = self else { return }
@@ -600,23 +600,23 @@ extension VGPlayerView {
                     make.height.equalTo(strongSelf.superview!.bounds.width)
                 })
             } else if orientation == .portrait{
-                if self.parentView == nil { return }
-                self.removeFromSuperview()
-                self.parentView!.addSubview(self)
-                let frame = self.parentView!.convert(self.viewFrame, to: UIApplication.shared.keyWindow)
+                if parentView == nil { return }
+                removeFromSuperview()
+                parentView!.addSubview(self)
+                let frame = parentView!.convert(viewFrame, to: UIApplication.shared.keyWindow)
                 self.snp.remakeConstraints({ (make) in
-                    make.centerX.equalTo(self.viewFrame.midX)
-                    make.centerY.equalTo(self.viewFrame.midY)
+                    make.centerX.equalTo(viewFrame.midX)
+                    make.centerY.equalTo(viewFrame.midY)
                     make.width.equalTo(frame.width)
                     make.height.equalTo(frame.height)
                 })
-                self.viewFrame = CGRect()
-                self.parentView = nil
+                viewFrame = CGRect()
+                parentView = nil
             }
         }
-        self.isFullScreen = fullScreen
-        self.fullscreenButton.isSelected = fullScreen
-        delegate?.vgPlayerView(self, willFullscreen: self.isFullScreen)
+        isFullScreen = fullScreen
+        fullscreenButton.isSelected = fullScreen
+        delegate?.vgPlayerView(self, willFullscreen: isFullScreen)
     }
 }
 
@@ -626,52 +626,52 @@ extension VGPlayerView {
     internal func configurationReplayButton() {
         addSubview(self.replayButton)
         let replayImage = VGPlayerUtils.imageResource("VGPlayer_ic_replay")
-        self.replayButton.setImage(VGPlayerUtils.imageSize(image: replayImage!, scaledToSize: CGSize(width: 30, height: 30)), for: .normal)
-        self.replayButton.addTarget(self, action: #selector(onReplay(_:)), for: .touchUpInside)
-        self.replayButton.isHidden = true
+        replayButton.setImage(VGPlayerUtils.imageSize(image: replayImage!, scaledToSize: CGSize(width: 30, height: 30)), for: .normal)
+        replayButton.addTarget(self, action: #selector(onReplay(_:)), for: .touchUpInside)
+        replayButton.isHidden = true
     }
     
     internal func configurationTopView() {
-        addSubview(self.topView)
-        self.titleLabel.text = "this is a title."
-        self.topView.addSubview(self.titleLabel)
+        addSubview(topView)
+        titleLabel.text = "this is a title."
+        topView.addSubview(titleLabel)
         let closeImage = VGPlayerUtils.imageResource("VGPlayer_ic_nav_back")
-        self.closeButton.setImage(VGPlayerUtils.imageSize(image: closeImage!, scaledToSize: CGSize(width: 15, height: 20)), for: .normal)
-        self.closeButton.addTarget(self, action: #selector(onCloseView(_:)), for: .touchUpInside)
-        self.topView.addSubview(self.closeButton)
+        closeButton.setImage(VGPlayerUtils.imageSize(image: closeImage!, scaledToSize: CGSize(width: 15, height: 20)), for: .normal)
+        closeButton.addTarget(self, action: #selector(onCloseView(_:)), for: .touchUpInside)
+        topView.addSubview(closeButton)
     }
     
     internal func configurationBottomView() {
-        addSubview(self.bottomView)
-        self.timeSlider.addTarget(self, action: #selector(timeSliderValueChanged(_:)),
+        addSubview(bottomView)
+        timeSlider.addTarget(self, action: #selector(timeSliderValueChanged(_:)),
                              for: .valueChanged)
-        self.timeSlider.addTarget(self, action: #selector(timeSliderTouchUpInside(_:)), for: .touchUpInside)
-        self.timeSlider.addTarget(self, action: #selector(timeSliderTouchDown(_:)), for: .touchDown)
-        self.loadingIndicator.lineWidth = 1.0
-        self.loadingIndicator.isHidden = false
-        self.loadingIndicator.startAnimating()
-        addSubview(self.loadingIndicator)
-        self.bottomView.addSubview(self.timeSlider)
+        timeSlider.addTarget(self, action: #selector(timeSliderTouchUpInside(_:)), for: .touchUpInside)
+        timeSlider.addTarget(self, action: #selector(timeSliderTouchDown(_:)), for: .touchDown)
+        loadingIndicator.lineWidth = 1.0
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        addSubview(loadingIndicator)
+        bottomView.addSubview(timeSlider)
         
         let playImage = VGPlayerUtils.imageResource("VGPlayer_ic_play")
         let pauseImage = VGPlayerUtils.imageResource("VGPlayer_ic_pause")
-        self.playButtion.setImage(VGPlayerUtils.imageSize(image: playImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .normal)
-        self.playButtion.setImage(VGPlayerUtils.imageSize(image: pauseImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .selected)
-        self.playButtion.addTarget(self, action: #selector(onPlayerButton(_:)), for: .touchUpInside)
-        self.bottomView.addSubview(self.playButtion)
+        playButtion.setImage(VGPlayerUtils.imageSize(image: playImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .normal)
+        playButtion.setImage(VGPlayerUtils.imageSize(image: pauseImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .selected)
+        playButtion.addTarget(self, action: #selector(onPlayerButton(_:)), for: .touchUpInside)
+        bottomView.addSubview(playButtion)
         
-        self.timeLabel.textAlignment = .center
-        self.timeLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.timeLabel.font = UIFont.systemFont(ofSize: 12.0)
-        self.timeLabel.text = "--:-- / --:--"
-        self.bottomView.addSubview(self.timeLabel)
+        timeLabel.textAlignment = .center
+        timeLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        timeLabel.font = UIFont.systemFont(ofSize: 12.0)
+        timeLabel.text = "--:-- / --:--"
+        bottomView.addSubview(timeLabel)
         
         let enlargeImage = VGPlayerUtils.imageResource("VGPlayer_ic_fullscreen")
         let narrowImage = VGPlayerUtils.imageResource("VGPlayer_ic_fullscreen_exit")
-        self.fullscreenButton.setImage(VGPlayerUtils.imageSize(image: enlargeImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .normal)
-        self.fullscreenButton.setImage(VGPlayerUtils.imageSize(image: narrowImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .selected)
-        self.fullscreenButton.addTarget(self, action: #selector(onFullscreen(_:)), for: .touchUpInside)
-        self.bottomView.addSubview(self.fullscreenButton)
+        fullscreenButton.setImage(VGPlayerUtils.imageSize(image: enlargeImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .normal)
+        fullscreenButton.setImage(VGPlayerUtils.imageSize(image: narrowImage!, scaledToSize: CGSize(width: 15, height: 15)), for: .selected)
+        fullscreenButton.addTarget(self, action: #selector(onFullscreen(_:)), for: .touchUpInside)
+        bottomView.addSubview(fullscreenButton)
         
     }
     

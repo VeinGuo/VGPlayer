@@ -36,59 +36,59 @@ open class VGPlayerDownloadActionWorker: NSObject {
         self.cacheMediaWorker = cacheMediaWorker
         self.url = url
         super.init()
-        self.downloadURLSessionManager = VGPlayerDownloadURLSessionManager(delegate: self)
+        downloadURLSessionManager = VGPlayerDownloadURLSessionManager(delegate: self)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfiguration, delegate: downloadURLSessionManager, delegateQueue: VGPlayerCacheSession.shared.downloadQueue)
         self.session = session
     }
     
     deinit {
-        self.cancel()
+        cancel()
     }
     
     open func start() {
-        self.processActions()
+        processActions()
     }
     
     open func cancel() {
-        if self.session != nil {
-            self.session?.invalidateAndCancel()
+        if session != nil {
+            session?.invalidateAndCancel()
         }
-        self.isCancelled = true
+        isCancelled = true
     }
     
     internal func processActions() {
-        if self.isCancelled {
+        if isCancelled {
             return
         }
-        let firstAction = self.actions.first
+        let firstAction = actions.first
         if firstAction == nil {
-            self.delegate?.downloadActionWorker(self, didFinishWithError: nil)
+            delegate?.downloadActionWorker(self, didFinishWithError: nil)
             return
         }
         
         self.actions.remove(at: 0)
         if let action = firstAction {
             if action.type == .local { // local
-                if let data = self.cacheMediaWorker.cache(forRange: action.range) {
-                    self.delegate?.downloadActionWorker(self, didReceive: data, isLocal: true)
-                    self.processActions()
+                if let data = cacheMediaWorker.cache(forRange: action.range) {
+                    delegate?.downloadActionWorker(self, didReceive: data, isLocal: true)
+                    processActions()
                 } else {
                     let nsError = NSError(domain: "com.vgplayer.downloadActionWorker", code: -1, userInfo: [NSLocalizedDescriptionKey: "Read cache data failed."])
-                    self.delegate?.downloadActionWorker(self, didFinishWithError: nsError as Error)
+                    delegate?.downloadActionWorker(self, didFinishWithError: nsError as Error)
                 }
                 
             } else {    // remote
                 let fromOffset = action.range.location
                 let endOffset = action.range.location + action.range.length - 1
-                var request = URLRequest(url: self.url)
+                var request = URLRequest(url: url)
                 request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData //   local and remote cache policy 缓存策略
                 let range = String(format: "bytes=%lld-%lld", fromOffset, endOffset)
                 request.setValue(range, forHTTPHeaderField: "Range")        // set HTTP Header
                 
-                self.startOffset = action.range.location
-                self.task = self.session?.dataTask(with: request)
-                self.task?.resume()                                 // star download
+                startOffset = action.range.location
+                task = self.session?.dataTask(with: request)
+                task?.resume()                                 // star download
             }
         }
     }
@@ -96,14 +96,14 @@ open class VGPlayerDownloadActionWorker: NSObject {
     internal func notify(downloadProgressWithFlush isFlush: Bool, isFinished: Bool) {
         let currentTime = CFAbsoluteTimeGetCurrent()  // Returns the current system absolute time.
         let interval = VGPlayerCacheManager.mediaCacheNotifyInterval
-        if self.notifyTime < currentTime - interval || isFlush {
-            if let configuration = self.cacheMediaWorker.cacheConfiguration?.copy() {
+        if notifyTime < currentTime - interval || isFlush {
+            if let configuration = cacheMediaWorker.cacheConfiguration?.copy() {
                 let configurationKey = VGPlayerCacheManager.VGPlayerCacheConfigurationKey
                 let userInfo = [configurationKey: configuration]
                 NotificationCenter.default.post(name: .VGPlayerCacheManagerDidUpdateCache, object: self, userInfo: userInfo)
                 
                 if isFinished && (configuration as! VGPlayerCacheMediaConfiguration).progress >= 1.0 {
-                    self.notify(downloadFinishedWithError: nil)
+                    notify(downloadFinishedWithError: nil)
                 }
             }
             
@@ -111,7 +111,7 @@ open class VGPlayerDownloadActionWorker: NSObject {
     }
     
     internal func notify(downloadFinishedWithError error: Error?) {
-        if let configuration = self.cacheMediaWorker.cacheConfiguration?.copy() {
+        if let configuration = cacheMediaWorker.cacheConfiguration?.copy() {
             let configurationKey = VGPlayerCacheManager.VGPlayerCacheConfigurationKey
             let finishedErrorKey = VGPlayerCacheManager.VGPlayerCacheErrorKey
             var userInfo: [String : Any] = [configurationKey: configuration]
@@ -128,23 +128,23 @@ open class VGPlayerDownloadActionWorker: NSObject {
 extension VGPlayerDownloadActionWorker: VGPlayerDownloadeURLSessionManagerDelegate {
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        self.cacheMediaWorker.finishWritting()
-        self.cacheMediaWorker.save()
+        cacheMediaWorker.finishWritting()
+        cacheMediaWorker.save()
         if error != nil {
-            self.delegate?.downloadActionWorker(self, didFinishWithError: error)
-            self.notify(downloadFinishedWithError: error)
+            delegate?.downloadActionWorker(self, didFinishWithError: error)
+            notify(downloadFinishedWithError: error)
         } else {
-            self.notify(downloadProgressWithFlush: true, isFinished: true)
-            self.processActions()
+            notify(downloadProgressWithFlush: true, isFinished: true)
+            processActions()
         }
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        if self.isCancelled {
+        if isCancelled {
             return
         }
         
-        let range = NSRange(location: self.startOffset, length: data.count)
+        let range = NSRange(location: startOffset, length: data.count)
         cacheMediaWorker.cache(data, forRange: range) { [weak self] (isCache) in
             guard let strongSelf = self else { return }
             if (!isCache) {
@@ -153,9 +153,9 @@ extension VGPlayerDownloadActionWorker: VGPlayerDownloadeURLSessionManagerDelega
             }
         }
         
-        self.cacheMediaWorker.save()
-        self.startOffset += data.count
-        self.delegate?.downloadActionWorker(self, didReceive: data, isLocal: false)
+        cacheMediaWorker.save()
+        startOffset += data.count
+        delegate?.downloadActionWorker(self, didReceive: data, isLocal: false)
         notify(downloadProgressWithFlush: false, isFinished: false)
     }
     
@@ -166,8 +166,8 @@ extension VGPlayerDownloadActionWorker: VGPlayerDownloadeURLSessionManagerDelega
                     mimeType.range(of: "application") == nil){
                 completionHandler(.cancel)
             } else {
-                self.delegate?.downloadActionWorker(self, didReceive: response)
-                self.cacheMediaWorker.startWritting()
+                delegate?.downloadActionWorker(self, didReceive: response)
+                cacheMediaWorker.startWritting()
                 completionHandler(.allow)
             }
         }

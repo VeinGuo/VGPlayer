@@ -29,30 +29,30 @@ open class VGPlayerDownloadURLSessionManager: NSObject, URLSessionDataDelegate {
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void) {
-        self.delegate?.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
+        delegate?.urlSession(session, dataTask: dataTask, didReceive: response, completionHandler: completionHandler)
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        self.bufferDataQueue.sync {
-            self.bufferData.append(data)
+        bufferDataQueue.sync {
+            bufferData.append(data)
             if self.bufferData.length > kBufferSize {
                 let chunkRange = NSRange(location: 0, length: self.bufferData.length)
-                let chunkData = self.bufferData.subdata(with: chunkRange)
-                self.bufferData.replaceBytes(in: chunkRange, withBytes: nil, length: 0)
-                self.delegate?.urlSession(session, dataTask: dataTask, didReceive: chunkData)
+                let chunkData = bufferData.subdata(with: chunkRange)
+                bufferData.replaceBytes(in: chunkRange, withBytes: nil, length: 0)
+                delegate?.urlSession(session, dataTask: dataTask, didReceive: chunkData)
             }
         }
     }
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        self.bufferDataQueue.sync {
-            if self.bufferData.length > 0 && error == nil {
-                let chunkRange = NSRange(location: 0, length: self.bufferData.length)
-                let chunkData = self.bufferData.subdata(with: chunkRange)
-                self.bufferData.replaceBytes(in: chunkRange, withBytes: nil, length: 0)
-                self.delegate?.urlSession(session, dataTask: task as! URLSessionDataTask, didReceive: chunkData)
+        bufferDataQueue.sync {
+            if bufferData.length > 0 && error == nil {
+                let chunkRange = NSRange(location: 0, length: bufferData.length)
+                let chunkData = bufferData.subdata(with: chunkRange)
+                bufferData.replaceBytes(in: chunkRange, withBytes: nil, length: 0)
+                delegate?.urlSession(session, dataTask: task as! URLSessionDataTask, didReceive: chunkData)
             }
         }
-        self.delegate?.urlSession(session, task: task, didCompleteWithError: error)
+        delegate?.urlSession(session, task: task, didCompleteWithError: error)
     }
 }

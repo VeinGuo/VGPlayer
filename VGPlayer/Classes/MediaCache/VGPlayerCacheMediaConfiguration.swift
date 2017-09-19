@@ -22,8 +22,8 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
     
     public fileprivate(set) var progress: Double = 0.0 {
         didSet {
-            if let contentLength = self.cacheMedia?.contentLength,
-                let downloadedBytes = self.downloadedBytes  {
+            if let contentLength = cacheMedia?.contentLength,
+                let downloadedBytes = downloadedBytes  {
                 progress = Double(downloadedBytes / contentLength)
             }
         }
@@ -33,12 +33,12 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
         didSet {
             var bytes = 0
             
-            self.cacheSegmentQueue.sync {
-                for range in self.cacheSegments {
+            cacheSegmentQueue.sync {
+                for range in cacheSegments {
                     bytes += range.rangeValue.length
                 }
             }
-            self.downloadedBytes = Int64(bytes)
+            downloadedBytes = Int64(bytes)
         }
     }
     
@@ -46,8 +46,8 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
         didSet {
             var bytes: UInt64 = 0
             var time = 0.0
-            if self.downloadInfo.count > 0 {
-                self.cacheDownloadInfoQueue.sync {
+            if downloadInfo.count > 0 {
+                cacheDownloadInfoQueue.sync {
                     for a in downloadInfo {
                         if let arr = a as? Array<Any>{
                             bytes += arr.first as! UInt64
@@ -58,7 +58,7 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
                     }
                 }
             }
-            self.downloadSpeed = Double(bytes) / 1024.0 / time
+            downloadSpeed = Double(bytes) / 1024.0 / time
         }
     }
     
@@ -79,21 +79,21 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.fileName, forKey: "fileName")
-        aCoder.encode(self.cacheSegments, forKey: "cacheSegments")
-        aCoder.encode(self.downloadInfo, forKey: "downloadInfo")
-        aCoder.encode(self.cacheMedia, forKey: "cacheMedia")
-        aCoder.encode(self.url, forKey: "url")
+        aCoder.encode(fileName, forKey: "fileName")
+        aCoder.encode(cacheSegments, forKey: "cacheSegments")
+        aCoder.encode(downloadInfo, forKey: "downloadInfo")
+        aCoder.encode(cacheMedia, forKey: "cacheMedia")
+        aCoder.encode(url, forKey: "url")
     }
     public func copy(with zone: NSZone? = nil) -> Any {
         let confi = VGPlayerCacheMediaConfiguration()
-        confi.filePath = self.filePath
-        confi.fileName = self.fileName
-        confi.cacheSegments = self.cacheSegments
-        confi.cacheMedia = self.cacheMedia
-        confi.url = self.url
-        confi.fileName = self.fileName
-        confi.downloadInfo = self.downloadInfo
+        confi.filePath = filePath
+        confi.fileName = fileName
+        confi.cacheSegments = cacheSegments
+        confi.cacheMedia = cacheMedia
+        confi.url = url
+        confi.fileName = fileName
+        confi.downloadInfo = downloadInfo
         return confi
     }
     
@@ -125,7 +125,7 @@ open class VGPlayerCacheMediaConfiguration:NSObject, NSCoding, NSCopying {
 extension VGPlayerCacheMediaConfiguration {
     open func save() {
         self.cacheSegmentQueue.sync {
-            let _ = NSKeyedArchiver.archiveRootObject(self, toFile: self.filePath!)
+            let _ = NSKeyedArchiver.archiveRootObject(self, toFile: filePath!)
         }
     }
     

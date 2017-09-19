@@ -15,6 +15,6 @@ open class VGPlayerCacheSession: NSObject {
     public override init() {
         let queue = OperationQueue()
         queue.name = "com.vgplayer.downloadSession"
-        self.downloadQueue = queue
+        downloadQueue = queue
     }
 }

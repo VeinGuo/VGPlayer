@@ -21,19 +21,19 @@ open class VGPlayerResourceLoadingRequest: NSObject {
     
     public init(_ downloader: VGPlayerDownloader, _ resourceLoadingRequest: AVAssetResourceLoadingRequest) {
         self.downloader = downloader
-        self.request = resourceLoadingRequest
+        request = resourceLoadingRequest
         super.init()
-        self.downloader.delegate = self
+        downloader.delegate = self
         fillCacheMedia()
     }
     
     internal func fillCacheMedia() {
-        if  self.downloader.cacheMedia != nil,
-            let contentType = self.downloader.cacheMedia?.contentType {
-            if let cacheMedia = self.downloader.cacheMedia {
-                self.request.contentInformationRequest?.contentType = contentType
-                self.request.contentInformationRequest?.contentLength = cacheMedia.contentLength
-                self.request.contentInformationRequest?.isByteRangeAccessSupported = cacheMedia.isByteRangeAccessSupported
+        if  downloader.cacheMedia != nil,
+            let contentType = downloader.cacheMedia?.contentType {
+            if let cacheMedia = downloader.cacheMedia {
+                request.contentInformationRequest?.contentType = contentType
+                request.contentInformationRequest?.contentLength = cacheMedia.contentLength
+                request.contentInformationRequest?.isByteRangeAccessSupported = cacheMedia.isByteRangeAccessSupported
             }
         }
     }
@@ -44,13 +44,13 @@ open class VGPlayerResourceLoadingRequest: NSObject {
     }
     
     open func finish() {
-        if !self.request.isFinished {
-            self.request.finishLoading(with: loaderCancelledError())
+        if !request.isFinished {
+            request.finishLoading(with: loaderCancelledError())
         }
     }
     
     open func startWork() {
-        if let dataRequest = self.request.dataRequest {
+        if let dataRequest = request.dataRequest {
             var offset = dataRequest.requestedOffset
             let length = dataRequest.requestedLength
             if dataRequest.currentOffset != 0 {
@@ -62,35 +62,35 @@ open class VGPlayerResourceLoadingRequest: NSObject {
                     isEnd = true
                 }
             }
-            self.downloader.dowloaderTask(offset, length, isEnd)
+            downloader.dowloaderTask(offset, length, isEnd)
         }
     }
     
     open func cancel() {
-        self.downloader.cancel()
+        downloader.cancel()
     }
 }
 
 // MARK: - VGPlayerDownloaderDelegate
 extension VGPlayerResourceLoadingRequest: VGPlayerDownloaderDelegate {
     public func downloader(_ downloader: VGPlayerDownloader, didReceiveData data: Data) {
-        self.request.dataRequest?.respond(with: data)
+        request.dataRequest?.respond(with: data)
     }
     
     public func downloader(_ downloader: VGPlayerDownloader, didFinishedWithError error: Error?) {
         if error?._code == NSURLErrorCancelled { return }
         
         if (error == nil) {
-            self.request.finishLoading()
+            request.finishLoading()
         } else {
-            self.request.finishLoading(with: error)
+            request.finishLoading(with: error)
         }
         
-        self.delegate?.resourceLoadingRequest(self, didCompleteWithError: error)
+        delegate?.resourceLoadingRequest(self, didCompleteWithError: error)
         
     }
     
     public func downloader(_ downloader: VGPlayerDownloader, didReceiveResponse response: URLResponse) {
-        self.fillCacheMedia()
+        fillCacheMedia()
     }
 }

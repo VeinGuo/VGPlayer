@@ -31,7 +31,7 @@ open class VGPlayerCacheManager: NSObject {
     
     public override init() {
         super.init()
-        self.ioQueue.sync { self.fileManager = FileManager() }
+        ioQueue.sync { fileManager = FileManager() }
     }
     
     static public func cacheDirectory() -> String {
@@ -65,22 +65,22 @@ open class VGPlayerCacheManager: NSObject {
     }
     
     open func cleanAllCache() {
-        self.ioQueue.sync {
+        ioQueue.sync {
             do {
                 let cacheDirectory = VGPlayerCacheManager.cacheDirectory()
-                try self.fileManager.removeItem(atPath: cacheDirectory)
+                try fileManager.removeItem(atPath: cacheDirectory)
             } catch { }
         }
     }
     
     open func cleanOldFiles(completion handler: (()->())? = nil) {
-        self.ioQueue.sync {
+        ioQueue.sync {
             let cacheDirectory = VGPlayerCacheManager.cacheDirectory()
             var (URLsToDelete, diskCacheSize, cachedFiles) = self.cachedFiles(atPath: cacheDirectory, onlyForCacheSize: false)
             
             for fileURL in URLsToDelete {
                 do {
-                    try self.fileManager.removeItem(at: fileURL)
+                    try fileManager.removeItem(at: fileURL)
                 } catch _ { }
             }
             
@@ -104,7 +104,7 @@ open class VGPlayerCacheManager: NSObject {
                     diskCacheSize -= cacheSize
                     
                     do {
-                        try self.fileManager.removeItem(at: fileURL)
+                        try fileManager.removeItem(at: fileURL)
                     } catch { }
                     
                     URLsToDelete.append(fileURL)
@@ -139,7 +139,7 @@ open class VGPlayerCacheManager: NSObject {
         do {
             let url = URL(fileURLWithPath: fullPath)
             
-            if let directoryEnumerator = self.fileManager.enumerator(at:url, includingPropertiesForKeys: Array(resourceKeys), options: [.skipsHiddenFiles], errorHandler: nil) {
+            if let directoryEnumerator = fileManager.enumerator(at:url, includingPropertiesForKeys: Array(resourceKeys), options: [.skipsHiddenFiles], errorHandler: nil) {
                 for (_ , value) in directoryEnumerator.enumerated() {
                     do {
                         if let fileURL = value as? URL{

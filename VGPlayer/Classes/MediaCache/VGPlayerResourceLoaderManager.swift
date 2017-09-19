@@ -24,14 +24,14 @@ open class VGPlayerResourceLoaderManager: NSObject {
     }
     
     open func cleanCache() {
-        self.loaders.removeAll()
+        loaders.removeAll()
     }
     
     open func cancelLoaders() {
-        for (_, value) in self.loaders {
+        for (_, value) in loaders {
             value.cancel()
         }
-        self.loaders.removeAll()
+        loaders.removeAll()
     }
     
     internal func key(forResourceLoaderWithURL url: URL) -> String? {
@@ -41,7 +41,7 @@ open class VGPlayerResourceLoaderManager: NSObject {
     
     internal func loader(forRequest request: AVAssetResourceLoadingRequest) -> VGPlayerResourceLoader? {
         guard let requestKey = key(forResourceLoaderWithURL: request.request.url!) else { return nil }
-        let loader = self.loaders[requestKey]
+        let loader = loaders[requestKey]
         return loader
     }
     
@@ -77,7 +77,7 @@ extension VGPlayerResourceLoaderManager: AVAssetResourceLoaderDelegate {
                     loader = VGPlayerResourceLoader(url: originURL!)
                     loader?.delegate = self
                     let key = self.key(forResourceLoaderWithURL: resourceURL)
-                    self.loaders[key!] = loader
+                    loaders[key!] = loader
                     // fix https://github.com/vitoziv/VIMediaCache/pull/29
                 }
                 loader?.add(loadingRequest)
@@ -99,7 +99,7 @@ extension VGPlayerResourceLoaderManager: AVAssetResourceLoaderDelegate {
 extension VGPlayerResourceLoaderManager: VGPlayerResourceLoaderDelegate {
     public func resourceLoader(_ resourceLoader: VGPlayerResourceLoader, didFailWithError error: Error?) {
         resourceLoader.cancel()
-        self.delegate?.resourceLoaderManager(resourceLoader.url, didFailWithError: error)
+        delegate?.resourceLoaderManager(resourceLoader.url, didFailWithError: error)
     }
 }
 

@@ -23,21 +23,21 @@ open class VGPlayerCacheMedia: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.contentType, forKey: "contentType")
-        aCoder.encode(self.isByteRangeAccessSupported, forKey: "isByteRangeAccessSupported")
-        aCoder.encode(self.contentLength, forKey: "contentLength")
-        aCoder.encode(self.downloadedLength, forKey: "downloadedLength")
+        aCoder.encode(contentType, forKey: "contentType")
+        aCoder.encode(isByteRangeAccessSupported, forKey: "isByteRangeAccessSupported")
+        aCoder.encode(contentLength, forKey: "contentLength")
+        aCoder.encode(downloadedLength, forKey: "downloadedLength")
     }
     
     public required init(coder aDecoder: NSCoder) {
         super.init()
-        self.contentType = aDecoder.decodeObject(forKey: "contentType") as? String
-        self.isByteRangeAccessSupported = aDecoder.decodeBool(forKey: "isByteRangeAccessSupported")
-        self.contentLength = aDecoder.decodeInt64(forKey: "contentLength")
+        contentType = aDecoder.decodeObject(forKey: "contentType") as? String
+        isByteRangeAccessSupported = aDecoder.decodeBool(forKey: "isByteRangeAccessSupported")
+        contentLength = aDecoder.decodeInt64(forKey: "contentLength")
         if let downloadedLength = aDecoder.decodeObject(forKey: "downloadedLength") as? UInt64 {
             self.downloadedLength = downloadedLength
         } else {
-            self.downloadedLength = 0
+            downloadedLength = 0
         }
         
     }

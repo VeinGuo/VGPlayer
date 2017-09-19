@@ -22,40 +22,40 @@ open class VGPlayerResourceLoader: NSObject {
     fileprivate var isCancelled: Bool = false
     
     deinit {
-        self.downloader.invalidateAndCancel()
+        downloader.invalidateAndCancel()
     }
     
     public init(url: URL) {
         self.url = url
-        self.downloader = VGPlayerDownloader(url: url)
+        downloader = VGPlayerDownloader(url: url)
         super.init()
     }
     
     open func add(_ request: AVAssetResourceLoadingRequest) {
-        for (_, value) in self.pendingRequestWorkers {
+        for (_, value) in pendingRequestWorkers {
             value.cancel()
             value.finish()
         }
-        self.pendingRequestWorkers.removeAll()
+        pendingRequestWorkers.removeAll()
         startWorker(request)
     }
     
     open func remove(_ request: AVAssetResourceLoadingRequest) {
         let key = self.key(forRequest: request)
-        let loadingRequest = VGPlayerResourceLoadingRequest(self.downloader, request)
+        let loadingRequest = VGPlayerResourceLoadingRequest(downloader, request)
         loadingRequest.finish()
-        self.pendingRequestWorkers.removeValue(forKey: key)
+        pendingRequestWorkers.removeValue(forKey: key)
     }
     
     open func cancel() {
-        self.downloader.cancel()
+        downloader.cancel()
     }
     
     internal func startWorker(_ request: AVAssetResourceLoadingRequest) {
         let key = self.key(forRequest: request)
-        let loadingRequest = VGPlayerResourceLoadingRequest(self.downloader, request)
+        let loadingRequest = VGPlayerResourceLoadingRequest(downloader, request)
         loadingRequest.delegate = self
-        self.pendingRequestWorkers[key] = loadingRequest
+        pendingRequestWorkers[key] = loadingRequest
         loadingRequest.startWork()
     }
     
@@ -74,7 +74,7 @@ extension VGPlayerResourceLoader: VGPlayerResourceLoadingRequestDelegate {
     public func resourceLoadingRequest(_ resourceLoadingRequest: VGPlayerResourceLoadingRequest, didCompleteWithError error: Error?) {
         remove(resourceLoadingRequest.request)
         if error != nil {
-            self.delegate?.resourceLoader(self, didFailWithError: error)
+            delegate?.resourceLoader(self, didFailWithError: error)
         }
     }
     

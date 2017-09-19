@@ -146,16 +146,16 @@ open class VGPlayer: NSObject {
     
     //MARK:- life cycle
     public init(URL: URL?, playerView: VGPlayerView?) {
-        self.mediaFormat = VGPlayerUtils.decoderVideoFormat(URL)
-        self.contentURL = URL
-        self.error = VGPlayerError()
+        mediaFormat = VGPlayerUtils.decoderVideoFormat(URL)
+        contentURL = URL
+        error = VGPlayerError()
         if let view = playerView {
-            self.displayView = view
+            displayView = view
         } else {
-            self.displayView = VGPlayerView()
+            displayView = VGPlayerView()
         }
         super.init()
-        if self.contentURL != nil {
+        if contentURL != nil {
             configurationPlayer(contentURL!)
         }
     }
@@ -184,18 +184,18 @@ open class VGPlayer: NSObject {
         self.playerAsset = AVURLAsset(url: URL, options: .none)
         if URL.absoluteString.hasPrefix("file:///") {
             let keys = ["tracks", "playable"];
-            self.playerItem = AVPlayerItem(asset: self.playerAsset!, automaticallyLoadedAssetKeys: keys)
+            playerItem = AVPlayerItem(asset: playerAsset!, automaticallyLoadedAssetKeys: keys)
         } else {
             // remote add cache
-            self.playerItem = resourceLoaderManager.playerItem(URL)
+            playerItem = resourceLoaderManager.playerItem(URL)
         }
-        self.player = AVPlayer(playerItem: self.playerItem)
-        self.displayView.reloadPlayerView()
+        player = AVPlayer(playerItem: playerItem)
+        displayView.reloadPlayerView()
     }
     
     // time KVO
     internal func addPlayerObservers() {
-        self.timeObserver = self.player?.addPeriodicTimeObserver(forInterval: .init(value: 1, timescale: 1), queue: DispatchQueue.main, using: { [weak self] time in
+        timeObserver = player?.addPeriodicTimeObserver(forInterval: .init(value: 1, timescale: 1), queue: DispatchQueue.main, using: { [weak self] time in
             guard let strongSelf = self else { return }
             if let currentTime = strongSelf.player?.currentTime().seconds, let totalDuration = strongSelf.player?.currentItem?.duration.seconds{
                 strongSelf.currentDuration = currentTime
@@ -206,7 +206,7 @@ open class VGPlayer: NSObject {
     }
     
     internal func removePlayerObservers() {
-        self.player?.removeTimeObserver(timeObserver!)
+        player?.removeTimeObserver(timeObserver!)
     }
     
 }
@@ -216,31 +216,31 @@ extension VGPlayer {
     
     open func replaceVideo(_ URL: URL) {
         reloadPlayer()
-        self.mediaFormat = VGPlayerUtils.decoderVideoFormat(URL)
-        self.contentURL = URL
+        mediaFormat = VGPlayerUtils.decoderVideoFormat(URL)
+        contentURL = URL
         configurationPlayer(URL)
     }
     
     open func reloadPlayer() {
-        self.seeking = false
-        self.totalDuration = 0.0
-        self.currentDuration = 0.0
-        self.error = VGPlayerError()
-        self.state = .none
-        self.buffering = false
-        self.bufferState = .none
-        self.cleanPlayer()
+        seeking = false
+        totalDuration = 0.0
+        currentDuration = 0.0
+        error = VGPlayerError()
+        state = .none
+        buffering = false
+        bufferState = .none
+        cleanPlayer()
     }
     
     open func cleanPlayer() {
-        self.player?.pause()
-        self.player?.cancelPendingPrerolls()
-        self.player?.replaceCurrentItem(with: nil)
-        self.player = nil
-        self.playerAsset?.cancelLoading()
-        self.playerAsset = nil
-        self.playerItem?.cancelPendingSeeks()
-        self.playerItem = nil
+        player?.pause()
+        player?.cancelPendingPrerolls()
+        player?.replaceCurrentItem(with: nil)
+        player = nil
+        playerAsset?.cancelLoading()
+        playerAsset = nil
+        playerItem?.cancelPendingSeeks()
+        playerItem = nil
     }
     
     open func play() {
@@ -252,9 +252,9 @@ extension VGPlayer {
     
     open func pause() {
         guard state == .paused else {
-            self.player?.pause()
-            self.state = .paused
-            self.displayView.pause()
+            player?.pause()
+            state = .paused
+            displayView.pause()
             return
         }
     }
@@ -264,7 +264,7 @@ extension VGPlayer {
     }
     
     open func seekTime(_ time: TimeInterval, completion: ((Bool) -> Swift.Void)?) {
-        if time.isNaN || self.playerItem?.status != .readyToPlay {
+        if time.isNaN || playerItem?.status != .readyToPlay {
             if completion != nil {
                 completion!(false)
             }
@@ -296,20 +296,20 @@ extension VGPlayer {
     
     internal func startPlayerBuffering() {
         pause()
-        self.bufferState = .buffering
-        self.buffering = true
+        bufferState = .buffering
+        buffering = true
     }
     
     internal func stopPlayerBuffering() {
-        self.bufferState = .stop
-        self.buffering = false
+        bufferState = .stop
+        buffering = false
     }
     
     internal func collectPlayerErrorLogEvent() {
-        self.error.playerItemErrorLogEvent = playerItem?.errorLog()?.events
-        self.error.error = playerItem?.error
-        self.error.extendedLogData = playerItem?.errorLog()?.extendedLogData()
-        self.error.extendedLogDataStringEncoding = playerItem?.errorLog()?.extendedLogDataStringEncoding
+        error.playerItemErrorLogEvent = playerItem?.errorLog()?.events
+        error.error = playerItem?.error
+        error.extendedLogData = playerItem?.errorLog()?.extendedLogData()
+        error.extendedLogDataStringEncoding = playerItem?.errorLog()?.extendedLogDataStringEncoding
     }
 }
 
@@ -320,9 +320,9 @@ extension VGPlayer {
     
     internal func addPlayerItemObservers() {
         let options = NSKeyValueObservingOptions([.new, .initial])
-        self.playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: options, context: &playerItemContext)
-        self.playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.loadedTimeRanges), options: options, context: &playerItemContext)
-        self.playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.playbackBufferEmpty), options: options, context: &playerItemContext)
+        playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: options, context: &playerItemContext)
+        playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.loadedTimeRanges), options: options, context: &playerItemContext)
+        playerItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.playbackBufferEmpty), options: options, context: &playerItemContext)
     }
     
     internal func addPlayerNotifications() {
@@ -332,9 +332,9 @@ extension VGPlayer {
     }
     
     internal func removePlayerItemObservers() {
-        self.playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
-        self.playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.loadedTimeRanges))
-        self.playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.playbackBufferEmpty))
+        playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.status))
+        playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.loadedTimeRanges))
+        playerItem?.removeObserver(self, forKeyPath: #keyPath(AVPlayerItem.playbackBufferEmpty))
     }
     
     internal func removePlayerNotifations() {
@@ -345,16 +345,16 @@ extension VGPlayer {
     
     
     @objc internal func playerItemDidPlayToEnd(_ notification: Notification) {
-        if self.state != .playFinished {
-            self.state = .playFinished
+        if state != .playFinished {
+            state = .playFinished
         }
         
     }
     
     @objc internal func applicationWillEnterForeground(_ notification: Notification) {
         
-        if self.displayView.playerLayer != nil {
-            self.displayView.playerLayer?.player = player
+        if let playerLayer = displayView.playerLayer  {
+            playerLayer.player = player
         }
         
         switch self.backgroundMode {
@@ -368,15 +368,18 @@ extension VGPlayer {
     }
     
     @objc internal func applicationDidEnterBackground(_ notification: Notification) {
-        if self.displayView.playerLayer != nil {
-            self.displayView.playerLayer?.player = nil
+        
+        if let playerLayer = displayView.playerLayer  {
+            playerLayer.player = nil
         }
+
         switch self.backgroundMode {
         case .suspend:
             pause()
         case .autoPlayAndPaused:
             pause()
         case .proceed:
+            play()
             break
         }
     }
@@ -398,13 +401,13 @@ extension VGPlayer {
                 case AVPlayerItemStatus.unknown:
                     startPlayerBuffering()
                 case AVPlayerItemStatus.readyToPlay:
-                    self.bufferState = .readyToPlay
+                    bufferState = .readyToPlay
                 case AVPlayerItemStatus.failed:
-                    self.state = .error
+                    state = .error
                     collectPlayerErrorLogEvent()
                     stopPlayerBuffering()
-                    self.delegate?.vgPlayer(self, playerFailed: error)
-                    self.displayView.playFailed(error)
+                    delegate?.vgPlayer(self, playerFailed: error)
+                    displayView.playFailed(error)
                 }
                 
             } else if keyPath == #keyPath(AVPlayerItem.playbackBufferEmpty){
@@ -417,29 +420,29 @@ extension VGPlayer {
             } else if keyPath == #keyPath(AVPlayerItem.loadedTimeRanges) {
                 // 计算缓冲
                 
-                let loadedTimeRanges = self.player?.currentItem?.loadedTimeRanges
+                let loadedTimeRanges = player?.currentItem?.loadedTimeRanges
                 if let bufferTimeRange = loadedTimeRanges?.first?.timeRangeValue {
                     let star = bufferTimeRange.start.seconds         // The start time of the time range.
                     let duration = bufferTimeRange.duration.seconds  // The duration of the time range.
                     let bufferTime = star + duration
                     
-                    if let itemDuration = self.playerItem?.duration.seconds {
-                        self.delegate?.vgPlayer(self, bufferedDidChange: bufferTime, totalDuration: itemDuration)
-                        self.displayView.bufferedDidChange(bufferTime, totalDuration: itemDuration)
-                        self.totalDuration = itemDuration
+                    if let itemDuration = playerItem?.duration.seconds {
+                        delegate?.vgPlayer(self, bufferedDidChange: bufferTime, totalDuration: itemDuration)
+                        displayView.bufferedDidChange(bufferTime, totalDuration: itemDuration)
+                        totalDuration = itemDuration
                         if itemDuration == bufferTime {
-                            self.bufferState = .bufferFinished
+                            bufferState = .bufferFinished
                         }
                         
                     }
-                    if let currentTime = self.playerItem?.currentTime().seconds{
-                        if (bufferTime - currentTime) >= self.bufferInterval && self.state != .paused {
+                    if let currentTime = playerItem?.currentTime().seconds{
+                        if (bufferTime - currentTime) >= bufferInterval && state != .paused {
                             play()
                         }
                         
                         if (bufferTime - currentTime) < bufferInterval {
-                            self.bufferState = .buffering
-                            self.buffering = true
+                            bufferState = .buffering
+                            buffering = true
                         } else {
                             buffering = false
                             bufferState = .readyToPlay

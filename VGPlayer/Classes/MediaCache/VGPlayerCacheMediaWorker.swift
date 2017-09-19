@@ -32,7 +32,7 @@ open class VGPlayerCacheMediaWorker: NSObject {
     
     public init(url: URL) {
         let path = VGPlayerCacheManager.cacheFilePath(for: url)
-        self.filePath = path
+        filePath = path
         let fileManager = FileManager.default
         let cacheFolder = (path as NSString).deletingLastPathComponent
         var err: Error?
@@ -52,7 +52,7 @@ open class VGPlayerCacheMediaWorker: NSObject {
             let fileURL = URL(fileURLWithPath: path)
             
             do {
-                try self.readFileHandle = FileHandle(forReadingFrom: fileURL)
+                try readFileHandle = FileHandle(forReadingFrom: fileURL)
             } catch {
                 err = error
             }
@@ -63,26 +63,26 @@ open class VGPlayerCacheMediaWorker: NSObject {
                 }
                 
                 do {
-                    try self.writeFileHandle = FileHandle(forWritingTo: fileURL)
-                    self.cacheConfiguration = VGPlayerCacheMediaConfiguration.configuration(filePath: path)
-                    self.cacheConfiguration?.url = url
+                    try writeFileHandle = FileHandle(forWritingTo: fileURL)
+                    cacheConfiguration = VGPlayerCacheMediaConfiguration.configuration(filePath: path)
+                    cacheConfiguration?.url = url
                 } catch {
                     err = error
                 }
             }
         }
         
-        self.setupError = err;
+        setupError = err;
         super.init()
     }
     
     open func cache(_ data: Data, forRange range: NSRange, closure: (Bool) -> Void) {
-        self.writeFileQueue.sync {
+        writeFileQueue.sync {
 
-            if let _ = self.writeFileHandle?.seek(toFileOffset: UInt64(range.location)),
-                let _ = self.writeFileHandle?.write(data) {
-                self.writeBytes += Double(data.count)
-                self.cacheConfiguration?.addCache(range)
+            if let _ = writeFileHandle?.seek(toFileOffset: UInt64(range.location)),
+                let _ = writeFileHandle?.write(data) {
+                writeBytes += Double(data.count)
+                cacheConfiguration?.addCache(range)
                 closure(true)
             } else {
                 closure(false)
@@ -91,8 +91,8 @@ open class VGPlayerCacheMediaWorker: NSObject {
     }
     
     open func cache(forRange range: NSRange) -> Data? {
-        self.readFileHandle?.seek(toFileOffset: UInt64(range.location))
-        let data = self.readFileHandle?.readData(ofLength: range.length)
+        readFileHandle?.seek(toFileOffset: UInt64(range.location))
+        let data = readFileHandle?.readData(ofLength: range.length)
         return data
     }
     
@@ -104,7 +104,7 @@ open class VGPlayerCacheMediaWorker: NSObject {
         
         let endOffset = range.location + range.length
         
-        if let cachedSegments = self.cacheConfiguration?.cacheSegments {
+        if let cachedSegments = cacheConfiguration?.cacheSegments {
             
             for (_, value) in cachedSegments.enumerated() {
                 let segmentRange = value.rangeValue
@@ -167,9 +167,9 @@ open class VGPlayerCacheMediaWorker: NSObject {
     }
     
     open func set(cacheMedia: VGPlayerCacheMedia) -> Bool {
-        self.cacheConfiguration?.cacheMedia = cacheMedia
-        if let _ = self.writeFileHandle?.truncateFile(atOffset: UInt64(cacheMedia.contentLength)),
-            let _ = self.writeFileHandle?.synchronizeFile(){
+        cacheConfiguration?.cacheMedia = cacheMedia
+        if let _ = writeFileHandle?.truncateFile(atOffset: UInt64(cacheMedia.contentLength)),
+            let _ = writeFileHandle?.synchronizeFile(){
             return true
         } else {
             return false
@@ -177,33 +177,33 @@ open class VGPlayerCacheMediaWorker: NSObject {
     }
     
     open func save() {
-        self.writeFileQueue.sync {
-            self.writeFileHandle?.synchronizeFile()
-            self.cacheConfiguration?.save()
+        writeFileQueue.sync {
+            writeFileHandle?.synchronizeFile()
+            cacheConfiguration?.save()
         }
     }
     
     open func startWritting() {
-        if !self.isWritting {
+        if !isWritting {
             NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
         }
-        self.isWritting = true
-        self.starWriteDate = NSDate()
-        self.writeBytes = 0.0
+        isWritting = true
+        starWriteDate = NSDate()
+        writeBytes = 0.0
     }
     
     open func finishWritting() {
-        if self.isWritting {
-            self.isWritting = false
+        if isWritting {
+            isWritting = false
             NotificationCenter.default.removeObserver(self)
-            if let starWriteDate = self.starWriteDate {
+            if let starWriteDate = starWriteDate {
                 let time = Date().timeIntervalSince(starWriteDate as Date)
-                self.cacheConfiguration?.add(UInt64(self.writeBytes), time: time)
+                cacheConfiguration?.add(UInt64(writeBytes), time: time)
             }
         }
     }
     
     @objc internal func applicationDidEnterBackground(_ notification: Notification) {
-        self.save()
+        save()
     }
 }
