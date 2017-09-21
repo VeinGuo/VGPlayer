@@ -3,7 +3,7 @@
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/VeinGuo/VGPlayer/blob/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/Pastel.svg?style=flat)](https://github.com/VeinGuo/VGPlayer)
-[![Cocoapod](https://img.shields.io/badge/pod-v0.1.5-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.1.5/)
+[![Cocoapod](https://img.shields.io/badge/pod-v0.2.0-blue.svg)](http://cocoadocs.org/docsets/VGPlayer/0.2.0/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ![Banners](https://github.com/VeinGuo/VGPlayer/blob/master/Image/Banners.png)
@@ -54,7 +54,9 @@ Swift developed based on AVPlayer iOS player,support horizontal gestures Fast fo
 - 2017-9-6 v0.1.5
 	- fix url param praser
 	- fix pause play error 
-
+- 2017-9-21 v0.2.0
+	- clean code
+	- convert to swift4
 
 ## Usage
 ### Play Video
@@ -196,14 +198,22 @@ self.player.backgroundMode = .proceed
 ## Installation
 - Download VGPlayer. Move to your project.
 
-- Cocoapods
+### Cocoapods
 
+
+**Swift 4**
 ```
-platform :ios, '8.0'
 use_frameworks!
-pod 'VGPlayer'
+pod 'VGPlayer', '~> 0.2.0'
 ```
-- Carthage
+
+**Swift 3**
+```
+use_frameworks!
+pod 'VGPlayer', '~> 0.1.5'
+```
+
+### Carthage
 
 ```
 github "VeinGuo/VGPlayer"
