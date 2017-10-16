@@ -197,7 +197,7 @@ open class VGPlayer: NSObject {
     internal func addPlayerObservers() {
         timeObserver = player?.addPeriodicTimeObserver(forInterval: .init(value: 1, timescale: 1), queue: DispatchQueue.main, using: { [weak self] time in
             guard let strongSelf = self else { return }
-            if let currentTime = strongSelf.player?.currentTime().seconds, let totalDuration = strongSelf.player?.currentItem?.duration.seconds{
+            if let currentTime = strongSelf.player?.currentTime().seconds, let totalDuration = strongSelf.player?.currentItem?.duration.seconds {
                 strongSelf.currentDuration = currentTime
                 strongSelf.delegate?.vgPlayer(strongSelf, playerDurationDidChange: currentTime, totalDuration: totalDuration)
                 strongSelf.displayView.playerDurationDidChange(currentTime, totalDuration: totalDuration)

@@ -287,14 +287,14 @@ extension VGPlayerView {
         // error
     }
     
-    public func formatSecondsToString(_ secounds: TimeInterval) -> String {
-        if secounds.isNaN{
+    public func formatSecondsToString(_ seconds: TimeInterval) -> String {
+        if seconds.isNaN{
             return "00:00"
         }
-        let interval = Int(secounds)
-        let seconds = interval % 60
-        let minutes = (interval / 60) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        let interval = Int(seconds)
+        let sec = Int(seconds.truncatingRemainder(dividingBy: 60))
+        let min = interval / 60
+        return String(format: "%02d:%02d", min, sec)
     }
 }
 
