@@ -23,7 +23,7 @@ extension UIButton {
         let largerFrame = self.bounds.insetBy(dx: -widthToAdd / 2, dy: -heightToAdd / 2)
         
         // perform hit test on larger frame
-        return (largerFrame.contains(point)) ? self : nil
+        return (largerFrame.contains(point)) ? super.hitTest(point, with: event) : nil
     }
     
 }
