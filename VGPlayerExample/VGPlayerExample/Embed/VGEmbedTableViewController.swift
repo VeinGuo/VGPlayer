@@ -84,10 +84,9 @@ class VGEmbedTableViewController: UITableViewController {
         }
     }
     
-    var tableViewContext = 0
     func addTableViewObservers() {
         let options = NSKeyValueObservingOptions([.new, .initial])
-        tableView?.addObserver(self, forKeyPath: #keyPath(UITableView.contentOffset), options: options, context: &tableViewContext)
+        tableView?.addObserver(self, forKeyPath: #keyPath(UITableView.contentOffset), options: options, context: nil)
     }
 
     func removeTableViewObservers() {
@@ -158,8 +157,6 @@ class VGEmbedTableViewController: UITableViewController {
 
 extension VGEmbedTableViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if (context == &tableViewContext) {
-            
             if keyPath == #keyPath(UITableView.contentOffset) {
                 if let playIndexPath = currentPlayIndexPath {
                     
@@ -185,6 +182,5 @@ extension VGEmbedTableViewController {
                     }
                 }
             }
-        }
     }
 }
