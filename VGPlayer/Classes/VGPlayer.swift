@@ -275,7 +275,7 @@ extension VGPlayer {
             guard let strongSelf = self else { return }
             strongSelf.seeking = true
             strongSelf.startPlayerBuffering()
-            strongSelf.playerItem?.seek(to: CMTimeMakeWithSeconds(time, Int32(NSEC_PER_SEC)), completionHandler: { (finished) in
+            strongSelf.playerItem?.seek(to: CMTimeMakeWithSeconds(time, preferredTimescale: Int32(NSEC_PER_SEC)), completionHandler: { (finished) in
                 DispatchQueue.main.async {
                     strongSelf.seeking = false
                     strongSelf.stopPlayerBuffering()
@@ -327,8 +327,8 @@ extension VGPlayer {
     
     internal func addPlayerNotifications() {
         NotificationCenter.default.addObserver(self, selector: .playerItemDidPlayToEndTime, name: .AVPlayerItemDidPlayToEndTime, object: nil)
-        NotificationCenter.default.addObserver(self, selector: .applicationWillEnterForeground, name: .UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: .applicationDidEnterBackground, name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .applicationWillEnterForeground, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .applicationDidEnterBackground, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     internal func removePlayerItemObservers() {
@@ -339,8 +339,8 @@ extension VGPlayer {
     
     internal func removePlayerNotifations() {
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     
@@ -390,19 +390,19 @@ extension VGPlayer {
         if (context == &playerItemContext) {
             
             if keyPath == #keyPath(AVPlayerItem.status) {
-                let status: AVPlayerItemStatus
+                let status: AVPlayerItem.Status
                 if let statusNumber = change?[.newKey] as? NSNumber {
-                    status = AVPlayerItemStatus(rawValue: statusNumber.intValue)!
+                    status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
                 } else {
                     status = .unknown
                 }
                 
                 switch status {
-                case AVPlayerItemStatus.unknown:
+                case .unknown:
                     startPlayerBuffering()
-                case AVPlayerItemStatus.readyToPlay:
+                case .readyToPlay:
                     bufferState = .readyToPlay
-                case AVPlayerItemStatus.failed:
+                case .failed:
                     state = .error
                     collectPlayerErrorLogEvent()
                     stopPlayerBuffering()

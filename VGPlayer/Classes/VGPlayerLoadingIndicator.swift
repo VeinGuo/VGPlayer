@@ -37,7 +37,7 @@ open class VGPlayerLoadingIndicator: UIView {
     }
     
    internal func commonInit(){
-        timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         setupIndicatorLayer()
     }
     
@@ -45,8 +45,8 @@ open class VGPlayerLoadingIndicator: UIView {
         indicatorLayer.strokeColor = UIColor.white.cgColor
         indicatorLayer.fillColor = nil
         indicatorLayer.lineWidth = 2.0
-        indicatorLayer.lineJoin = kCALineJoinRound;
-        indicatorLayer.lineCap = kCALineCapRound;
+        indicatorLayer.lineJoin = CAShapeLayerLineJoin.round;
+        indicatorLayer.lineCap = CAShapeLayerLineCap.round;
         layer.addSublayer(indicatorLayer)
         updateIndicatorLayerPath()
     }

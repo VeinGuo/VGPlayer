@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		336DDBC71EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DDBC61EE5075A004BDE6F /* VGPlayerLoadingIndicator.swift */; };
-		33A448371F09F15C002103B4 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A448361F09F15C002103B4 /* SnapKit.framework */; };
 		33B36A9C1EE5327500F9BC2B /* VGPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B36A9B1EE5327500F9BC2B /* VGPlayerView.swift */; };
 		33D264DA1EEE74A800A42DDA /* Timer+VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D264D91EEE74A800A42DDA /* Timer+VGPlayer.swift */; };
 		8001CB2F1EDD7D4E00C6C9D2 /* VGPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001CB2E1EDD7D4E00C6C9D2 /* VGPlayer.swift */; };
@@ -29,6 +28,7 @@
 		807A46EF1EDC706100A99141 /* VGPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807A46E51EDC706100A99141 /* VGPlayer.framework */; };
 		807A46F41EDC706100A99141 /* VGPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A46F31EDC706100A99141 /* VGPlayerTests.swift */; };
 		807A46F61EDC706100A99141 /* VGPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 807A46E81EDC706100A99141 /* VGPlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		80AF1E3C2191EC1F00A73925 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A448361F09F15C002103B4 /* SnapKit.framework */; };
 		80B21B411EF5489C009E00EA /* VGSubtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B21B401EF5489C009E00EA /* VGSubtitles.swift */; };
 		80D923A21EE4368600564FFD /* VGPlayerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D923A01EE4368600564FFD /* VGPlayerError.swift */; };
 		80D923A31EE4368600564FFD /* VGPlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D923A11EE4368600564FFD /* VGPlayerSlider.swift */; };
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33A448371F09F15C002103B4 /* SnapKit.framework in Frameworks */,
+				80AF1E3C2191EC1F00A73925 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +240,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Vein;
 				TargetAttributes = {
 					807A46E41EDC706100A99141 = {
@@ -250,6 +250,7 @@
 					};
 					807A46ED1EDC706100A99141 = {
 						CreatedOnToolsVersion = 8.3;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -349,15 +350,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -403,15 +412,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -461,7 +478,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -486,7 +503,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Vein.VGPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -499,7 +516,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Vein.VGPlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -511,7 +529,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Vein.VGPlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

@@ -15,13 +15,13 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = "8.0"
   s.platform     = :ios, "8.0"
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
 
   s.source       = { :git => "https://github.com/VeinGuo/VGPlayer.git", :tag => s.version }
   s.source_files = 'VGPlayer/Classes/*.*', 'VGPlayer/Classes/**/*.*'
   s.resources    = 'VGPlayer/*.xcassets'
   s.requires_arc = true
-  s.dependency 'SnapKit', '~> 4.0.0'
+  s.dependency 'SnapKit', '~> 4.2.0'
   s.frameworks   = 'UIKit', 'AVFoundation', 'Foundation'
 
 end

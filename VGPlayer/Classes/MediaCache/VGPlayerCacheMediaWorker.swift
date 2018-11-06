@@ -185,7 +185,7 @@ open class VGPlayerCacheMediaWorker: NSObject {
     
     open func startWritting() {
         if !isWritting {
-            NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name:UIApplication.didEnterBackgroundNotification , object: nil)
         }
         isWritting = true
         starWriteDate = NSDate()
