@@ -10,7 +10,7 @@
 import Foundation
 
 extension Timer {
-    class func vgPlayer_scheduledTimerWithTimeInterval(_ timeInterval: TimeInterval, block: @escaping()->(), repeats: Bool) -> Timer {
+    class func vgPlayer_scheduledTimerWithTimeInterval(_ timeInterval: TimeInterval, block: @escaping ()->(), repeats: Bool) -> Timer {
         return self.scheduledTimer(timeInterval: timeInterval, target:
             self, selector: #selector(self.vgPlayer_blcokInvoke(_:)), userInfo: block, repeats: repeats)
     }
